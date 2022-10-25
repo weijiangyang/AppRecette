@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello IngredientController!{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="mt-4">Mes ingredients</h1>
+        <a href="{{ path('ingredient_new') }}" class="btn btn-primary btn-sm my-4">Créer un ingrédient</a>
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                 {{ message }}
+            </div>
+           
+        {% endfor %}
+        {% for message in app.flashes('warning') %}
+            <div class="alert alert-warning">
+                 {{ message }}
+            </div>
+           
+        {% endfor %}
+        {% if ingredients %}
+            <div class="count mb-4 ">
+                Il y a <strong>{{ ingredients.getTotalItemCount }}</strong> ingrédients au total
+            </div>
+            <table class="table table-hover">
+                <thead>
+                    <tr style="border-bottom:3px solid orange">
+                    <th scope="col">Numéro</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">UnitPrix(€)</th>
+                    <th scope="col">Unit</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Edition</th>
+                    <th scope="col">Suppression</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ingredient in ingredients %}
+                        <tr class="table-light">
+                            <th scope="row">{{ ingredient.id }}</th>
+                            <td>{{ ingredient.name }}</td>
+                            <td>{{ ingredient.price is same as null ? 'Non renseigné':ingredient.price }}</td>
+                            <td>{{ ingredient.unit }} </td>
+                            <td>{{ ingredient.createdAt | date('d/m/Y')}}</td>
+                            <td><a href="{{ path('ingredient_edit',{ 'id':ingredient.id }) }}" class="btn btn-info btn-sm"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                             <td><a href="{{ path('ingredient_delete',{ 'id':ingredient.id }) }}" class="btn btn-warning btn-sm"><i class="fa-solid fa-trash"></i></a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="navigation d-flex justify-content-center my-4">
+                {{ knp_pagination_render(ingredients) }}
+            </div>
+        {% else %}
+            Il n'y a pas d'ingrédient
+        {% endif %}
+    </div> 
+{% endblock %}
