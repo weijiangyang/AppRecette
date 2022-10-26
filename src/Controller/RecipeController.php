@@ -10,6 +10,7 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class RecipeController extends AbstractController
@@ -18,7 +19,7 @@ class RecipeController extends AbstractController
     public function index(RecipeRepository $recipeRepository, Request $request,PaginatorInterface $paginator): Response
     {
         $recipes = $paginator->paginate(
-            $recipeRepository->findAll(), /* query NOT result */
+            $recipeRepository->findBy(['user' => $this->getUser()]),  /* query NOT result */
             $request->query->getInt('page', 1), /*page number*/
             5 /*limit per page*/
         );
@@ -37,6 +38,7 @@ class RecipeController extends AbstractController
        $form->handleRequest($request);
        if($form->isSubmitted() && $form->isValid()){
             $recipe = $form->getData();
+            $recipe->setUser($this->getUser());
             $em->persist($recipe);
             $em->flush();
 
@@ -54,6 +56,7 @@ class RecipeController extends AbstractController
     }
 
     #[Route('/recette/edit/{id}', name: 'recipe_edit', methods: ['GET', 'POST'])]
+    #[Security("is_granted('ROLE_USER') and user === recipe.getUser()")]
     public function edit(Request $request, EntityManagerInterface $em, Recipe $recipe)
     {
 
@@ -77,9 +80,10 @@ class RecipeController extends AbstractController
     }
 
     #[Route('recipe/supprimer/{id}', name: 'recipe_delete', methods: ['GET', 'POST'])]
-    public function delete(int $id, EntityManagerInterface $em, RecipeRepository $recipeRepository)
+    #[Security("is_granted('ROLE_USER') and user === recipe.getUser()")]
+    public function delete( EntityManagerInterface $em, Recipe $recipe)
     {
-        $recipe = $recipeRepository->find($id);
+       
         if (!$recipe) {
             $this->addFlash(
                 'warning',

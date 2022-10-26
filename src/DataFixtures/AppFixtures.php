@@ -29,6 +29,7 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         //user
+        $users = [];
         for($k = 0; $k < 10; $k++){
             $user = new User;
             $user->setEmail($this->faker->email)
@@ -37,6 +38,7 @@ class AppFixtures extends Fixture
                 ->setFullName($this->faker->name())
                 ->setPseudo(mt_rand(0,1) === 1?$this->faker->firstName():null);
             $manager->persist($user);
+            $users[] = $user;
         }
         // ingredients
         $ingredients = [];
@@ -44,6 +46,7 @@ class AppFixtures extends Fixture
             $ingredient = new Ingredient;
             $ingredient->setName($this->faker->word())
                     ->setPrice(mt_rand(0, 1) === 1 ? mt_rand(1, 150) : 0)
+                    ->setUser($users[mt_rand(0, count($users) - 1)])
                     ->setUnit($this->faker->word());
             $manager->persist($ingredient);
             $ingredients[] = $ingredient;
@@ -58,7 +61,8 @@ class AppFixtures extends Fixture
                 ->setDifficulty(mt_rand(0, 1) === 1 ? mt_rand(1, 5) : null)
                 ->setDescription($this->faker->text(300))
                 ->setPrice(mt_rand(0, 1) === 1 ? mt_rand(1, 1000) : null)
-                ->setIsFavorite(mt_rand(0,1));
+                ->setIsFavorite(mt_rand(0,1))
+                ->setUser($users[mt_rand(0, count($users) - 1)]);
             for($k = 0; $k < mt_rand(5,15) ; $k++){
                 $recipe->addIngredient($ingredients[mt_rand(0,count($ingredients)-1)]);
             }

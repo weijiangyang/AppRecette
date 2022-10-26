@@ -5,7 +5,7 @@
 {% block body %}
     <div class="container">
         <h1 class="mt-4">Mes ingredients</h1>
-        <a href="{{ path('ingredient_new') }}" class="btn btn-primary btn-sm my-4">Créer un ingrédient</a>
+        <div><a href="{{ path('ingredient_new') }}" class="btn btn-primary btn-sm my-4 ">Créer un ingrédient</a></div>
         {% for message in app.flashes('success') %}
             <div class="alert alert-success">
                  {{ message }}
@@ -18,7 +18,7 @@
             </div>
            
         {% endfor %}
-        {% if ingredients %}
+        {% if ingredients|length > 0 %}
             <div class="count mb-4 ">
                 Il y a <strong>{{ ingredients.getTotalItemCount }}</strong> ingrédients au total
             </div>

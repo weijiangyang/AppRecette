@@ -5,7 +5,7 @@
 {% block body %}
     <div class="container">
         <h1 class="mt-4">Mes recettes</h1>
-        <a href="{{ path('recipe_new') }}" class="btn btn-primary btn-sm my-4">Créer une recette</a>
+        <div><a href="{{ path('recipe_new') }}" class="btn btn-primary btn-sm my-4">Créer une recette</a></div>
         {% for message in app.flashes('success') %}
             <div class="alert alert-success">
                  {{ message }}

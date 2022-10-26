@@ -7,34 +7,28 @@ use App\Form\UserType;
 use App\Form\UserPasswordType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Security;
+
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserController extends AbstractController
 {
     #[Route('/utilisateur/edit/{id}', name: 'user_edit')]
-    public function index(User $user,Request $request,EntityManagerInterface $em,UserPasswordHasherInterface $hasher): Response
+    #[Security("is_granted('ROLE_USER') and user === chosenUser")]
+    public function index(User $chosenUser,Request $request,EntityManagerInterface $em,UserPasswordHasherInterface $hasher): Response
     {
-        if(!$this->getUser()){
-            return $this->redirectToRoute('security_login');
-        }
-
-        if($this->getUser() != $user){
-            return $this->redirectToRoute('recipe_index');
-        }
-
-        $form = $this->createForm(UserType::class,$user);
+        $form = $this->createForm(UserType::class,$chosenUser);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
-            if($hasher->isPasswordValid($user,$form->getData()->getPlainPassword())){
+            if($hasher->isPasswordValid($chosenUser,$form->getData()->getPlainPassword())){
                 /**
                  * @var User
                  */
-                $user = $form->getData();
-                $em->persist($user);
+                $chosenUser = $form->getData();
+                $em->persist($currentUser);
                 $em->flush();
                 $this->addFlash(
                     'success',
@@ -47,7 +41,7 @@ class UserController extends AbstractController
                     'Le mot de passe renseigné est incorrect!'
                 );
                 return $this->redirectToRoute('user_edit',[
-                    'id'=> $user->getId()
+                    'id'=> $currentUser->getId()
                 ]);
             }
          

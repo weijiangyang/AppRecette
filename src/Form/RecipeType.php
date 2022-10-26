@@ -8,10 +8,11 @@ use App\Entity\Recipe;
 use App\Entity\Ingredient;
 use App\Repository\IngredientRepository;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Security\Core\Security;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -24,9 +25,15 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class RecipeType extends AbstractType
-{
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+{ 
+        private $security;
+        public function __construct(Security $security)
+        {
+            return $this->security = $security;
+        }
+        public function buildForm(FormBuilderInterface $builder, array $options): void
+        {
+       
         $builder
             ->add('name', TextType::class, [
                 'attr' => [
@@ -104,6 +111,8 @@ class RecipeType extends AbstractType
                     'choice_label' => 'name',
                     'query_builder' => function (IngredientRepository $ingredientRepository) {
                         return $ingredientRepository->createQueryBuilder('i')
+                                                    ->where('i.user = :user')
+                                                    ->setParameter('user',$this->security->getUser())
                                                     ->orderBy('i.name', 'ASC');
                     },
                     'multiple' => true,
