@@ -8,10 +8,11 @@ use App\Entity\Recipe;
 use App\Entity\Ingredient;
 use App\Repository\IngredientRepository;
 use Symfony\Component\Form\AbstractType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
@@ -63,7 +64,7 @@ class RecipeType extends AbstractType
                     new Assert\Length(['min' => 1, 'max' => 5])
                 ]
             ])
-            ->add('description',TextareaType::class,[
+            ->add('description',CKEditorType::class,[
                 'label'=> 'Les etapes de process',
                 'constraints' => [
                     new Assert\NotBlank()

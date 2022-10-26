@@ -27,6 +27,8 @@ class RecipeController extends AbstractController
         ]);
     }
 
+    
+
     #[Route('recette/nouveau',name:'recipe_new' ,methods:['GET','POST'])]
     public function new(Request $request, EntityManagerInterface $em){
        $recipe = new Recipe;
