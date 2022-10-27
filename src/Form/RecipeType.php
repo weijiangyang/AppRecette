@@ -86,60 +86,46 @@ class RecipeType extends AbstractType
                 'required'=>false
             ])
             ->add('isFavorite', CheckboxType::class,[
-                    'attr' => [
-                        'class' => '',
-                    ],
-                    'label' => 'Favorite?',
-                   
-                    
-
-                   
+                    'label' => 'Favorite?'
                 ]
-               
-
             )
-                
-
+            ->add('isPublic',CheckboxType::class, [
+                'label' => 'Public?',
+                ] 
+            )  
             ->add(
-                'ingredients',
-                EntityType::class,
-                [
-                    'attr'=>[
-                        'class'=> 'form-control d-flex justify-content-start flex-wrap '
-                    ],
-                    'class' => Ingredient::class,
-                    'choice_label' => 'name',
-                    'query_builder' => function (IngredientRepository $ingredientRepository) {
-                        return $ingredientRepository->createQueryBuilder('i')
-                                                    ->where('i.user = :user')
-                                                    ->setParameter('user',$this->security->getUser())
-                                                    ->orderBy('i.name', 'ASC');
-                    },
-                    'multiple' => true,
-                    'expanded' => true,
-                    'label' => 'Ingrédients',
-                    
-                    
-                    'constraints' => [
-                        new Assert\NotBlank(),
-                    ]
+            'ingredients',EntityType::class,[
+                'attr'=>[
+                    'class'=> 'form-control d-flex justify-content-start flex-wrap '
+                ],
+                'class' => Ingredient::class,
+                'choice_label' => 'name',
+                'query_builder' => function (IngredientRepository $ingredientRepository) {
+                    return $ingredientRepository->createQueryBuilder('i')
+                                                ->where('i.user = :user')
+                                                ->setParameter('user',$this->security->getUser())
+                                                ->orderBy('i.name', 'ASC');
+                },
+                'multiple' => true,
+                'expanded' => true,
+                'label' => 'Ingrédients',
+                'constraints' => [
+                    new Assert\NotBlank(),
                 ]
-            )
-               
-            
+            ])
             ->add('submit', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-primary my-3'
                 ],
                 'label' => 'Créer ma recette'
-            ])
-        ;
-    }
+            ]);
+        
+        }
 
-    public function configureOptions(OptionsResolver $resolver): void
-    {
-        $resolver->setDefaults([
-            'data_class' => Recipe::class,
-        ]);
-    }
+        public function configureOptions(OptionsResolver $resolver): void
+        {
+            $resolver->setDefaults([
+                'data_class' => Recipe::class,
+            ]);
+        }
 }

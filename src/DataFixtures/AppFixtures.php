@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use Faker\Factory;
+use App\Entity\Mark;
 use App\Entity\User;
 use Faker\Generator;
 use App\Entity\Recipe;
@@ -53,6 +54,7 @@ class AppFixtures extends Fixture
         }
 
         //recipes:
+        $recipes = [];
         for($i = 0 ; $i < 25; $i++){
             $recipe = new Recipe;
             $recipe->setName($this->faker->word())
@@ -61,15 +63,34 @@ class AppFixtures extends Fixture
                 ->setDifficulty(mt_rand(0, 1) === 1 ? mt_rand(1, 5) : null)
                 ->setDescription($this->faker->text(300))
                 ->setPrice(mt_rand(0, 1) === 1 ? mt_rand(1, 1000) : null)
-                ->setIsFavorite(mt_rand(0,1))
+                ->setIsFavorite(mt_rand(0, 1) == 1 ? true : false)
+                ->setIsPublic(mt_rand(0, 1) == 1 ? true : false)
                 ->setUser($users[mt_rand(0, count($users) - 1)]);
             for($k = 0; $k < mt_rand(5,15) ; $k++){
                 $recipe->addIngredient($ingredients[mt_rand(0,count($ingredients)-1)]);
             }
-
             $manager->persist($recipe);
+            $recipes[] = $recipe;
         }
-        
+
+        //marks
+
+        foreach ($recipes as $recipe) {
+            $userschosen = [];
+            for ($i = 0; $i < mt_rand(3, 10); $i++) {
+                $userschosen[] = $users[mt_rand(0, count($users) - 1)];
+            }
+            $userschosen = array_unique($userschosen);
+
+            foreach ($userschosen as $userchosen) {
+                $mark = new Mark;
+                $mark->setMark(mt_rand(1, 5))
+                ->setUser($userchosen)
+                ->setRecipe($recipe);
+                $manager->persist($mark);
+            }
+        }
+
         $manager->flush();
     }
 }
