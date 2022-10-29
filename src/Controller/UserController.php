@@ -28,20 +28,22 @@ class UserController extends AbstractController
                  * @var User
                  */
                 $chosenUser = $form->getData();
-                $em->persist($currentUser);
+                $em->persist($chosenUser);
                 $em->flush();
                 $this->addFlash(
                     'success',
                     'Les informations de votre compte a bien été modifié!'
                 );
-                return $this->redirectToRoute('app_index');
+                return $this->redirectToRoute('user_show',[
+                    'id'=> $chosenUser->getId()
+                ]);
             }else{
                 $this->addFlash(
                     'warning',
                     'Le mot de passe renseigné est incorrect!'
                 );
                 return $this->redirectToRoute('user_edit',[
-                    'id'=> $currentUser->getId()
+                    'id'=> $chosenUser->getId()
                 ]);
             }
          
@@ -51,7 +53,15 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/utilisateur/edition-mot-de-passe/{id}', name: 'user.edit.password', methods: ['GET', 'POST'])]
+    #[Route('utilisateur/show/{id}', name:'user_show')]
+    public function show(User $user){
+
+        return $this->render('pages/user/show.html.twig',[
+            'user' => $user
+        ]);
+    }
+
+    #[Route('/utilisateur/edition-mot-de-passe/{id}', name: 'user_edit_password', methods: ['GET', 'POST'])]
     #[Security("is_granted('ROLE_USER') and user == chosenUser")]
     public function editPassword(Request $request, UserPasswordHasherInterface $hasher, EntityManagerInterface $em, User $chosenUser): Response
     {
@@ -73,7 +83,9 @@ class UserController extends AbstractController
                     );
 
 
-                    return $this->redirectToRoute('app_index');
+                    return $this->redirectToRoute('user_show',[
+                        'id' => $chosenUser->getId()
+                    ]);
                 }else{
                     $this->addFlash(
                         'warning',

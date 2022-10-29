@@ -7,6 +7,7 @@ use App\Entity\Mark;
 use App\Entity\User;
 use Faker\Generator;
 use App\Entity\Recipe;
+use App\Entity\Contact;
 use App\Entity\Ingredient;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -66,6 +67,7 @@ class AppFixtures extends Fixture
                 ->setIsFavorite(mt_rand(0, 1) == 1 ? true : false)
                 ->setIsPublic(mt_rand(0, 1) == 1 ? true : false)
                 ->setUser($users[mt_rand(0, count($users) - 1)]);
+             
             for($k = 0; $k < mt_rand(5,15) ; $k++){
                 $recipe->addIngredient($ingredients[mt_rand(0,count($ingredients)-1)]);
             }
@@ -89,6 +91,17 @@ class AppFixtures extends Fixture
                 ->setRecipe($recipe);
                 $manager->persist($mark);
             }
+        }
+
+        //Contacts
+
+        for ($i = 0; $i < 5; $i++) {
+            $contact = new Contact;
+            $contact->setFullName($this->faker->name())
+            ->setEmail($this->faker->email())
+            ->setSubject('Demande N° ' . $i)
+            ->setMessage($this->faker->text());
+            $manager->persist($contact);
         }
 
         $manager->flush();

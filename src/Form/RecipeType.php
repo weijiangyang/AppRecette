@@ -12,6 +12,7 @@ use Symfony\Component\Security\Core\Security;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 
+use Vich\UploaderBundle\Form\Type\VichImageType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -45,6 +46,10 @@ class RecipeType extends AbstractType
                     new Assert\NotBlank(),
                     new Assert\Length(['min' => 2, 'max' => 255])
                 ]
+            ])
+            ->add('imageFile', VichImageType::class, [
+                'required' => false,
+              
             ])
             ->add('time',IntegerType::class,[
                 'label'=> 'temps(minutes)',

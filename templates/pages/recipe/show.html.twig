@@ -1,34 +1,64 @@
 {% extends "base.html.twig" %}
 {% block title %}
-    Symrecipe - {{ recipe.name }}
+    AppRecette - {{ recipe.name }}
 {% endblock %}
+
 {% block body %}
     <div class="container">
         <h1 class="mt-4">{{ recipe.name }}</h1>
         {% for message in app.flashes('success') %}
             <p class="alert alert-success">{{ message }}</p>
         {% endfor %}
-        <p><strong>La moyenne de cette recette :</strong> {{ recipe.average| number_format(2, '.', ',') }}/5</p>
-        {# {{ dump(recipe.average) }} #}
-        {# <p class="text-info">Note:{{ recipe.average | number_format(2, '.', ',')}}</p> #}
-        <span class="badge bg-primary"> Créer le {{ recipe.createdAt | date('d/m/Y') }}</span>
-        <p class="mt-4"><strong>Temps(en minutes): </strong>{{ recipe.time? recipe.time : 'non renseigné'}} </p>
-        <p><strong>Pour</strong> {{ recipe.nbPeople? recipe.nbPeople : '(non renseigné)'}} <strong>personnes</strong></p>
-        <p><strong>Difficulté:</strong> {{ recipe.difficulty ? recipe.difficulty : 'non renseigné'}}</p>
-        
-        <p><strong>Prix(en euro):</strong> {{ recipe.price ? recipe.price : 'non renseigné'}} </p>
-        <p class="mt-4"><strong>Ingrédients:</strong> </p>
-        {% for ingredient in recipe.ingredients%}
-            <span class="badge bg-primary mt-1"><a href="#" class="text-white text-decoration-none">{{ ingredient.name }}</a></span>
-        {% endfor %}
-        <p class="mt-4"><strong>Description:</strong></p>
-        <div>{{ recipe.description }}</div>
-        
-        {# <div >
-             <img style = "max-width:300px" src="{{ vich_uploader_asset(recipe, 'imageFile') }}">
-        </div> #}
-       
+        <div class="row">
+        <div class="col-md-5">
+            {% if recipe.imageName %}
+                <img style = "max-width:300px" src="{{ vich_uploader_asset(recipe, 'imageFile') }}">
+            {% else %}
+                <img style = "max-width:300px ; height: 350px" src="{{ asset('images/no-recette.jpg') }}" alt="">
+            {% endif %}
+            <p class="text-warning fst-italic mt-2">created at {{ recipe.createdAt | date('d/m/Y') }} by <a href="{{ path('user_show',{'id': recipe.user.id}) }}">{{ recipe.user.fullName }}</a></p> 
+            <p>La moyenne de cette recette : <strong>{{ recipe.average| number_format(2, '.', ',') }}/5</strong></p>      
+            <div style="width:40%">
+                {% if app.user is not same as recipe.user %}
+                    {{ form(form) }} 
+                {% endif %}
+            </div>
+            
+        </div>
+        <div class="col-md-7">
+                <p class="mt-4"><strong>Temps(en minutes): </strong>{{ recipe.time? recipe.time : 'non renseigné'}} </p>
+                <p><strong>Pour</strong> {{ recipe.nbPeople? recipe.nbPeople : '(non renseigné)'}} <strong>personnes</strong></p>
+                <p><strong>Difficulté:</strong> {{ recipe.difficulty ? recipe.difficulty : 'non renseigné'}}/5</p>
+                <p><strong>Prix(en euro):</strong> {{ recipe.price ? recipe.price : 'non renseigné'}} </p>
+                <p class="mt-4"><strong>Ingrédients:</strong> </p>
+                {% for ingredient in recipe.ingredients%}
+                    <span class="badge bg-primary mt-1"><a href="#" class="text-white text-decoration-none">{{ ingredient.name }}</a></span>
+                {% endfor %}
+                <p class="mt-4"><strong>Description:</strong></p>
+                <div>{{ recipe.description | raw}}</div>
+        </div>
+        </div>
         <hr>
-         {{ form(form) }} 
+     <h2 class="comment-title mt-5">
+        <span id ="comment-count">{{ recipe.comments | length}}</span>
+       commentaire(s)
+    </h2>
+    <hr>
+    {# {% if app.user %} #}
+        <div class="comment-area mb-5">
+
+             {{ form(formComment,{'attr':{'class':'comment-form'}}) }}
+            
+        </div>
+   
+    <div class="comments-list">
+        {% for comment in comments %}
+            {% include "pages/comment/show.html.twig" %}
+        {% endfor %}
+    </div>
+            
+       
+        
+         
     </div>
 {% endblock %}

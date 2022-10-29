@@ -1,0 +1,45 @@
+<style>
+    a#btnCommentDelete{
+        color:red;
+        text-decoration: none;
+    }
+    a#btnCommentDelete:hover{
+        scale: 1.5;
+    }
+    
+    span#deleteText{
+        display:none;
+        font-size: 10px;
+        
+    }
+    a#btnCommentDelete:hover span#deleteText{
+            display:block;
+            color:orangered
+    }
+   
+</style>
+<div class="comment mb-5" id="comment-{{ comment.id }}">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">
+                <a href="{{ path('user_show',{'id':comment.user.id}) }}" class="text-decoration-none fst-italic">
+                    <span class="comment-author">{{ comment.user.fullName }}</span>
+                </a><span class="fst-italic fs-6">{{ comment.createdAt | date('d/m/Y H:i:s')}}</span> 
+            </h5>
+            <div class="d-flex justify-content-between">
+                <p class="card-text">{{ comment.content }}</p>
+                {% if comment.user is same as app.user %}
+                <div >
+                    <a id='btnCommentDelete' class="d-block text-center" href="{{ path('comment_delete',{'id':comment.id}) }}"><i class="fa-solid fa-trash"></i><span id="deleteText">delete</span></a>
+                    
+                </div>
+                    
+                {% endif %}
+                
+                
+            </div>
+            
+            
+        </div>
+    </div>
+</div>

@@ -15,6 +15,14 @@
                 </div>
                 
             </div>
+            <div class="form-group my-3">
+                {{ form_label(form.imageFile) }}
+                {{ form_widget(form.imageFile)}}
+                <div class="form-error text-danger">
+                    {{ form_errors(form.imageFile)}}
+                </div>
+                
+            </div>
 
             <div class="form-group my-3">
                 {{ form_label(form.time) }}
@@ -66,6 +74,14 @@
                 {{ form_widget(form.isFavorite)}}
                 <div class="form-error text-danger">
                     {{ form_errors(form.isFavorite)}}
+                </div>
+                
+            </div>
+            <div class="form-group my-3">
+                {{ form_label(form.isPublic) }}
+                {{ form_widget(form.isPublic)}}
+                <div class="form-error text-danger">
+                    {{ form_errors(form.isPublic)}}
                 </div>
                 
             </div>

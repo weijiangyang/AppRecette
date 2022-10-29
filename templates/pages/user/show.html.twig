@@ -1,0 +1,35 @@
+{% extends "base.html.twig" %}
+{% block title %}
+    AppRecette - {{ user.fullName }}
+{% endblock %}
+{% block body %}
+    <div class="container">
+        <h1 class="mt-4 text-center">{{ user.fullName }}</h1>
+        <hr>
+        {% for message in app.flashes('success') %}
+            <p class="alert alert-success">{{ message }}</p>
+        {% endfor %}
+        <div class="row">
+            <div class="col">
+                <p><strong>Nom/Prenom : </strong>{{ user.fullName }}</p>
+                <p><strong>Pseudo : </strong>{{ user.pseudo }}</p>
+                <p><strong>Email : </strong>{{ user.email }}</p>
+                {% if user is same as app.user %}
+                    <p><a href="{{ path('user_edit', {'id': user.id}) }}">Modify mon profile </a></p>
+                <p><a href="{{ path('user_edit_password', {'id': user.id}) }}">Modify mon mot de passe </a></p>
+                {% endif %}
+                
+               
+
+            </div>
+            <div class="col">
+                <p><strong>Photo et Description : </strong></p>
+                <div>{{ user.description | raw}}</div>
+            </div>
+
+        </div>
+    </div>
+       
+
+
+{% endblock %}

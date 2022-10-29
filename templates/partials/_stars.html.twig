@@ -1,0 +1,81 @@
+ <div class="text-center">
+                    {# when note = 0, 5 stars vide  #}
+                    {% if recipe.average == 0 %}
+                      {% for i in 0..4 %}
+                        <i class="fa-regular fa-star my-3 text-info"></i>
+                      {% endfor %}
+                    {% endif %} 
+
+                    {# when note = 1, 4 stars vide , 1 start solid  #} 
+                    {% if recipe.average == 1 %}
+                      {% for i in 0..3 %}
+                        <i class="fa-regular fa-star my-3 text-info"></i>
+                      {% endfor %}
+                      <i class="fa-sharp fa-solid fa-star text-danger"></i>
+                    {% endif %} 
+                    {# when note = 1~1.5, 4 stars vide , 1 start solid  #}
+                    {% if recipe.average >1 and  recipe.average < 1.5 or recipe.average == 1.5 %}
+                      {% for i in 0..2 %}
+                        <i class="fa-regular fa-star my-3 text-info"></i>
+                      {% endfor %}
+                      <i class="fa-regular fa-star-half-stroke text-danger"></i>
+                      <i class="fa-sharp fa-solid fa-star text-danger"></i>
+                    {% endif %}
+
+                     {% if recipe.average >1.5 and  recipe.average < 2 or recipe.average == 2  %}
+                      {% for i in 0..2 %}
+                        <i class="fa-regular fa-star my-3 text-info"></i>
+                      {% endfor %}
+                      {% for i in 0..1 %}
+                        <i class="fa-sharp fa-solid fa-star text-danger"></i>
+                      {% endfor %}
+                      
+                    {% endif %}
+                    {% if recipe.average >2 and  recipe.average < 2.5  or recipe.average == 2.5 %}
+                      {% for i in 0..1 %}
+                        <i class="fa-regular fa-star my-3 text-info"></i>
+                      {% endfor %}
+                       <i class="fa-regular fa-star-half-stroke text-danger"></i>
+                      {% for i in 0..1 %}
+                        <i class="fa-sharp fa-solid fa-star text-danger"></i>
+                      {% endfor %}
+                      
+                    {% endif %}
+                    {% if recipe.average >2.5 and  recipe.average < 3 or recipe.average == 3  %}
+                      {% for i in 0..1 %}
+                        <i class="fa-regular fa-star my-3 text-info"></i>
+                      {% endfor %}
+                      {% for i in 0..2 %}
+                        <i class="fa-sharp fa-solid fa-star text-danger"></i>
+                      {% endfor %}
+                    {% endif %}  
+                    
+                    {% if recipe.average >3 and  recipe.average < 3.5 or recipe.average == 3.5  %}
+                      <i class="fa-regular fa-star my-3 text-info"></i>
+                      <i class="fa-regular fa-star-half-stroke text-danger"></i>
+                      {% for i in 0..2 %}
+                        <i class="fa-sharp fa-solid fa-star text-danger"></i>
+                      {% endfor %}
+                    {% endif %}   
+                    
+                    {% if recipe.average >3.5 and  recipe.average < 4 or recipe.average == 4  %}
+                      <i class="fa-regular fa-star my-3 text-info"></i>
+                      {% for i in 0..3 %}
+                        <i class="fa-sharp fa-solid fa-star text-danger"></i>  
+                      {% endfor %}
+                    {% endif %}
+                    
+                    {% if recipe.average >4 and  recipe.average < 4.5 or recipe.average == 4.5  %}
+                      <i class="fa-regular fa-star-half-stroke text-danger"></i>
+                      {% for i in 0..3 %}
+                        <i class="fa-sharp fa-solid fa-star text-danger"></i>  
+                      {% endfor %}
+                    {% endif %}
+
+                    {% if recipe.average >4.5 and  recipe.average < 5 or recipe.average == 5  %}
+                      
+                      {% for i in 0..4 %}
+                        <i class="fa-sharp fa-solid fa-star text-danger my-3"></i>  
+                      {% endfor %}
+                    {% endif %}
+              </div>

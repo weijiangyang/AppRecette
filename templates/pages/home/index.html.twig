@@ -3,7 +3,8 @@
 {% block title %}AppRecette - Accueil{% endblock %}
 
 {% block body %}
-    <div class="container" >
+    <div class="container">
+        
         <div class="jumbotron mt-4">
             <h1 class="display-4">Bienvenu sur AppRecette ! </h1>
             {% for message in app.flashes('success') %}
@@ -13,18 +14,34 @@
            
         {% endfor %}
             <p class="lead">AppRecette est une application qui vous permet de créer des recettes à base d'ingrédients que vous aurez vous-même créer.Vous pourrez partager votres recettes à la communité du site , ou bien les garder en privée. </p>
-            <div class="d-flex justify-content-between flex-wrap mt-5">
+            <div class="d-flex justify-content-center flex-wrap mt-5" >
                 {% for recipe in recipes %}
-                    <div class="card border-primary mb-3 mx-3" style="max-width: 20rem;">
-                        <div class="card-header text-center">
-                            <strong><a class='text-decoration-none'href="{{ path('recipe_show',{'id':recipe.id})}}">{{ recipe.name }}</a></strong>
+                    <div class="card border-primary mb-3 mx-3" style="width:30%; height:340px">
+                        <div class="card-header text-center py-3">
+                            <strong><a class='text-decoration-none 'href="{{ path('recipe_show',{'id':recipe.id})}}">{{ recipe.name | capitalize }}</a></strong>
                             </div>
-                        <div class="card-body">
-                        
-                        <p class="card-text">{{ recipe.description | slice(0,100)~ '...' }}</p>
+                        <div class="card-body p-0">
+                            {% if recipe.imageName %}
+                                <img style = "width:100%;height:100%;max-height:221px;object-fit: cover" src="{{ vich_uploader_asset(recipe, 'imageFile') }}">
+                            {% else %}
+                                <img style = "width:100%;max-height:221px;object-fit: cover" src="{{ asset('images/no-recette.jpg') }}">
+                            {% endif %}
                         </div>
-                    </div>
-                {% endfor %}
+                       {% include "partials/_stars.html.twig" %}
+                    
+                </div>
+                  
+                
+
+
+                   
+             
+      {% endfor %}
+
+                        {# <p class="card-text">{{ recipe.description |slice(0,100)~ '...' | raw}}</p> #}
+                        
+                    
+              
             </div>
             <hr class="my-4">
             <p>Pour commencer, rendez-vous sur la page d'inscription pour utiliser l'application. </p>
