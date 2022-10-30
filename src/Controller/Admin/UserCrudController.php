@@ -9,8 +9,10 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Orm\EntityRepository;
@@ -44,17 +46,32 @@ class UserCrudController extends AbstractCrudController
             ->setEntityLabelInSingular('Utilisateur')
             ->setPageTitle('index', 'AppRecette - Administration des utilisateurs')
             ->setPaginatorPageSize(5);
+            
+    }
+
+    public function configureActions(Actions $actions): Actions
+    {
+        return $actions
+            ->remove(Crud::PAGE_INDEX, 'new');
+           
     }
 
 
     public function configureFields(string $pageName): iterable
     {
         yield TextField::new('fullName')
-                ->hideOnForm();
-        yield TextField::new('password')
-
-        ->setFormType(PasswordType::class)
-            ->hideOnForm();
+                    ->setDisabled(true);
+        yield TextField::new('pseudo')
+            ->setDisabled(true);
+        
+                
+        yield EmailField::new('email')
+        ->setDisabled(true);
+        yield TextField::new('description')
+        ->setDisabled(true);
+               
+       
+        
         yield ChoiceField::new('roles')
             ->allowMultipleChoices()
             ->renderAsBadges([
@@ -67,6 +84,8 @@ class UserCrudController extends AbstractCrudController
                 
                 'Utilisateur' => "ROLE_USER"
             ]);
+        yield DateTimeField::new('createdAt')
+        ->hideOnForm();
         
     }
     

@@ -18,7 +18,7 @@
             </div>
            
         {% endfor %}
-        {% if recipes %}
+        {% if recipes|length != 0 %}
             <div class="count mb-4 ">
                 Il y a <strong>{{ recipes.getTotalItemCount }}</strong> recette(s) au total
             </div>

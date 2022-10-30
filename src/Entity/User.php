@@ -10,6 +10,7 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\Common\Collections\ArrayCollection;
+use phpDocumentor\Reflection\Types\Nullable;
 use Symfony\Component\Serializer\Annotation\Ignore;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -146,12 +147,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getPlainPassword():string
+    public function getPlainPassword():?string
     {
         return $this->plainPassword;
     }
 
-    public function setPlainPassword(string $plainPassword):self
+    public function setPlainPassword(?string $plainPassword):self
     {
        $this->plainPassword = $plainPassword;
        return $this;

@@ -87,7 +87,7 @@ class Recipe
     private Collection $comments;
 
     #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'recipes')]
-    private Collection $categories;
+    private ?Collection $categories;
     
     public function __construct()
     {
@@ -382,7 +382,7 @@ class Recipe
         return $this->categories;
     }
 
-    public function addCategory(Category $category): self
+    public function addCategory(?Category $category): self
     {
         if (!$this->categories->contains($category)) {
             $this->categories->add($category);

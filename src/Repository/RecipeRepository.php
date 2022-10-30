@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Recipe;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Entity\Category;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Recipe>
@@ -39,24 +40,41 @@ class RecipeRepository extends ServiceEntityRepository
         }
     }
 
-    public function findPublicRecipe(?int $nbRecipes): array
+    public function findPublicRecipe(?int $nbRecipes,?Category $category): array
     {
-        $query =  $this->createQueryBuilder('r')
-            ->where("r.isPublic = 1")
-            ->orderBy('r.createdAt', 'DESC');
-        if ($nbRecipes !== 0 && $nbRecipes !== null) {
-            $query->setMaxResults($nbRecipes);
-        }
+       if($category){
+            $query =  $this->createQueryBuilder('r')
+                ->where("r.isPublic = 1")
+                ->andWhere(":category MEMBER OF r.categories")
+                ->setParameter("category", $category)
+                ->orderBy('r.createdAt', 'DESC');
+       }else{
+            $query =  $this->createQueryBuilder('r')
+                ->where("r.isPublic = 1")
+                
+                ->orderBy('r.createdAt', 'DESC');
+       }
+            
+            if ($nbRecipes !== 0 && $nbRecipes !== null) {
+                $query->setMaxResults($nbRecipes);
+            }
+
+        
+
 
         return $query->getQuery()
             ->getResult();
+
+        
     }
 
-    public function findSearcheRecipe(?string $content):array
+    public function findSearcheRecipe(?string $content,?Category $category):array
     {
         $query = $this->createQueryBuilder('r')
             ->where("r.name LIKE :content ")
+            ->andWhere(":category MEMBER OF r.categories")
             ->setParameter('content', '%'.$content.'%')
+            ->setParameter("category", $category)
             ->orderBy('r.createdAt', 'DESC');
         return $query->getQuery()
             ->getResult();

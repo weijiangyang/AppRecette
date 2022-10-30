@@ -12,7 +12,7 @@ class HomeController extends AbstractController
     #[Route('/', name: 'app_index',methods:['GET'])]
     public function index(RecipeRepository $recipeRepository): Response
     {
-        $recipes = $recipeRepository->findPublicRecipe(3);
+        $recipes = $recipeRepository->findPublicRecipe(3,null);
         return $this->render('pages/home/index.html.twig', [
             'recipes' => $recipes
         ]);

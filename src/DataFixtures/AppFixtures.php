@@ -9,6 +9,7 @@ use Faker\Generator;
 use App\Entity\Recipe;
 use App\Entity\Contact;
 use App\Entity\Ingredient;
+use App\Repository\CategoryRepository;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -16,15 +17,18 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class AppFixtures extends Fixture
 {
     private $hasher;
+    private $categoryRepository;
     /**
      * @var Generator
      */
     private Generator $faker;
 
-    public function __construct(UserPasswordHasherInterface $hasher)
+    public function __construct(CategoryRepository $categoryRepository,UserPasswordHasherInterface $hasher)
     {
         $this->faker = Factory::create('fr-FR');
         $this->hasher = $hasher;
+        $this->categoryRepository = $categoryRepository;
+
     }
 
   
@@ -54,6 +58,14 @@ class AppFixtures extends Fixture
             $ingredients[] = $ingredient;
         }
 
+        //categories
+
+        $categoriesArray = [];
+        $categories = $this->categoryRepository->findAll();
+       foreach ($categories as $category) {
+            $categoriesArray[] = $category;
+       }
+
         //recipes:
         $recipes = [];
         for($i = 0 ; $i < 25; $i++){
@@ -63,6 +75,7 @@ class AppFixtures extends Fixture
                 ->setNbPeople(mt_rand(0, 1) === 1 ? mt_rand(1, 50) : null)
                 ->setDifficulty(mt_rand(0, 1) === 1 ? mt_rand(1, 5) : null)
                 ->setDescription($this->faker->text(300))
+                ->addCategory($categoriesArray[mt_rand(0,count($categoriesArray)-1)])
                 ->setPrice(mt_rand(0, 1) === 1 ? mt_rand(1, 1000) : null)
                 ->setIsFavorite(mt_rand(0, 1) == 1 ? true : false)
                 ->setIsPublic(mt_rand(0, 1) == 1 ? true : false)

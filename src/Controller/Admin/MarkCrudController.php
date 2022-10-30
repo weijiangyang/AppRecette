@@ -3,6 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Mark;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
@@ -13,6 +15,13 @@ class MarkCrudController extends AbstractCrudController
     public static function getEntityFqcn(): string
     {
         return Mark::class;
+    }
+
+    public function configureActions(Actions $actions): Actions
+    {
+        return $actions
+            ->remove(Crud::PAGE_INDEX, 'new')
+            ->remove(Crud::PAGE_INDEX,'edit');
     }
 
     

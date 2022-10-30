@@ -6,6 +6,7 @@ use App\Entity\Contact;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
@@ -26,6 +27,13 @@ class ContactCrudController extends AbstractCrudController
             ->setPageTitle('index', 'AppRecette - Administration de contacts')
             ->addFormTheme('@FOSCKEditor/Form/ckeditor_widget.html.twig')
             ->setPaginatorPageSize(5);
+    }
+
+    public function configureActions(Actions $actions): Actions
+    {
+        return $actions
+            ->remove(Crud::PAGE_INDEX, 'new')
+            ->remove(Crud::PAGE_INDEX, 'edit');
     }
 
     

@@ -30,10 +30,12 @@ class DashboardController extends AbstractDashboardController
             ->renderContentMaximized();
     }
 
-  
+
     public function configureMenuItems(): iterable
+
     {
-        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
+        yield MenuItem::linkToRoute('Aller sur le site', 'fa fa-undo', 'app_index');
+      
         yield MenuItem::linkToCrud('Utilisateurs', 'fa-solid fa-user', User::class);
         yield MenuItem::linkToCrud('Contacts', 'fas fa-envelope', Contact::class);
         yield MenuItem::linkToCrud('Catégories', 'fa-brands fa-delicious', Category::class);

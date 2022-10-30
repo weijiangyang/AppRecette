@@ -10,6 +10,7 @@ use App\Form\RecipeType;
 use App\Entity\SearchBar;
 use App\Form\ChercheType;
 use App\Form\CommentType;
+use App\Repository\CategoryRepository;
 use App\Repository\MarkRepository;
 use App\Repository\RecipeRepository;
 use App\Repository\CommentRepository;
@@ -22,6 +23,7 @@ use Symfony\Component\Form\Extension\Core\Type\SearchType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\LazyProxy\PhpDumper\NullDumper;
 
 class RecipeController extends AbstractController
 {
@@ -39,35 +41,36 @@ class RecipeController extends AbstractController
         ]);
     }
 
-    #[Route('/recette/public', name: 'recette_index_public')]
-    public function indexPublic(Request $request, PaginatorInterface $paginator, RecipeRepository $recipeRepository): Response
+    #[Route('/recette/public/{id}', name: 'recette_index_public')]
+    public function indexPublic(int $id,Request $request, PaginatorInterface $paginator, RecipeRepository $recipeRepository,CategoryRepository $categoryRepository): Response
     {   
+        $category = $categoryRepository->find($id);
         $searchBar = new SearchBar;
-      
         $form = $this->createForm(ChercheType::class,$searchBar);
         $form->handleRequest($request);
         $searchContent = $form->getData()->getContent();
-       
-            if (!$form->isSubmitted()) {
-               
-             $recipes = $paginator->paginate(
-                $recipeRepository->findPublicRecipe(null),/* query NOT result */
-                $request->query->getInt('page',1), /*page number*/
-                9 /*limit per page*/
-             );
-                
-            }
         
-        else{
-            $recipes = $recipeRepository->findSearcheRecipe($searchContent);
-           
-        }
+        
+         
+            if (!$form->isSubmitted()) {
+
+                $recipes = $paginator->paginate(
+                    $recipeRepository->findPublicRecipe(null,$category),/* query NOT result */
+                    $request->query->getInt('page', 1), /*page number*/
+                    9 /*limit per page*/
+                );
+            } else {
+                $recipes = $recipeRepository->findSearcheRecipe($searchContent,$category);
+            }
+         
+            
 
        
          return $this->render('pages/recipe/index_public.html.twig', [
             'recipes' => $recipes,
             'form'=>$form->createView(),
-            'searchContent'=>$searchContent
+            'searchContent'=>$searchContent,
+            'category'=> $category
             ]);
         
     }
