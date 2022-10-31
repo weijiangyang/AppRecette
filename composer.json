@@ -64,7 +64,7 @@
             "*": "dist"
         },
         "sort-packages": true,
-        "heroku-prebuild": "npm install --dev"
+       
     },
     "autoload": {
         "psr-4": {
