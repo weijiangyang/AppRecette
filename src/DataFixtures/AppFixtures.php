@@ -8,6 +8,7 @@ use App\Entity\User;
 use Faker\Generator;
 use App\Entity\Recipe;
 use App\Entity\Contact;
+use App\Entity\Category;
 use App\Entity\Ingredient;
 use App\Repository\CategoryRepository;
 use Doctrine\Persistence\ObjectManager;
@@ -59,12 +60,17 @@ class AppFixtures extends Fixture
         }
 
         //categories
+        $categories = [];
+        $category = new Category;
+        $category->setName('chinoise');
+        $manager->persist($category);
+        $categories[] = $category;
+     
+        $category = new Category;
+        $category->setName('française');
+        $manager->persist($category);
+        $categories[] = $category;
 
-        $categoriesArray = [];
-        $categories = $this->categoryRepository->findAll();
-       foreach ($categories as $category) {
-            $categoriesArray[] = $category;
-       }
 
         //recipes:
         $recipes = [];
@@ -75,10 +81,10 @@ class AppFixtures extends Fixture
                 ->setNbPeople(mt_rand(0, 1) === 1 ? mt_rand(1, 50) : null)
                 ->setDifficulty(mt_rand(0, 1) === 1 ? mt_rand(1, 5) : null)
                 ->setDescription($this->faker->text(300))
-                ->addCategory($categoriesArray[mt_rand(0,count($categoriesArray)-1)])
+                ->addCategory($categories[mt_rand(0,count($categories)-1)])
                 ->setPrice(mt_rand(0, 1) === 1 ? mt_rand(1, 1000) : null)
                 ->setIsFavorite(mt_rand(0, 1) == 1 ? true : false)
-                ->setIsPublic(mt_rand(0, 1) == 1 ? true : false)
+                ->setIsPublic(true)
                 ->setUser($users[mt_rand(0, count($users) - 1)]);
              
             for($k = 0; $k < mt_rand(5,15) ; $k++){

@@ -37,11 +37,7 @@
                    
              
       {% endfor %}
-
-                        {# <p class="card-text">{{ recipe.description |slice(0,100)~ '...' | raw}}</p> #}
-                        
-                    
-              
+   
             </div>
             <hr class="my-4">
             <p>Pour commencer, rendez-vous sur la page d'inscription pour utiliser l'application. </p>
@@ -50,6 +46,13 @@
             </p>
         </div>
     </div>
-    
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        const link = document.querySelector('#accueil');
+        link.classList.add('active'); 
+    </script>
 
 {% endblock %}

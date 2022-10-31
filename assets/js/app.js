@@ -1,6 +1,8 @@
 import { async } from 'regenerator-runtime';
 import '../css/app.scss';
 const form = document.querySelector('form.comment-form');
+
+
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const response = await fetch('/ajax/comments', {
@@ -23,8 +25,8 @@ form.addEventListener('submit', async (e) => {
 
     }
 
+    
 }
-
 
 
 );

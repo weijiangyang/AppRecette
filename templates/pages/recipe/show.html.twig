@@ -18,6 +18,11 @@
             {% endif %}
             <p class="text-warning fst-italic mt-2">created at {{ recipe.createdAt | date('d/m/Y') }} by <a href="{{ path('user_show',{'id': recipe.user.id}) }}">{{ recipe.user.fullName }}</a></p> 
             <p>La moyenne de cette recette : <strong>{{ recipe.average| number_format(2, '.', ',') }}/5</strong></p>      
+            <p>
+                {% for category in recipe.categories %}
+                    <span class="fst-italic  fw-bold"><a href="{{ path('recette_index_public',{'id': category.id}) }}" class="text-decoration-none text-info">#{{ category.name }}</a></span>
+                {% endfor %}
+            </p>
             <div style="width:40%">
                 {% if app.user is not same as recipe.user %}
                     {{ form(form) }} 

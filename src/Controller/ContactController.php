@@ -17,7 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ContactController extends AbstractController
 {
-    #[Route('/contact', name: 'contact.index')]
+    #[Route('/contact', name: 'contact_index')]
     public function index( MailService $mail,EntityManagerInterface $em, Request $request): Response
     {
         $contact = new Contact;
@@ -57,7 +57,7 @@ class ContactController extends AbstractController
            
 
          
-            return $this->redirectToRoute('contact.index');
+            return $this->redirectToRoute('app_index');
         }
         return $this->render('pages/contact/index.html.twig', [
             'form' => $form->createView()

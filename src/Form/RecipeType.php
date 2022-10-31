@@ -5,13 +5,14 @@ namespace App\Form;
 use App\Entity\Recipe;
 
 
+use App\Entity\Category;
 use App\Entity\Ingredient;
 use App\Repository\IngredientRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Security\Core\Security;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
-use Symfony\Component\Form\FormBuilderInterface;
 
+use Symfony\Component\Form\FormBuilderInterface;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -96,8 +97,20 @@ class RecipeType extends AbstractType
             )
             ->add('isPublic',CheckboxType::class, [
                 'label' => 'Public?',
+                'required'=>false
                 ] 
-            )  
+            )
+            ->add('categories',EntityType::class,[
+                'class'=> Category::class,
+                'choice_label' => 'name',
+                'multiple' => true,
+                'expanded' => true,
+                'label' => 'Catégories',
+                'constraints' => [
+                    new Assert\NotBlank(),
+                ]
+
+            ])  
             ->add(
             'ingredients',EntityType::class,[
                 'attr'=>[

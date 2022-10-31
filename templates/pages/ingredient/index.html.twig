@@ -56,3 +56,10 @@
         {% endif %}
     </div> 
 {% endblock %}
+{% block javascripts %}
+    {{ parent()}}
+    <script>
+        const link = document.querySelector('#ingredient');
+        link.classList.add('active');
+    </script>
+{% endblock %}

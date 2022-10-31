@@ -33,14 +33,13 @@
        <div class="navigation d-flex justify-content-center my-4">
                   {{ knp_pagination_render(recipes) }}
           </div>
-       {% endif %}
-       
-          
-      
-        
-         
+       {% endif %}    
       </div>
-    
-    
-
+{% endblock %}
+{% block javascripts %}
+ {{ parent() }}
+    <script>
+        const link = document.querySelector('#community');
+        link.classList.add('active');
+    </script>
 {% endblock %}

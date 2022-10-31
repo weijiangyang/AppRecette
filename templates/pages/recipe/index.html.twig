@@ -27,7 +27,8 @@
                     <tr style="border-bottom:3px solid orange">
                     <th scope="col">Numéro</th>
                     <th scope="col">Nom</th>
-                    <th scope="col">Prix(€)</th>
+                    <th scope="col">Catégories</th>
+                    <th scope="col">Public?</th>
                     <th scope="col">Difficulty</th>
                     <th scope="col">Date</th>
                     <th scope="col">Voir</th>
@@ -48,8 +49,14 @@
                                 
                             </th>
                             <td>{{ recipe.name }}</td>
-                            <td>{{ recipe.price is same as null ? 'Non renseigné':recipe.price }}</td>
-                            <td>{{ recipe.difficulty is same as null ? 'Non renseigné':recipe.difficulty }}</td>
+                            <td>
+                                {% for category in recipe.categories %}
+                                     <span class="badge bg-primary">{{ category.name }}</span>
+                                {% endfor %}
+                               
+                            </td>
+                            <td class="{{ recipe.isPublic ? 'text-primary' : 'text-danger' }}">{{ recipe.isPublic ? 'public':'privée' }}</td>
+                            <td>{{ recipe.difficulty is same as null ? 'Non renseigné':recipe.difficulty~'/5' }}</td>
                             <td>{{ recipe.createdAt | date('d/m/Y')}}</td>
                             <td><a href="{{ path('recipe_show',{ 'id':recipe.id })}}" class="btn btn-primary btn-sm"><i class="fa-solid fa-eye"></i></a></td>
                             <td><a href="{{ path('recipe_edit',{ 'id':recipe.id })}}" class="btn btn-info btn-sm"><i class="fa-solid fa-pen-to-square"></i></a></td>
@@ -65,5 +72,13 @@
             Il n'y a pas de recette
         {% endif %}
     </div> 
+{% endblock %}
+{% block javascripts %}
+ {{ parent() }}
+    <script>
+        const link = document.querySelector('#recipe');
+        link.classList.add('active'); 
+    </script>
+
 {% endblock %}
 
