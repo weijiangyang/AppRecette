@@ -4,6 +4,7 @@
     "minimum-stability": "stable",
     "prefer-stable": true,
     "require": {
+        "doctrine/doctrine-fixtures-bundle": "^3.4",
         "php": ">=8.1",
         "ext-ctype": "*",
         "ext-iconv": "*",
@@ -112,7 +113,7 @@
         }
     },
     "require-dev": {
-        "doctrine/doctrine-fixtures-bundle": "^3.4",
+       
         "phpunit/phpunit": "^9.5",
         "symfony/browser-kit": "6.1.*",
         "symfony/css-selector": "6.1.*",
