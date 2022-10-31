@@ -21,10 +21,13 @@
                     <img style = "width:100%;max-height:256px;object-fit: cover" src="{{ asset('images/no-recette.jpg') }}">
                                       
                   {% endif %} 
-                   {% include "partials/_stars.html.twig" %}
+                  <div class=" d-flex justify-content-around align-items-center">
+                            <a class=' text-decoration-none badge' style="font-size:1rem; background-color:#66A593" href="{{ path('recipe_show',{'id':recipe.id})}}"<span >Details</span></a>
+                            {% include "partials/_stars.html.twig" %}
+                        </div>
                     
                 </div>
-              </div>        
+              </div>      
                 
           {% endfor %}
 
