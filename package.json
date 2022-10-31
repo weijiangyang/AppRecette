@@ -20,7 +20,7 @@
         "dev": "encore dev",
         "watch": "encore dev --watch",
         "build": "webpack --mode production",
-        "heroku-prebuild":"npm install --dev"
+        "heroku-prebuild":"yarn install --dev"
         
     },
     "dependencies": {
