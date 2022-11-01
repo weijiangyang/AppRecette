@@ -3,6 +3,7 @@ fm_elfinder:
     instances:
         default:
             locale: kernel.default_locale
+      
             editor: ckeditor
             relative_path: false
             theme: smoothness
