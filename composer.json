@@ -51,7 +51,8 @@
         "symfony/yaml": "6.1.*",
         "twig/extra-bundle": "^2.12|^3.0",
         "twig/twig": "^2.12|^3.0",
-        "vich/uploader-bundle": "^1.21"
+        "vich/uploader-bundle": "^1.21",
+        "ext-intl": "*"
     },
     "config": {
         "allow-plugins": {
@@ -124,4 +125,5 @@
         "symfony/stopwatch": "6.1.*",
         "symfony/web-profiler-bundle": "6.1.*"
     }
+   
 }
