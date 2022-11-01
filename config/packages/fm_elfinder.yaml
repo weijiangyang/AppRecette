@@ -2,13 +2,15 @@ fm_elfinder:
     assets_path: /assets
     instances:
         default:
-            locale: fr
+            locale: kernel.default_locale
             editor: ckeditor
+            relative_path: false
             theme: smoothness
             connector:
                 debug: false
                 roots:
                     uploads:
+                        
                         driver: LocalFileSystem
                         path: uploads/images
                         show_hidden: false
