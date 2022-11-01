@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-            <img style = "width:50px" src="{{ asset('images/logo.jpg') }}">
+    <div class="container">
+        <a class="navbar-brand"  href="#">
+            <a href="{{ path('app_index') }}"><img style = "width:150px; position:absolute;top:-40px;left:-2px" src="{{ asset('images/logo5.png') }}"></a>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -27,7 +27,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <div class="nav-item dropdown px-5">
+                    <div class="nav-item dropdown ">
                         <a class="nav-link dropdown-toggle" id="community" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Communauté de recettes</a>
                         <div class="dropdown-menu">
                             {% for category in category_service.findAll() %}
@@ -51,7 +51,7 @@
                
             </ul>
             {% if app.user %}
-                <div class="nav-item dropdown px-5">
+                <div class="nav-item dropdown px-4">
                         <a class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ app.user }}</a>
                         <div class="dropdown-menu">
                             

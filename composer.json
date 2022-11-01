@@ -65,7 +65,6 @@
             "*": "dist"
         },
         "sort-packages": true
-       
     },
     "autoload": {
         "psr-4": {
@@ -96,7 +95,6 @@
         "database-setup": [
             "php bin/console doctrine:migrations:migrate  --no-interaction",
             "php bin/console doctrine:fixtures:load --no-interaction"
-            
         ],
         "post-install-cmd": [
             "@auto-scripts",
@@ -125,5 +123,4 @@
         "symfony/stopwatch": "6.1.*",
         "symfony/web-profiler-bundle": "6.1.*"
     }
-   
 }
