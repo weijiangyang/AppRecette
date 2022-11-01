@@ -6,6 +6,7 @@ fm_elfinder:
             editor: ckeditor
             theme: smoothness
             connector:
+                debug: false
                 roots:
                     uploads:
                         driver: LocalFileSystem
