@@ -5,7 +5,7 @@ fm_elfinder:
             locale: kernel.default_locale
       
             editor: ckeditor
-            relative_path: false
+            relative_path: true
             theme: smoothness
             connector:
                 debug: false
