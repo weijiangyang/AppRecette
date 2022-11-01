@@ -1,5 +1,5 @@
 fm_elfinder:
-    assets_path: /
+    assets_path: /assets
     instances:
         default:
             locale: kernel.default_locale
