@@ -2,8 +2,19 @@
 {% block title %}
     AppRecette - Inscription
 {% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+<style>
+    body{
+            background-image:url("https://localhost:8000/images/wall.jpg")
+        }
+
+</style>
+    
+{% endblock %}
 {% block body %}
-    <div class="container mt-4 w-50">
+    <div class="container w-50 bg-white border-rounded rounded-3 px-5 py-3 my-5">
         <h1 class="mt-4">Formulaire d'inscription</h1>
         {{ form(form) }}
     </div>

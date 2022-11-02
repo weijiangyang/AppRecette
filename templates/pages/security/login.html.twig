@@ -2,8 +2,19 @@
 
 {% block title %}AppRecette - Connexion{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+<style>
+    body{
+            background-image:url("https://localhost:8000/images/wall.jpg")
+        }
+
+</style>
+    
+{% endblock %}
+
 {% block body %}
-    <div class="container mt-4 w-50">
+    <div class="container w-50 bg-white border-rounded rounded-3 px-5 py-3 my-5">
     {% for message in app.flashes('success') %}
         <div class="alert alert-success">
             {{ message }}

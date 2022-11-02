@@ -1,9 +1,18 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Hello IngredientController!{% endblock %}
+{% block stylesheets %}
+    {{ parent()}}
+    <style>
+        body{
+            background:url("https://localhost:8000/images/table8.jpg");
+        }
+    
+    </style>
+{% endblock %}
 
 {% block body %}
-    <div class="container">
+    <div class="container bg-white border-rounded rounded-3 px-5 py-3 my-5" style="width:80%">
         <h1 class="mt-4">Mes ingredients</h1>
         <div><a href="{{ path('ingredient_new') }}" class="btn btn-primary btn-sm my-4 ">Créer un ingrédient</a></div>
         {% for message in app.flashes('success') %}
@@ -25,11 +34,13 @@
             <table class="table table-hover">
                 <thead>
                     <tr style="border-bottom:3px solid orange">
-                    <th scope="col">Numéro</th>
+
                     <th scope="col">Nom</th>
                     <th scope="col">UnitPrix(€)</th>
                     <th scope="col">Unit</th>
+                    <th scope="col">photo</th>
                     <th scope="col">Date</th>
+                    <th scope="col">Voir</th>
                     <th scope="col">Edition</th>
                     <th scope="col">Suppression</th>
                     </tr>
@@ -37,13 +48,15 @@
                 <tbody>
                     {% for ingredient in ingredients %}
                         <tr class="table-light">
-                            <th scope="row">{{ ingredient.id }}</th>
+                          
                             <td>{{ ingredient.name }}</td>
                             <td>{{ ingredient.price is same as null ? 'Non renseigné':ingredient.price }}</td>
                             <td>{{ ingredient.unit }} </td>
+                            <td><img style = "max-width:35px" src="{{ vich_uploader_asset(ingredient, 'imageFile') }}"></td>
                             <td>{{ ingredient.createdAt | date('d/m/Y')}}</td>
+                            <td><a href="{{ path('ingredient_show',{ 'id':ingredient.id })}}" class="btn btn-primary btn-sm"><i class="fa-solid fa-eye"></i></a></td>
                             <td><a href="{{ path('ingredient_edit',{ 'id':ingredient.id }) }}" class="btn btn-info btn-sm"><i class="fa-solid fa-pen-to-square"></i></a></td>
-                             <td><a href="{{ path('ingredient_delete',{ 'id':ingredient.id }) }}" class="btn btn-warning btn-sm"><i class="fa-solid fa-trash"></i></a></td>
+                            <td><a href="{{ path('ingredient_delete',{ 'id':ingredient.id }) }}" class="btn btn-warning btn-sm"><i class="fa-solid fa-trash"></i></a></td>
                         </tr>
                     {% endfor %}
                 </tbody>

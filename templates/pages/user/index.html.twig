@@ -1,9 +1,18 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Hello UserController!{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+<style>
+    body{
+            background-image:url("https://localhost:8000/images/wall.jpg")
+        }
 
+</style>
+    
+{% endblock %}
 {% block body %}
-<div class="container my-5 w-50">
+<div class="container w-50 bg-white border-rounded rounded-3 px-5 py-3 my-5">
     <h1>Modification de Profile </h1>
     {% for message in app.flashes('warning') %}
             <div class="alert alert-warning">

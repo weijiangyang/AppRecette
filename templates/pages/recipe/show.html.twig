@@ -2,9 +2,19 @@
 {% block title %}
     AppRecette - {{ recipe.name }}
 {% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+<style>
+    body{
+            background-image:url("https://localhost:8000/images/table7.jpg")
+        }
+
+</style>
+    
+{% endblock %}
 
 {% block body %}
-    <div class="container">
+    <div class="container w-75 bg-white border-rounded rounded-3 px-5 py-3 my-5">
         <h1 class="mt-4">{{ recipe.name }}</h1>
         {% for message in app.flashes('success') %}
             <p class="alert alert-success">{{ message }}</p>
@@ -37,11 +47,12 @@
                 <p><strong>Prix(en euro):</strong> {{ recipe.price ? recipe.price : 'non renseigné'}} </p>
                 <p class="mt-4"><strong>Ingrédients:</strong> </p>
                 {% for ingredient in recipe.ingredients%}
-                    <span class="badge bg-primary mt-1"><a href="#" class="text-white text-decoration-none">{{ ingredient.name }}</a></span>
+                    <span class="badge bg-primary mt-1"><a href="{{ path('ingredient_show',{'id':ingredient.id})}}" class="text-white text-decoration-none">{{ ingredient.name }}</a></span>
                 {% endfor %}
-                <p class="mt-4"><strong>Description:</strong></p>
-                <div>{{ recipe.description | raw}}</div>
+                
         </div>
+        <p class="mt-4" style = "width:100%"><strong>Description:</strong></p>
+                <div>{{ recipe.description | raw}}</div>
         </div>
         <hr>
      <h2 class="comment-title mt-5">

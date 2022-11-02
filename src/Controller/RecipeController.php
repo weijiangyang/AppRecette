@@ -82,7 +82,6 @@ class RecipeController extends AbstractController
             return $this->redirectToRoute('app_index');
         }
 
-
         $comment = new Comment($recipe);
         $formComment = $this->createForm(CommentType::class, $comment);
         $comments = $commentRepository->findBy(['recipe'=>$recipe]);

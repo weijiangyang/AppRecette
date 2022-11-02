@@ -3,7 +3,17 @@
     Modification de l'ingredient 
 {% endblock %}
 {% block body %}
-<div class="container w-50">
+{% block stylesheets %}
+    {{ parent() }}
+<style>
+    body{
+            background-image:url("https://localhost:8000/images/table7.jpg")
+        }
+
+</style>
+    
+{% endblock %}
+<div class="container w-50container w-50 bg-white border-rounded rounded-3 px-5 py-3 my-5">
     <h1 class="my-4">Modification de l'ingrédient</h1>
     {{ form(form )}}
 </div>

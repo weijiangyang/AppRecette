@@ -6,14 +6,16 @@ use App\Entity\Ingredient;
 use Doctrine\DBAL\Types\DateTimeTzType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class IngredientType extends AbstractType
 {
@@ -50,6 +52,15 @@ class IngredientType extends AbstractType
                 ],
                 'required'=>false
             ])
+            ->add('imageFile', VichImageType::class, [
+                'required' => false,
+
+            ])
+            ->add('description', TextareaType::class, [
+                'label' => 'Description',
+                'required'=> false
+                
+            ])    
            
             ->add('button',SubmitType::class,[
                 'attr'=>[

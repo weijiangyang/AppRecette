@@ -38,6 +38,22 @@ class IngredientController extends AbstractController
            'ingredients' => $ingredients
         ]);
     }
+
+    #[Route('/ingredient/{id}', name: 'ingredient_show', methods: ['GET', 'POST'])]
+    #[Security("is_granted('ROLE_USER') and user === ingredient.getUser()")]
+    public function show(Ingredient $ingredient)
+    {
+        if (!$ingredient) {
+            return $this->redirectToRoute('app_index');
+        }
+
+         
+                
+
+        return $this->render('pages/ingredient/show.html.twig', [
+           'ingredient'=> $ingredient
+        ]);
+    }
     
     /**
      * This function permet de create a new ingredient
@@ -46,7 +62,7 @@ class IngredientController extends AbstractController
      * @param EntityManagerInterface $em
      * @return void
      */
-    #[Route('/ingredient/nouveau', name: 'ingredient_new', methods: ['GET', 'POST'])]
+    #[Route('/ingredient/nouveau', name: 'ingredient_new', methods: ['GET', 'POST'],priority:2)]
     #[IsGranted('ROLE_USER')]
     public function new(Request $request, EntityManagerInterface $em){
         $ingredient = new Ingredient;
