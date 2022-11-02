@@ -26,6 +26,8 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
+use FM\ElfinderBundle\Form\Type\ElFinderType;
+
 class RecipeType extends AbstractType
 { 
         private $security;
