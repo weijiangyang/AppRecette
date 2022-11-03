@@ -8,6 +8,9 @@
     body{
             background-image:url('{{app.request.getSchemeAndHttpHost() ~ "/images/table7.jpg" }}')
         }
+    img{
+        max-width: 80%;
+    }
 
 </style>
     
@@ -26,14 +29,21 @@
                 
             </div>
 
-            <div class="form-group my-3">
+            
+
+                <div class="form-group my-3">
                 {{ form_label(form.imageFile) }}
+               
                 {{ form_widget(form.imageFile)}}
+               
+                
                 <div class="form-error text-danger">
                     {{ form_errors(form.imageFile)}}
                 </div>
                 
-            </div>
+         
+                </div>
+            
 
             <div class="form-group my-3">
                 {{ form_label(form.time) }}
