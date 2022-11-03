@@ -5,7 +5,7 @@
     {{ parent() }}
 <style>
     body{
-         background:url("https://localhost:8000/images/table8.jpg");
+          background-image:url('{{app.request.getSchemeAndHttpHost() ~ "/images/table8.jpg" }}')
     }
  
 </style>

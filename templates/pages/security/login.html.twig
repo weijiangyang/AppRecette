@@ -6,7 +6,7 @@
     {{ parent() }}
 <style>
     body{
-            background-image:url("https://localhost:8000/images/wall.jpg")
+            background-image:url('{{app.request.getSchemeAndHttpHost() ~ "/images/wall.jpg" }}')
         }
 
 </style>
@@ -21,8 +21,10 @@
         </div>
     {% endfor %}
     <h1>Formulaire de connexion</h1>
+   
+       
     {% if error %}
-        <div class="alert alert-danger mt-4">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        <div class="alert aler.t-danger mt-4">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
     <form action="{{ path('security_login') }}" method="post">
         <div class="form-group">
