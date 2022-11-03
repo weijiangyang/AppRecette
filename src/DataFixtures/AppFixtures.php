@@ -53,7 +53,8 @@ class AppFixtures extends Fixture
             $ingredient->setName($this->faker->word())
                 ->setPrice(mt_rand(0, 1) === 1 ? mt_rand(1, 150) : 0)
                 ->setUser($users[mt_rand(0, count($users) - 1)])
-                ->setUnit($this->faker->word());
+                ->setUnit($this->faker->word())
+                ->setImageName(null);
             $manager->persist($ingredient);
             $ingredients[] = $ingredient;
         }
@@ -84,6 +85,7 @@ class AppFixtures extends Fixture
                 ->setPrice(mt_rand(0, 1) === 1 ? mt_rand(1, 1000) : null)
                 ->setIsFavorite(mt_rand(0, 1) == 1 ? true : false)
                 ->setIsPublic(true)
+                
                 ->setUser($users[mt_rand(0, count($users) - 1)]);
 
             for ($k = 0; $k < mt_rand(5, 15); $k++) {
