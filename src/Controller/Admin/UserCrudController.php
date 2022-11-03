@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\User;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\ORM\EntityManagerInterface;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
@@ -38,14 +39,15 @@ class UserCrudController extends AbstractCrudController
     {
         return User::class;
     }
-
+    
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
             ->setEntityLabelInPlural('Utilisateurs')
             ->setEntityLabelInSingular('Utilisateur')
             ->setPageTitle('index', 'AppRecette - Administration des utilisateurs')
-            ->setPaginatorPageSize(5);
+            ->setPaginatorPageSize(5)
+            ->addFormTheme('@FOSCKEditor/Form/ckeditor_widget.html.twig');
             
     }
 
@@ -67,7 +69,8 @@ class UserCrudController extends AbstractCrudController
                 
         yield EmailField::new('email')
         ->setDisabled(true);
-        yield TextField::new('description')
+        yield TextEditorField::new('description')
+        ->setFormType(CKEditorType::class)
         ->setDisabled(true);
                
        
