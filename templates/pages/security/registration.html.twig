@@ -16,6 +16,16 @@
 {% block body %}
     <div class="container w-50 bg-white border-rounded rounded-3 px-5 py-3 my-5">
         <h1 class="mt-4">Formulaire d'inscription</h1>
-        {{ form(form) }}
+        {{ form_start(form) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.fullName) }}
+        {{ form_row(form.pseudo) }}
+        {{ form_row(form.plainPassword, {
+            
+        }) }}
+       
+
+        <button type="submit" class="btn btn-primary">Inscrivez vous</button>
+    {{ form_end(form) }}
     </div>
 {% endblock %}
