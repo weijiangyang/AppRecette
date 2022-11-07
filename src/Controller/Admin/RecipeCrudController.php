@@ -3,16 +3,18 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Recipe;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
 
 class RecipeCrudController extends AbstractCrudController
 {
@@ -45,6 +47,18 @@ class RecipeCrudController extends AbstractCrudController
         yield NumberField::new('difficulty', 'niveau de la difficulté/5');
         yield NumberField::new('price', 'price(€)');
         yield BooleanField::new('isPublic','Public?');
+        
+        yield TextField::new('imageFile', 'Upload')
+            ->setFormType(VichImageType::class);
+       
+            
+            
+        yield   ImageField::new('imageName', 'Image')
+           
+            ->setBasePath('/images/recette/')
+            ->hideOnForm();
+      
+       
         yield TextEditorField::new('description')
                 ->setFormType(CKEditorType::class);
         yield AssociationField::new('user','Créateur de la recette')
@@ -52,10 +66,7 @@ class RecipeCrudController extends AbstractCrudController
                
         yield DateTimeField::new('createdAt')
         ->hideOnForm();
-            
-           
-           
-          
+        
         
     }
     
