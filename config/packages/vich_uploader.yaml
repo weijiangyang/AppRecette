@@ -4,7 +4,7 @@ vich_uploader:
         type: attribute
 
 
-     mappings:
+    mappings:
         recipe_images:
           
            uri_prefix: public
