@@ -12,7 +12,7 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container bg-white border-rounded rounded-3 px-5 py-3 my-5" style="width:80%">
+    <div class="container-fluid bg-white border-rounded rounded-3 px-5 py-3 my-5" style="width:80%">
         <h1 class="mt-4">Mes ingredients</h1>
         <div><a href="{{ path('ingredient_new') }}" class="btn btn-primary btn-sm my-4 ">Créer un ingrédient</a></div>
         {% for message in app.flashes('success') %}
