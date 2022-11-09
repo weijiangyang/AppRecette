@@ -41,7 +41,7 @@ class Ingredient
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
-    #[Vich\UploadableField(mapping: 'recipe_images', fileNameProperty: 'imageName')]
+    #[Vich\UploadableField(mapping: 'ingredient', fileNameProperty: 'imageName')]
     private ?File $imageFile = null;
 
     #[ORM\Column(type: 'string', nullable: true)]

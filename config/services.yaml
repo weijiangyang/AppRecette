@@ -26,6 +26,16 @@ services:
     App\EntityListener\:
         resource: "../src/EntityListener/"
         tags: ["doctrine.orm.entity_listener"]
+    
+    Aws\S3\S3Client:
+        
+        arguments:
+            -
+                version: 'latest'
+                region:  eu-west-3
+                credentials:
+                    key: '%env(AWS_KEY)%'
+                    secret: '%env(AWS_SECRET_KEY)%'
    
            
             
