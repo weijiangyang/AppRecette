@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Service\MailService;
 use App\Form\RegistrationType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,7 +31,7 @@ class SecurityController extends AbstractController
     }
 
     #[Route('/inscription', name: 'security_registration', methods: ['GET', 'POST'])]
-    public function registration(Request $request, EntityManagerInterface $em): Response
+    public function registration(MailService $mail,Request $request, EntityManagerInterface $em): Response
     {
         $user = new User;
         $user->setRoles(['ROLE_USER']);
@@ -41,6 +42,14 @@ class SecurityController extends AbstractController
             $user = $form->getData();
             $em->persist($user);
             $em->flush();
+            $mail->sendEmail(
+                'admin@appRecette.com',
+                'confirmation de l\'inscription',
+                'pages/emails/inscription.html.twig',
+                ['contact' => $form->getData()->getFullName()],
+                $form->getData()->getEmail()
+            );    
+            
             $this->addFlash(
                 'success',
                 'Votre compte a bien été registré'

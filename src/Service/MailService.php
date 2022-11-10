@@ -18,7 +18,7 @@ class MailService
         string $subject,
         string $htmlTemplate,
         array $context,
-        string $to = 'admin@symrecipe.com'
+        string $to = 'admin@appRecette.com'
     ) {
         $email = (new TemplatedEmail())
             ->from($from)
