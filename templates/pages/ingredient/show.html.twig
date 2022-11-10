@@ -20,9 +20,9 @@
             <p class="alert alert-success">{{ message }}</p>
         {% endfor %}
         <div class="row">
-        <div class="col-md-5">
+        <div class="col-md-6">
             {% if ingredient.imageName %}
-                <img style = "max-width:300px" src="{{ vich_uploader_asset(ingredient, 'imageFile') }}">
+                <img style = "max-width:100%" src="{{ vich_uploader_asset(ingredient, 'imageFile') }}">
           
             {% endif %}
             <p class="text-warning fst-italic mt-2">created at {{ ingredient.createdAt | date('d/m/Y') }} by <a href="{{ path('user_show',{'id': ingredient.user.id}) }}">{{ ingredient.user.fullName }}</a></p> 
@@ -31,7 +31,7 @@
            
             
         </div>
-        <div class="col-md-7">
+        <div class="col-md-6">
                  <p class="mt-4"><strong>Unit: </strong>{{ ingredient.unit? ingredient.unit : 'non renseigné'}} </p>
                  <p class="mt-4"><strong>Prix: </strong>{{ ingredient.price? ingredient.price : 'non renseigné'}} </p>
                 

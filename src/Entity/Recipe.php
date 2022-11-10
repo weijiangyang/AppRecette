@@ -75,7 +75,7 @@ class Recipe
     #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: Mark::class, orphanRemoval: true)]
     private Collection $marks;
 
-    private ?float $average = null;
+    private ?float $average = 0;
 
     #[Vich\UploadableField(mapping: 'recipe', fileNameProperty: 'imageName')]
     private ?File $imageFile = null;
@@ -312,6 +312,7 @@ class Recipe
 
         return $average;
     }
+   
 
     public function setImageFile(?File $imageFile = null): void
     {

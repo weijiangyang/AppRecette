@@ -52,15 +52,20 @@ class RecipeController extends AbstractController
         
         
          
-            if (!$form->isSubmitted()) {
-
+            if (!$form->isSubmitted()){
+          
                 $recipes = $paginator->paginate(
                     $recipeRepository->findPublicRecipe(null,$category),/* query NOT result */
                     $request->query->getInt('page', 1), /*page number*/
                     9 /*limit per page*/
                 );
             } else {
-                $recipes = $recipeRepository->findSearcheRecipe($searchContent,$category);
+                
+                $recipes = $paginator->paginate(
+                $recipes = $recipeRepository->findSearcheRecipe($searchContent,$category),/* query NOT result */
+                    $request->query->getInt('page', 1), /*page number*/
+                    9 /*limit per page*/
+            );
             }
          
             

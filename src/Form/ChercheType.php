@@ -7,10 +7,10 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-use Symfony\Component\Validator\Constraints as Assert;
+
 
 class ChercheType extends AbstractType
 {
@@ -21,12 +21,14 @@ class ChercheType extends AbstractType
                 'attr'=>[
                     'class'=> 'form-control me-sm-2 ',
                     'placeholder'=> 'search',
-                    'value'=>null
+                    'value'=>''
                 ],
                 'label_attr'=>[
                     'class'=>'d-none'
                 ],
+                
                 'required'=>false
+              
                
                 
                

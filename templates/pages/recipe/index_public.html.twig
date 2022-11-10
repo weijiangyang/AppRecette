@@ -13,14 +13,14 @@
 {% endblock %}
 
 {% block body %}
-      <div class="container w-50container w-90 bg-white border-rounded rounded-3 px-5 py-3 my-5">
+      <div class="container w-50container w-95 bg-white border-rounded rounded-3 px-5 py-3 my-5">
         
         <h1 class="my-4 text-center">Recette(s) {{ category.name }} de la communauté</h1>
        
-        {{ form(form,{'attr':{'class':'d-flex w-50 m-auto mb-2'}}) }}
+        {{ form(form,{'attr':{'class':'d-flex w-80 m-auto mb-2'}}) }}
         <div class="d-flex justify-content-between flex-wrap ">
           {% for recipe in recipes %}
-             <div class="card border-primary mb-3 mx-1" style="width:23%;height:350px">
+             <div class="card border-primary mb-3 mx-1" style="width:23%;height:350px;min-width:250px">
                 <div class="card-header text-center ">
                   <strong><a class='text-decoration-none' href="{{ path('recipe_show',{'id':recipe.id}) }}">{{ recipe.name | capitalize }}</a></strong>
                 </div>
@@ -42,10 +42,10 @@
           {% endfor %}
 
         </div>
-       {% if searchContent is same as null %}
-       <div class="navigation d-flex justify-content-center my-4">
-                  {{ knp_pagination_render(recipes) }}
-          </div>
+       {% if searchContent is  same as null %}
+        <div class="navigation d-flex justify-content-center my-4">
+                    {{ knp_pagination_render(recipes) }}
+        </div>
        {% endif %}    
       </div>
 {% endblock %}

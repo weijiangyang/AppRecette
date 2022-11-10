@@ -8,6 +8,7 @@
     body{
             background-image:url('{{app.request.getSchemeAndHttpHost() ~ "/images/table7.jpg" }}')
         }
+    
 
 </style>
     
@@ -20,9 +21,9 @@
             <p class="alert alert-success">{{ message }}</p>
         {% endfor %}
         <div class="row">
-        <div class="col-md-5">
+        <div class="col-md-7">
             {% if recipe.imageName %}
-                <img style = "max-width:300px" src="{{ vich_uploader_asset(recipe, 'imageFile') }}">
+                <img style = "max-width:100%" src="{{ vich_uploader_asset(recipe, 'imageFile') }}">
             {% else %}
                 <img style = "max-width:300px ; height: 350px" src="{{ asset('images/no-recette.jpg') }}" alt="">
             {% endif %}
@@ -40,7 +41,7 @@
             </div>
             
         </div>
-        <div class="col-md-7">
+        <div class="col-md-5 text-start">
                 <p class="mt-4"><strong>Temps(en minutes): </strong>{{ recipe.time? recipe.time : 'non renseigné'}} </p>
                 <p><strong>Pour</strong> {{ recipe.nbPeople? recipe.nbPeople : '(non renseigné)'}} <strong>personnes</strong></p>
                 <p><strong>Difficulté:</strong> {{ recipe.difficulty ? recipe.difficulty : 'non renseigné'}}/5</p>

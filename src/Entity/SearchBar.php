@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\SearchBarRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: SearchBarRepository::class)]
 class SearchBar
@@ -14,6 +15,7 @@ class SearchBar
     private ?int $id = null;
 
     #[ORM\Column(length: 255,nullable:true)]
+    #[Assert\NotBlank()]
     private ?string $content = null;
 
     public function getId(): ?int
