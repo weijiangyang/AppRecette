@@ -111,7 +111,9 @@ class IngredientController extends AbstractController
             'success',
             'Vous avez bien modifié l\'ingredient avec succès !'
         );
-        return $this->redirectToRoute('ingredient_index');
+        return $this->redirectToRoute('ingredient_show',[
+            'id'=>$ingredient->getId()
+        ]);
         }
         return $this->render('pages/ingredient/edit.html.twig',[
             'form' => $form->createView(),

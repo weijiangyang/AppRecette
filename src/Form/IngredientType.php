@@ -45,7 +45,7 @@ class IngredientType extends AbstractType
                 ]
             ])
             ->add('price',MoneyType::class,[
-                'label' => 'Prix',
+                'label' => '* Prix',
                 'constraints'=>[
                     new Assert\Positive(),
                     new Assert\LessThan(200)
@@ -54,11 +54,14 @@ class IngredientType extends AbstractType
             ])
             ->add('imageFile', VichImageType::class, [
                 'required' => false,
+                'label'=> '* Photo',
+                'required' => false
 
             ])
             ->add('description', TextareaType::class, [
-                'label' => 'Description',
-                'required'=> false
+                'label' => '* Description',
+                'required'=> false,
+                'required' => false
                 
             ])    
            

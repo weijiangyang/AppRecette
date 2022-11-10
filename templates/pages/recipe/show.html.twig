@@ -17,6 +17,10 @@
 {% block body %}
     <div class="container w-75 bg-white border-rounded rounded-3 px-5 py-3 my-5">
         <h1 class="mt-4">{{ recipe.name }}</h1>
+        {% if app.user is same as recipe.user %}
+            <a href="{{ path('recipe_edit',{'id':recipe.id}) }}" class="btn btn-primary btn-sm mb-3">Modify cette recette</a>
+        {% endif %}
+        
         {% for message in app.flashes('success') %}
             <p class="alert alert-success">{{ message }}</p>
         {% endfor %}

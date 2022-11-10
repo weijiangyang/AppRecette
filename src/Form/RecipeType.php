@@ -52,32 +52,36 @@ class RecipeType extends AbstractType
             ])
             ->add('imageFile', VichImageType::class, [
                 'required' => false,
+                'label'=> '* Photo'
               
             ])
             ->add('time',IntegerType::class,[
-                'label'=> 'temps(minutes)',
+                'label'=> '* temps(minutes)',
                 'constraints' => [
                     new Assert\Positive(),
                     new Assert\Length(['min' => 1, 'max' => 1440])
-                ]
+                ],
+                'required'=> false
             ])
             ->add('nbPeople', IntegerType::class, [
-                'label' => 'Nombre de personnes',
+                'label' => '* Nombre de personnes',
                 'constraints' => [
                     new Assert\Positive(),
                     new Assert\Length(['min' => 1, 'max' => 50])
-                ]
+                ],
+                'required' => false
             ])
             ->add('difficulty', RangeType::class, [
                 'attr'=>[
                     'min' => 1,
                     'max' => 5
                 ],
-                'label' => 'Niveau de la difficulté',
+                'label' => '* Niveau de la difficulté',
                 'constraints' => [
                     new Assert\Positive(),
                     new Assert\Length(['min' => 1, 'max' => 5])
-                ]
+                ],
+                'required' => false
             ])
             ->add('description',CKEditorType::class,[
                 'label'=> 'Les etapes de process',
@@ -86,7 +90,7 @@ class RecipeType extends AbstractType
                 ]   
             ])    
             ->add('price',MoneyType::class,[
-                'label'=> 'Prix(€)',
+                'label'=> '* Prix(€)',
                 'constraints' => [
                     new Assert\Positive(),
                     new Assert\Length(['min' => 1, 'max' => 1000])
@@ -94,8 +98,10 @@ class RecipeType extends AbstractType
                 'required'=>false
             ])
             ->add('isFavorite', CheckboxType::class,[
-                    'label' => 'Favorite?'
-                ]
+                    'label' => 'Favorite?',
+                    'required' => false
+            ],
+            
             )
             ->add('isPublic',CheckboxType::class, [
                 'label' => 'Public?',

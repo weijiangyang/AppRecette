@@ -148,7 +148,9 @@ class RecipeController extends AbstractController
                 'Votre recette a bien été crée!'
             );
 
-            return $this->redirectToRoute('recipe_index');
+            return $this->redirectToRoute('recipe_show',[
+                'id'=>$recipe->getId()
+            ]);
        }
 
         return $this->render('pages/recipe/new.html.twig',[
@@ -172,7 +174,9 @@ class RecipeController extends AbstractController
                 'success',
                 'Vous avez bien modifié la recette avec succès !'
             );
-            return $this->redirectToRoute('recipe_index');
+            return $this->redirectToRoute('recipe_show',[
+                'id'=>$recipe->getId()
+            ]);
         }
         return $this->render('pages/recipe/edit.html.twig', [
             'form' => $form->createView(),
