@@ -57,7 +57,7 @@
                             {% endif %}
                         </div>
                         <div class=" d-flex justify-content-around align-items-center">
-                            <a class=' text-decoration-none badge' style="font-size:1rem ; background-color:#66A593" href="{{ path('recipe_show',{'id':recipe.id}) }}" > <span>Details</span> </a>
+                            <a class=' text-decoration-none badge' style="font-size:1rem ; background-color:#66A593" href="{{ path('recipe_show',{'id':recipe.id}) }}" > Details </a>
                             {% include "partials/_stars.html.twig" %}
                         </div>
                     </div>    
@@ -67,7 +67,7 @@
             <hr class="my-4">
             <p>Pour commencer, rendez-vous sur la page d'inscription pour utiliser l'application. </p>
             <p class="lead">
-                <a type = 'button' class="btn btn-primary btn-lg" href="{{ path('security_registration') }}" >Inscription</a>
+                <a  class="btn btn-primary btn-lg" href="{{ path('security_registration') }}" >Inscription</a>
             </p>
         </div>
     </div>
