@@ -65,16 +65,13 @@ class UserCrudController extends AbstractCrudController
                     ->setDisabled(true);
         yield TextField::new('pseudo')
             ->setDisabled(true);
-        
-                
+                        
         yield EmailField::new('email')
         ->setDisabled(true);
         yield TextEditorField::new('description')
         ->setFormType(CKEditorType::class)
         ->setDisabled(true);
                
-       
-        
         yield ChoiceField::new('roles')
             ->allowMultipleChoices()
             ->renderAsBadges([
@@ -89,8 +86,8 @@ class UserCrudController extends AbstractCrudController
             ]);
         yield DateTimeField::new('createdAt')
         ->hideOnForm();
-        
-    }
+    }    
+    
     
 
    

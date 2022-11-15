@@ -18,7 +18,7 @@
                 Pour mieux commprendre comment utiliser cette application, <a href="">Cliquez ici </a>
             </p>
             
-            <img style = "width:100%;max-height:300px;object-fit: cover" src="{{ asset('images/bannier.jpg') }}">
+            <img style = "width:100%;max-height:300px;object-fit: cover" src="{{ asset('images/bannier.jpg') }}" alt="image bannier de application recettes">
             <h2 style="position:relative; top:-220px;left:10px;color:white">La gastronomie est l'art d'utiliser la nourriture <br>pour créer un bonheur.</h2>
             
             <h3 class="text-center text-warning " style="font-family:courgette">Recettes recentes</h3>
@@ -26,16 +26,16 @@
                 {% for recipe in recipesRecentes %}
                     <div class="card border-primary mb-3 mx-3" style="width:30%; height:340px">
                         <div class="card-header text-center py-3">
-                            <strong><a class='text-decoration-none 'href="{{ path('recipe_show',{'id':recipe.id})}}">{{ recipe.name | capitalize }}</a></strong>
+                            <strong> <a class='text-decoration-none' href="{{ path('recipe_show',{'id':recipe.id})}}" > {{ recipe.name | capitalize }} </a> </strong>
                         </div>
                         <div class="card-body p-0">
                             {% if recipe.imageName %}
-                                <img style = "width:100%;height:100%;max-height:221px;object-fit: cover" src="{{ vich_uploader_asset(recipe, 'imageFile') }}">
+                                <img style = "width:100%;height:100%;max-height:221px;object-fit: cover" src="{{ vich_uploader_asset(recipe, 'imageFile') }}" alt= '{{ 'image de recette ' ~ recipe.name }}'>
                             {% else %}
-                                <img style = "width:100%;max-height:221px;object-fit: cover" src="{{ asset('images/no-recette.jpg') }}">
+                                <img style = "width:100%;max-height:221px;object-fit: cover" src="{{ asset('images/no-recette.jpg') }}" alt = '{{ 'image de recette ' ~ recipe.name }}' >
                             {% endif %}
                         </div>
-                        <div class=" d-flex justify-content-around align-items-center">
+                        <div class=" d-flex justify-content-around align-items-center"> 
                             <a class=' text-decoration-none badge' style="font-size:1rem ; background-color:#66A593" href="{{ path('recipe_show',{'id':recipe.id})}}"<span >Details</span></a>
                             {% include "partials/_stars.html.twig" %}
                         </div>
@@ -51,9 +51,9 @@
                         </div>
                         <div class="card-body p-0">
                             {% if recipe.imageName %}
-                                <img style = "width:100%;height:100%;max-height:221px;object-fit: cover" src="{{ vich_uploader_asset(recipe, 'imageFile') }}">
+                                <img style = "width:100%;height:100%;max-height:221px;object-fit: cover" src="{{ vich_uploader_asset(recipe, 'imageFile') }}" alt="image de recette">
                             {% else %}
-                                <img style = "width:100%;max-height:221px;object-fit: cover" src="{{ asset('images/no-recette.jpg') }}">
+                                <img style = "width:100%;max-height:221px;object-fit: cover" src="{{ asset('images/no-recette.jpg') }}" alt="image de recette">
                             {% endif %}
                         </div>
                         <div class=" d-flex justify-content-around align-items-center">

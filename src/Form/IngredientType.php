@@ -23,10 +23,7 @@ class IngredientType extends AbstractType
     {
         $builder
             ->add('name',TextType::class,[
-                'attr'=>[
-                    'minlength'=>2,
-                    'maxlength'=>255
-                ],
+                
                 'label'=>'Nom',
                 'constraints'=>[
                     new Assert\NotBlank(),
@@ -34,10 +31,7 @@ class IngredientType extends AbstractType
                 ]
             ])
             ->add('unit',TextType::class,[
-                'attr' => [
-                    'minlength' => 2,
-                    'maxlength' => 255
-                ],
+                
                 'label' => 'Unit',
                 'constraints' => [
                     new Assert\NotBlank(),

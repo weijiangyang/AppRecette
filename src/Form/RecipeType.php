@@ -40,10 +40,7 @@ class RecipeType extends AbstractType
        
         $builder
             ->add('name', TextType::class, [
-                'attr' => [
-                    'minlength' => 2,
-                    'maxlength' => 255
-                ],
+                
                 'label' => 'Nom',
                 'constraints' => [
                     new Assert\NotBlank(),

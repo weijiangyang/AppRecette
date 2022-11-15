@@ -19,11 +19,7 @@ class UserType extends AbstractType
     {
         $builder
             ->add('fullName', TextType::class, [
-                'attr' => [
-                    
-                    'minlength' => 2,
-                    'maxlength' => 255
-                ],
+                
                 'label' => 'Prenom/Nom',
                 
                 'constraints' => [
@@ -32,11 +28,7 @@ class UserType extends AbstractType
                 ]
             ])
             ->add('pseudo', TextType::class, [
-                'attr' => [
-                   
-                    'minlength' => 2,
-                    'maxlength' => 255
-                ],
+                
                 'label' => 'Pseudo',
                 
                 'constraints' => [

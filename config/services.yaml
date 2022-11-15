@@ -28,7 +28,7 @@ services:
         tags: ["doctrine.orm.entity_listener"]
     
     Aws\S3\S3Client:
-        
+       
         arguments:
             -
                 version: 'latest'

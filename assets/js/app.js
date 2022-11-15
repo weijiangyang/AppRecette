@@ -22,10 +22,7 @@ form.addEventListener('submit', async (e) => {
         commentsList.insertAdjacentHTML('afterbegin', json.message)
         commentsNumber.innerText = json.numberOfComments
         commentContent.value = ''
-
-    }
-
-    
+    } 
 }
 
 

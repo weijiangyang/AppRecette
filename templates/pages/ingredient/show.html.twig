@@ -1,6 +1,6 @@
 {% extends "base.html.twig" %}
 {% block title %}
-    AppRecette - {{ ingredient.name }}
+    AppRecette - l'ingrédient {{ ingredient.name }}
 {% endblock %}
 {% block stylesheets %}
     {{ parent() }}
@@ -25,7 +25,7 @@
         <div class="row">
         <div class="col-md-6">
             {% if ingredient.imageName %}
-                <img style = "max-width:100%" src="{{ vich_uploader_asset(ingredient, 'imageFile') }}">
+                <img style = "max-width:100%" src="{{ vich_uploader_asset(ingredient, 'imageFile') }}" alt = '{{ 'image de l\'ingredient  ' ~ ingredient.name }}'>
           
             {% endif %}
             <p class="text-warning fst-italic mt-2">created at {{ ingredient.createdAt | date('d/m/Y') }} by <a href="{{ path('user_show',{'id': ingredient.user.id}) }}">{{ ingredient.user.fullName }}</a></p> 

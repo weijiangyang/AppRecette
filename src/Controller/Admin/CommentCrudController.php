@@ -29,18 +29,16 @@ class CommentCrudController extends AbstractCrudController
     
     public function configureFields(string $pageName): iterable
     {
-       
-           
+         
             yield TextEditorField::new('content')
                         ->hideOnForm();
-            
             yield AssociationField::new('recipe','Recette')
             ->hideOnForm();
             yield AssociationField::new('user', 'Commenteur')
             ->hideOnForm();
            yield DateTimeField::new('createdAt')
             ->hideOnForm();
-    
     }
+    
     
 }

@@ -47,27 +47,17 @@ class RecipeCrudController extends AbstractCrudController
         yield NumberField::new('difficulty', 'niveau de la difficulté/5');
         yield NumberField::new('price', 'price(€)');
         yield BooleanField::new('isPublic','Public?');
-        
         yield TextField::new('imageFile', 'Upload')
             ->setFormType(VichImageType::class);
-       
-            
-            
         yield   ImageField::new('imageName', 'Image')
-           
             ->setBasePath('/images/recette/')
             ->hideOnForm();
-      
-       
         yield TextEditorField::new('description')
-                ->setFormType(CKEditorType::class);
+            ->setFormType(CKEditorType::class);
         yield AssociationField::new('user','Créateur de la recette')
-                ->hideOnForm();
-               
+                ->hideOnForm();      
         yield DateTimeField::new('createdAt')
-        ->hideOnForm();
-        
-        
+        ->hideOnForm(); 
     }
     
 }
