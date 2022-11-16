@@ -40,7 +40,7 @@ class IngredientController extends AbstractController
     }
 
     #[Route('/ingredient/{id}', name: 'ingredient_show', methods: ['GET', 'POST'])]
-    #[Security("is_granted('ROLE_USER') and user === ingredient.getUser()")]
+    #[IsGranted('ROLE_USER')]
     public function show(Ingredient $ingredient)
     {
         if (!$ingredient) {

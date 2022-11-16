@@ -15,13 +15,13 @@
            
         {% endfor %}
             <p class="lead">AppRecette est une application qui vous permet de créer des recettes à base d'ingrédients que vous aurez vous-même créer. Vous pourrez partager votres recettes à la communité du site , ou bien les garder en privée. 
-                Pour mieux commprendre comment utiliser cette application, <a href="">Cliquez ici </a>
+                Pour mieux commprendre comment utiliser cette application, <a href="" class="fw-bold fst-italic">Cliquez ici </a>
             </p>
             
             <img style = "width:100%;max-height:300px;object-fit: cover" src="{{ asset('images/bannier.jpg') }}" alt="image bannier de application recettes">
-            <h2 style="position:relative; top:-220px;left:10px;color:white">La gastronomie est l'art d'utiliser la nourriture <br>pour créer un bonheur.</h2>
+            <h2 style="position:relative; top:-220px;left:10px;color: white; font-family:courgette">La gastronomie est l'art d'utiliser<br> la nourriture pour créer un bonheur.</h2>
             
-            <h3 class="text-center text-warning " style="font-family:courgette">Recettes recentes</h3>
+            <h3 class="text-center  fw-bold" style="font-family:courgette; color:orangered">Recettes recentes</h3>
             <div class="d-flex justify-content-center mx-0 flex-wrap mt-5" >
                 {% for recipe in recipesRecentes %}
                     <div class="card border-primary mb-3 mx-3" style="width:30%; height:340px">
@@ -36,13 +36,13 @@
                             {% endif %}
                         </div>
                         <div class=" d-flex justify-content-around align-items-center"> 
-                            <a class=' text-decoration-none badge' style="font-size:1rem ; background-color:#66A593" href="{{ path('recipe_show',{'id':recipe.id})}}">Details</a>
+                            <a class=' text-decoration-none badge' style="font-size:1rem ; background-color:green" href="{{ path('recipe_show',{'id':recipe.id})}}">Details</a>
                             {% include "partials/_stars.html.twig" %}
                         </div>
                     </div>    
                 {% endfor %}   
             </div>
-            <h3 class="text-center text-warning pt-5" style="font-family:courgette">Recettes bien notées </h3>
+            <h3 class="text-center  pt-5 fw-bold" style="font-family:courgette; color:orangered">Recettes bien notées </h3>
             <div class="d-flex justify-content-center mx-0 flex-wrap mt-5" >
                 {% for recipe in recipesNotes %}
                     <div class="card border-primary mb-3 mx-3" style="width:30%; height:340px">
@@ -57,7 +57,7 @@
                             {% endif %}
                         </div>
                         <div class=" d-flex justify-content-around align-items-center">
-                            <a class=' text-decoration-none badge' style="font-size:1rem ; background-color:#66A593" href="{{ path('recipe_show',{'id':recipe.id}) }}" > Details </a>
+                            <a class=' text-decoration-none badge' style="font-size:1rem ; background-color: green" href="{{ path('recipe_show',{'id':recipe.id}) }}" > Details </a>
                             {% include "partials/_stars.html.twig" %}
                         </div>
                     </div>    

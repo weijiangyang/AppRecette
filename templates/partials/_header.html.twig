@@ -61,7 +61,7 @@
             </ul>
             {% if app.user %}
                 <div class="nav-item dropdown px-4">
-                        <a class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ app.user }}</a>
+                        <a class="nav-link dropdown-toggle text-white fw-bold" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ app.user }}</a>
                         <div class="dropdown-menu">
                             
                             <a class="dropdown-item" href="{{ path('user_show',{'id':app.user.id}) }}">Mon profile</a>
