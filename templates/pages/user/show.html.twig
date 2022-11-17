@@ -23,9 +23,9 @@
             <div class="col">
                 <p><strong>Nom/Prenom : </strong>{{ user.fullName }}</p>
                 <p><strong>Pseudo : </strong>{{ user.pseudo }}</p>
-                <p><strong>Email : </strong>{{ user.email }}</p>
+                {# <p><strong>Email : </strong>{{ user.email }}</p> #}
                 {% if user is same as app.user %}
-                    <p><a href="{{ path('user_edit', {'id': user.id}) }}">Modify mon profile </a></p>
+                    <p><a href="{{ path('user_edit', {'id': user.id}) }}">Modify mon profil </a></p>
                 <p><a href="{{ path('user_edit_password', {'id': user.id}) }}">Modify mon mot de passe </a></p>
                 {% endif %}
                 
