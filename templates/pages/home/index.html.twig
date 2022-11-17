@@ -1,6 +1,16 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}AppRecette - Accueil{% endblock %}
+{% block stylesheets %}
+{{ parent()}}
+<style>
+    .active1{
+        color:red;
+        scale:1.2
+    }
+</style>
+    
+{% endblock %}
 
 
 {% block body %}
@@ -26,7 +36,7 @@
                 {% for recipe in recipesRecentes %}
                     <div class="card border-primary mb-3 mx-3" style="width:30%; height:340px">
                         <div class="card-header text-center py-3">
-                            <strong> <a class='text-decoration-none' href="{{ path('recipe_show',{'id':recipe.id})}}" > {{ recipe.name | capitalize }} </a> </strong>
+                            <strong> <a class='text-decoration-none' style='color:blue' href="{{ path('recipe_show',{'id':recipe.id})}}" > {{ recipe.name | capitalize }} </a> </strong>
                         </div>
                         <div class="card-body p-0">
                             {% if recipe.imageName %}
@@ -47,7 +57,7 @@
                 {% for recipe in recipesNotes %}
                     <div class="card border-primary mb-3 mx-3" style="width:30%; height:340px">
                         <div class="card-header text-center py-3">
-                            <strong><a class='text-decoration-none' href="{{ path('recipe_show',{'id':recipe.id})}}">{{ recipe.name | capitalize }}</a></strong>
+                            <strong><a class='text-decoration-none' style='color:blue'  href="{{ path('recipe_show',{'id':recipe.id})}}">{{ recipe.name | capitalize }}</a></strong>
                         </div>
                         <div class="card-body p-0">
                             {% if recipe.imageName %}

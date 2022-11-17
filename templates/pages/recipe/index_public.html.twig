@@ -22,7 +22,7 @@
           {% for recipe in recipes %}
              <div class="card border-primary mb-3 mx-1" style="width:23%;height:350px;min-width:250px">
                 <div class="card-header text-center ">
-                  <strong><a class='text-decoration-none' href="{{ path('recipe_show',{'id':recipe.id}) }}">{{ recipe.name | capitalize }}</a></strong>
+                  <strong><a class='text-decoration-none' style='color:blue' href="{{ path('recipe_show',{'id':recipe.id}) }}">{{ recipe.name | capitalize }}</a></strong>
                 </div>
                 <div class="card-body p-0" style="height:300px">
                   {% if recipe.imageName %}
@@ -32,7 +32,7 @@
                                       
                   {% endif %} 
                   <div class=" d-flex justify-content-around align-items-center">
-                            <a class=' text-decoration-none badge' style="font-size:1rem; background-color:#66A593" href="{{ path('recipe_show',{'id':recipe.id})}}"> Details </a>
+                            <a class=' text-decoration-none badge' style="font-size:1rem; background-color:green" href="{{ path('recipe_show',{'id':recipe.id})}}"> Details </a>
                             {% include "partials/_stars.html.twig" %}
                         </div>
                     

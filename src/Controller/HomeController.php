@@ -21,4 +21,8 @@ class HomeController extends AbstractController
                 'recipesNotes'=>$recipesNotes
             ]);
         }
+    #[Route('/confidentialite', name:'app_confientialite', methods: ['GET'])]
+    public function confidentialite(){
+        return $this->render('mentions-legal.html.twig');
+    }
 }
