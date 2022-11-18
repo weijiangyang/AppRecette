@@ -17,7 +17,7 @@
     <div class="container w-75 bg-white border-rounded rounded-3 px-5 py-3 my-5">
         <h1 class="mt-4">{{ ingredient.name }}</h1>
         {% if app.user is same as ingredient.user %}
-            <a href="{{ path('ingredient_edit',{'id':ingredient.id}) }}" class="btn btn-primary btn-sm mb-3">Modify cette recette</a>
+            <a href="{{ path('ingredient_edit',{'id':ingredient.id}) }}" class="btn btn-primary btn-sm mb-3">Modify cette ingrédient</a>
         {% endif %}
         {% for message in app.flashes('success') %}
             <p class="alert alert-success">{{ message }}</p>

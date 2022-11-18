@@ -10,8 +10,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
-#[UniqueEntity('name')]
 #[ORM\Entity(repositoryClass: IngredientRepository::class)]
+#[ORM\HasLifecycleCallbacks()]
 #[Vich\Uploadable]
 class Ingredient
 {
@@ -50,12 +50,23 @@ class Ingredient
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $updatedAt = null;
+
     /**
      * Constructor
      */
     public function __construct()
     {
         return $this->createdAt = new \DateTimeImmutable();
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setUpdatedAtValue()
+    {
+        $this->updatedAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -162,6 +173,18 @@ class Ingredient
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeImmutable $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

@@ -49,7 +49,7 @@ class IngredientType extends AbstractType
             ->add('imageFile', VichImageType::class, [
                 'required' => false,
                 'label'=> '* Photo',
-                'required' => false
+               
 
             ])
             ->add('description', TextareaType::class, [

@@ -62,27 +62,48 @@ class IngredientController extends AbstractController
      * @param EntityManagerInterface $em
      * @return void
      */
-    #[Route('/ingredient/nouveau', name: 'ingredient_new', methods: ['GET', 'POST'],priority:2)]
+    #[Route('/ingredient/nouveau', name: 'ingredient_new', methods: ['GET', 'POST'], priority:2)]
     #[IsGranted('ROLE_USER')]
-    public function new(Request $request, EntityManagerInterface $em){
+    public function new(Request $request, EntityManagerInterface $em, IngredientRepository $ingredientRepository){
         $ingredient = new Ingredient;
         $form = $this->createForm(IngredientType::class,$ingredient);
         $form->handleRequest($request);
 
+        $ingredientsParUser = $ingredientRepository->findBy([
+            'user'=> $this->getUser()
+        ]);
+
+        $ingredientsNames = [];
+        foreach($ingredientsParUser as $ingredientParUser){
+            $ingredientsName[] = $ingredientParUser->getName();
+        }
+
+        
+
         if ($form->isSubmitted() && $form->isValid()) {
             $ingredient = $form->getData();
-            $ingredient->setUser($this->getUser());
-            $em->persist($ingredient);
-            $em->flush();
-            $this->addFlash(
-                'success',
-                'Votre ingrédient a bien été crée avec succès!'
-            );
-            
-            return $this->redirectToRoute('ingredient_index');
+
+            if(!in_array($ingredient->getName(),$ingredientsName) ){
+                $ingredient->setUser($this->getUser());
+                $em->persist($ingredient);
+                $em->flush();
+                $this->addFlash(
+                    'success',
+                    'Votre ingrédient a bien été crée avec succès!'
+                );
+
+                return $this->redirectToRoute('ingredient_index');
+            }else{
+                return $this->render('pages/ingredient/new.html.twig', [
+                    'form' => $form->createView(),
+                    'error' => 'le nom de cette ingredient a déjà existé . '
+                ]);
+            }
+           
         }
         return $this->render('pages/ingredient/new.html.twig',[
-            'form'=>$form->createView()
+            'form'=>$form->createView(),
+           
         ]);
     }
 
@@ -105,6 +126,7 @@ class IngredientController extends AbstractController
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
             $ingredient = $form->getData();
+            
             $em->persist($ingredient);
             $em->flush();
         $this->addFlash(
