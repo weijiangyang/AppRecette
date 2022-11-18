@@ -20,7 +20,7 @@
                     {{ form_widget(form.name)}}
                     <div class="form-error text-danger">
                         {{ form_errors(form.name)}}
-                        {% if error %}
+                        {% if error is not same as  null %}
                             {{ error }}
                         {% endif %}
                         

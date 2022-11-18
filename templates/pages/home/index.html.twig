@@ -35,8 +35,8 @@
             <div class="d-flex justify-content-center mx-0 flex-wrap mt-5" >
                 {% for recipe in recipesRecentes %}
                     <div class="card border-primary mb-3 mx-3" style="width:30%; height:340px">
-                        <div class="card-header text-center py-3">
-                            <strong> <a class='text-decoration-none' style='color:blue' href="{{ path('recipe_show',{'id':recipe.id})}}" > {{ recipe.name | capitalize }} </a> </strong>
+                        <div class="card-header text-center" style = "height:50px" >
+                            <a class='text-decoration-none text-truncate fw-bold' style='color:blue;display:inline-block;max-width:80%' href="{{ path('recipe_show',{'id':recipe.id}) }}">{{ recipe.name | capitalize }}</a>
                         </div>
                         <div class="card-body p-0">
                             {% if recipe.imageName %}
@@ -56,8 +56,8 @@
             <div class="d-flex justify-content-center mx-0 flex-wrap mt-5" >
                 {% for recipe in recipesNotes %}
                     <div class="card border-primary mb-3 mx-3" style="width:30%; height:340px">
-                        <div class="card-header text-center py-3">
-                            <strong><a class='text-decoration-none' style='color:blue'  href="{{ path('recipe_show',{'id':recipe.id})}}">{{ recipe.name | capitalize }}</a></strong>
+                        <div class="card-header text-center" style = "height:50px" >
+                            <a class='text-decoration-none text-truncate fw-bold' style='color:blue;display:inline-block;max-width:80%' href="{{ path('recipe_show',{'id':recipe.id}) }}">{{ recipe.name | capitalize }}</a>
                         </div>
                         <div class="card-body p-0">
                             {% if recipe.imageName %}

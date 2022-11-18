@@ -92,7 +92,9 @@ class IngredientController extends AbstractController
                     'Votre ingrédient a bien été crée avec succès!'
                 );
 
-                return $this->redirectToRoute('ingredient_index');
+                return $this->redirectToRoute('ingredient_index',[
+                    'error'=> null
+                ]);
             }else{
                 return $this->render('pages/ingredient/new.html.twig', [
                     'form' => $form->createView(),
@@ -103,6 +105,7 @@ class IngredientController extends AbstractController
         }
         return $this->render('pages/ingredient/new.html.twig',[
             'form'=>$form->createView(),
+            'error'=> null
            
         ]);
     }
