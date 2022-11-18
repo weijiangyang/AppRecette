@@ -74,16 +74,35 @@ class IngredientController extends AbstractController
         ]);
 
         $ingredientsNames = [];
-        foreach($ingredientsParUser as $ingredientParUser){
-            $ingredientsName[] = $ingredientParUser->getName();
+        if($ingredientsParUser){
+            foreach($ingredientsParUser as $ingredientParUser){
+                $ingredientsNames[] = $ingredientParUser->getName();
+            }
         }
-
         
 
         if ($form->isSubmitted() && $form->isValid()) {
             $ingredient = $form->getData();
+            if($ingredientsNames){
+                if (!in_array($ingredient->getName(), $ingredientsNames)) {
+                    $ingredient->setUser($this->getUser());
+                    $em->persist($ingredient);
+                    $em->flush();
+                    $this->addFlash(
+                        'success',
+                        'Votre ingrédient a bien été crée avec succès!'
+                    );
 
-            if(!in_array($ingredient->getName(),$ingredientsName) ){
+                    return $this->redirectToRoute('ingredient_index', [
+                        'error' => null
+                    ]);
+                } else {
+                    return $this->render('pages/ingredient/new.html.twig', [
+                        'form' => $form->createView(),
+                        'error' => 'le nom de cette ingredient a déjà existé . '
+                    ]);
+                }
+            }else{
                 $ingredient->setUser($this->getUser());
                 $em->persist($ingredient);
                 $em->flush();
@@ -92,15 +111,11 @@ class IngredientController extends AbstractController
                     'Votre ingrédient a bien été crée avec succès!'
                 );
 
-                return $this->redirectToRoute('ingredient_index',[
-                    'error'=> null
+                return $this->redirectToRoute('ingredient_index', [
                 ]);
-            }else{
-                return $this->render('pages/ingredient/new.html.twig', [
-                    'form' => $form->createView(),
-                    'error' => 'le nom de cette ingredient a déjà existé . '
-                ]);
+
             }
+            
            
         }
         return $this->render('pages/ingredient/new.html.twig',[
@@ -122,23 +137,65 @@ class IngredientController extends AbstractController
      */
     #[Route('/ingredient/edit/{id}', name: 'ingredient_edit', methods: ['GET', 'POST'])]
     #[Security("is_granted('ROLE_USER') and user === ingredient.getUser()")]
-    public function edit(Request $request, EntityManagerInterface $em, Ingredient $ingredient){
+    public function edit(Request $request, EntityManagerInterface $em, Ingredient $ingredient, IngredientRepository $ingredientRepository){
         
 
         $form = $this->createForm(IngredientType::class,$ingredient);
         $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()){
-            $ingredient = $form->getData();
-            
-            $em->persist($ingredient);
-            $em->flush();
-        $this->addFlash(
-            'success',
-            'Vous avez bien modifié l\'ingredient avec succès !'
-        );
-        return $this->redirectToRoute('ingredient_show',[
-            'id'=>$ingredient->getId()
+
+        $ingredientsParUser = $ingredientRepository->findBy([
+            'user' => $this->getUser(),
+           
         ]);
+
+        $sizeArray = count($ingredientsParUser);
+
+        for($i = 0 ; $i < $sizeArray ; $i++){
+            if($ingredientsParUser[$i] == $ingredient){
+                unset($ingredientsParUser[$i]);
+            }
+        }
+
+        $ingredientsNames = [];
+        if ($ingredientsParUser) {
+            foreach ($ingredientsParUser as $ingredientParUser) {
+                $ingredientsNames[] = $ingredientParUser->getName();
+            }
+        }
+
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $ingredient = $form->getData();
+            if ($ingredientsNames) {
+                if (!in_array($ingredient->getName(), $ingredientsNames)) {
+                    $ingredient->setUser($this->getUser());
+                    $em->persist($ingredient);
+                    $em->flush();
+                    $this->addFlash(
+                        'success',
+                        'Votre ingrédient a bien été modifié avec succès!'
+                    );
+
+                    return $this->redirectToRoute('ingredient_index', [
+                        'error' => null
+                    ]);
+                } else {
+                    return $this->render('pages/ingredient/new.html.twig', [
+                        'form' => $form->createView(),
+                        'error' => 'le nom de cette ingredient a déjà existé . '
+                    ]);
+                }
+            } else {
+                $ingredient->setUser($this->getUser());
+                $em->persist($ingredient);
+                $em->flush();
+                $this->addFlash(
+                    'success',
+                    'Votre ingrédient a bien été modifié avec succès!'
+                );
+
+                return $this->redirectToRoute('ingredient_index', []);
+            }
         }
         return $this->render('pages/ingredient/edit.html.twig',[
             'form' => $form->createView(),

@@ -60,7 +60,7 @@
                                
                                 
                             </th>
-                            <td>{{ recipe.name }}</td>
+                            <td class='fw-bold' style="color:firebrick; font-size:1.1rem">{{ recipe.name }}</td>
                             <td>
                                 {% for category in recipe.categories %}
                                      <a href="{{ path('recette_index_public',{'id':category.id})}}"><span class="badge bg-primary">{{ category.name }}</span></a>
