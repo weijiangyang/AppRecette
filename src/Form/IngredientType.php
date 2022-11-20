@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Ingredient;
 use Doctrine\DBAL\Types\DateTimeTzType;
 use Symfony\Component\Form\AbstractType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 use Symfony\Component\Validator\Constraints\Length;
@@ -52,7 +53,7 @@ class IngredientType extends AbstractType
                
 
             ])
-            ->add('description', TextareaType::class, [
+            ->add('description', CKEditorType::class, [
                 'label' => '* Description',
                 'required'=> false,
                 'required' => false
