@@ -10,11 +10,12 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
+   
     #[Route('/', name: 'app_index',methods:['GET'])]
     public function index(RecipeRepository $recipeRepository, RecipeService $recipeService): Response
     {
         $recipesRecentes = $recipeRepository->findPublicRecipe(3,null);
-        
+      
         $recipesNotes = $recipeService->getRecipesNotes(3);
             return $this->render('pages/home/index.html.twig', [
                 'recipesRecentes' => $recipesRecentes,
