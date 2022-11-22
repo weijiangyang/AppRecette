@@ -9,7 +9,7 @@ flysystem:
             adapter: 'aws'
             options: 
                 client: Aws\S3\S3Client
-                bucket: '%env(AWS_BUCKET1_NAME)%'
+                bucket: '%env(AWS_BUCKET2_NAME)%'
         aws2.storage:
             adapter: 'aws'
             options: 

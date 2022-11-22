@@ -7,7 +7,7 @@ vich_uploader:
 
     mappings:
         recipe:
-            uri_prefix: '%env(AWS_BASE1_URL)%'
+            uri_prefix: '%env(AWS_BASE2_URL)%'
             upload_destination: aws1.storage
             namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
         
