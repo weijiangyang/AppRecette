@@ -6,7 +6,8 @@
 /config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
 /var/
-/vendor/
+/vendor/*
+!/vendor/helios-ag/fm-elfinder-bundle/src/Configuration
 ###< symfony/framework-bundle ###
 
 ###> phpunit/phpunit ###
