@@ -72,8 +72,8 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/",
-            "FM\\ElfinderBundle\\Configuration\\":"src/Configuration/"
+            "App\\": "src/"
+           
         }
     },
     "autoload-dev": {
