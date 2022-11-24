@@ -6,11 +6,11 @@
     <parameters>
         <parameter key="fm_elfinder.loader">FM\ElfinderBundle\Loader\ElFinderLoader</parameter>
         <parameter key="fm_elfinder.configurator">FM\ElfinderBundle\Configuration\ElFinderConfigurationReader</parameter>
-        <parameter key="fm_elfinder.configuratornew">FM\ElfinderBundle\Configuration\ElFinderConfigurationReadernew</parameter>
+        <parameter key="fm_elfinder.configurator">FM\ElfinderBundle\Configuration\ElFinderConfigurationReader</parameter>
     </parameters>
 
     <services>
-        <service id="fm_elfinder.configurator.default" class="%fm_elfinder.configuratornew%">
+        <service id="fm_elfinder.configurator.default" class="%fm_elfinder.configurator%">
             <argument>%fm_elfinder%</argument>
             <argument type="service" id="request_stack"/>
             <argument type="service" id="service_container"/>

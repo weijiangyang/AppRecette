@@ -43,7 +43,10 @@
         "spatie/flysystem-dropbox": "Dropbox 2 Driver for Flysystem"
     },
     "autoload": {
-        "psr-4": { "FM\\ElfinderBundle\\": "src/" }
+        "psr-4": { 
+            "FM\\ElfinderBundle\\": "src/"
+            
+        }
     },
     "autoload-dev": {
         "psr-4": { "FM\\ElfinderBundle\\Tests\\": "tests/" }

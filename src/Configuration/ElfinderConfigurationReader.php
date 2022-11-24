@@ -1,6 +1,6 @@
 <?php
 
-namespace FM\ElfinderBundle\Configuration;
+namespace App\Configuration;
 
 use FM\ElfinderBundle\Security\ElfinderSecurityInterface;
 use League\Flysystem\AdapterInterface;
@@ -29,7 +29,7 @@ use MicrosoftAzure\Storage\Blob\BlobRestProxy;
 /**
  * Class ElFinderConfigurationReader.
  */
-class ElFinderConfigurationReadernew implements ElFinderConfigurationProviderInterface
+class ElFinderConfigurationReader implements ElFinderConfigurationProviderInterface
 {
     /** @var array */
     protected $options = [];
