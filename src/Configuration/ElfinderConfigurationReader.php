@@ -1,6 +1,6 @@
 <?php
 
-namespace FM\ElfinderBundle\Configuration;
+namespace App\Configuration;
 
 use FM\ElfinderBundle\Security\ElfinderSecurityInterface;
 use League\Flysystem\AdapterInterface;
