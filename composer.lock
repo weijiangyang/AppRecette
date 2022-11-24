@@ -2582,6 +2582,7 @@
             "autoload": {
                 "psr-4": {
                     "FM\\ElfinderBundle\\": "src/"
+            
                 }
             },
             "notification-url": "https://packagist.org/downloads/",

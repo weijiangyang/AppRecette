@@ -72,10 +72,9 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/",
-            "FM\\ElfinderBundle\\Configuration\\": "src/Configuration"
-           
-        }
+            "App\\": "src/"
+        },
+        "classmap": ["src/Configuration/ElfinderConfigurationReader.php"]
     },
     "autoload-dev": {
         "psr-4": {
