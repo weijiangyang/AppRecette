@@ -17,7 +17,7 @@
         "easycorp/easyadmin-bundle": "^4.4",
         "fakerphp/faker": "^1.20",
         "friendsofsymfony/ckeditor-bundle": "^2.4",
-        "helios-ag/fm-elfinder-bundle": "^12.2",
+       
         "knplabs/knp-paginator-bundle": "^5.9",
         "league/flysystem-aws-s3-v3": "^3.10",
         "league/flysystem-bundle": "^3.0",

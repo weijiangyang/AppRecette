@@ -29,9 +29,8 @@ services:
         resource: "../src/EntityListener/"
         tags: ["doctrine.orm.entity_listener"]
     
-    FM\ElfinderBundle\Configuration\:
-        resource: "../src/Configuration/"
-        
+    
+
     Aws\S3\S3Client:
        
         arguments:
