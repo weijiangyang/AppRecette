@@ -4,14 +4,14 @@ fm_elfinder:
         default:
             locale: kernel.default_locale
             editor: ckeditor
-            relative_path: true
+            relative_path: false
             theme: smoothness
             connector:
                 debug: false
                 roots:
                     uploads:
                         driver: Flysystem
-                        url: '%env(AWS_BASE1_URL)%'
+                        url: '%env(AWS_BASE2_URL)%'
                         flysystem: 
                             type: aws_s3_v3
                             options: 
@@ -19,7 +19,7 @@ fm_elfinder:
                                     key: '%env(AWS_KEY)%'
                                     secret: '%env(AWS_SECRET_KEY)%'
                                     region: eu-west-3
-                                    bucket_name: '%env(AWS_BUCKET1_NAME)%'
+                                    bucket_name: '%env(AWS_BUCKET2_NAME)%'
                                     version: latest
                         show_hidden: false
                         upload_allow: ['image/png','image/jpg','image/jpeg','image/webp','image/gif']
