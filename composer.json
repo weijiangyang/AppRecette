@@ -84,7 +84,7 @@
             "vendor/helios-ag/fm-elfinder-bundle/src/Configuration/ElFinderConfigurationReader.php"
         ],
         "files": [
-            "Overrides/ElFinderConfigurationReader.php"
+            "overrides/ElFinderConfigurationReader.php"
         ]
     },
     "replace": {
