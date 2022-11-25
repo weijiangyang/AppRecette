@@ -73,13 +73,19 @@
     "autoload": {
         "psr-4": {
             "App\\": "src/"
-        },
-        "classmap": ["src/Configuration/ElFinderConfigurationReader.php"]
+        }
+       
     },
     "autoload-dev": {
         "psr-4": {
             "App\\Tests\\": "tests/"
-        }
+        },
+        "exclude-from-classmap": [
+            "vendor/helios-ag/fm-elfinder-bundle/src/Configuration/ElFinderConfigurationReader.php"
+        ],
+        "files": [
+            "Overrides/ElFinderConfigurationReader.php"
+        ]
     },
     "replace": {
         "symfony/polyfill-ctype": "*",

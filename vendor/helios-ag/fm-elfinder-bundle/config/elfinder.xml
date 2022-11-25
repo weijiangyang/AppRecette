@@ -6,7 +6,7 @@
     <parameters>
         <parameter key="fm_elfinder.loader">FM\ElfinderBundle\Loader\ElFinderLoader</parameter>
         <parameter key="fm_elfinder.configurator">FM\ElfinderBundle\Configuration\ElFinderConfigurationReader</parameter>
-        <parameter key="fm_elfinder.configurator">FM\ElfinderBundle\Configuration\ElFinderConfigurationReader</parameter>
+        
     </parameters>
 
     <services>

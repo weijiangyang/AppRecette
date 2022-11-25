@@ -40,10 +40,7 @@ services:
                     key: '%env(AWS_KEY)%'
                     secret: '%env(AWS_SECRET_KEY)%'
     
-    # FM\ElfinderBundle\Configuration\ElFinderConfigurationReader: ~
-    # FM\ElfinderBundle\Configuration\ElFinderConfigurationReader:
-    #     class: App\Configuration\ElfinderConfigurationReaderNew
-
+   
    
    
         
