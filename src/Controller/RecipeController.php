@@ -42,6 +42,7 @@ class RecipeController extends AbstractController
     }
 
     #[Route('/recette/public/{id}', name: 'recette_index_public')]
+    #[IsGranted('ROLE_USER')]
     public function indexPublic(int $id,Request $request, PaginatorInterface $paginator, RecipeRepository $recipeRepository,CategoryRepository $categoryRepository): Response
     {   
         $category = $categoryRepository->find($id);
@@ -81,52 +82,64 @@ class RecipeController extends AbstractController
     }
 
     #[Route('/recette/{id}',name:'recipe_show', methods:['GET','POST'])]
-    #[Security("is_granted('ROLE_USER') and (recipe.IsIsPublic() === true || user === recipe.getUser())")]
+ 
     public function show(CommentRepository $commentRepository,Recipe $recipe,MarkRepository $markRepository,Request $request, EntityManagerInterface $em){
-        if(!$recipe){
-            return $this->redirectToRoute('app_index');
-        }
-
-        $comment = new Comment($recipe);
-        $formComment = $this->createForm(CommentType::class, $comment);
-        $comments = $commentRepository->findBy(['recipe'=>$recipe]);
-        $mark = new Mark;
-        $form = $this->createForm(MarkType::class, $mark);
-        if( $recipe->getUser()!== $this->getUser()){
-            
-            $form->handleRequest($request);
-            if ($form->isSubmitted() && $form->isValid()) {
-                $mark = new Mark;
-                $mark->setMark($form->getData()->getMark())
-                ->setUser($this->getUser())
-                ->setRecipe($recipe);
-                $existingMark = $markRepository->findOneBy([
-                    'user' => $this->getUser(),
-                    'recipe' => $recipe
-                ]);
-                if ($existingMark) {
-                    $em->remove($existingMark);
-                };
-                $em->persist($mark);
-                $em->flush();
-
-                $this->addFlash(
-                    'success',
-                    'Voter note a été bien compté'
-                );
-
-                return $this->redirectToRoute('recipe_show', [
-                    'id' => $recipe->getId()
-                ]);
+       if($recipe->isIsPublic() && $this->getUser() != null){
+            if (!$recipe) {
+                return $this->redirectToRoute('app_index');
             }
-        }
-        
-        return $this->render('pages/recipe/show.html.twig',[
-            'recipe'=> $recipe,
-            'form'=>$form->createView(),
-            'formComment'=>$formComment->createView(),
-            'comments'=> $comments
-        ]);
+
+            $comment = new Comment($recipe);
+            $formComment = $this->createForm(CommentType::class, $comment);
+            $comments = $commentRepository->findBy(['recipe' => $recipe]);
+            $mark = new Mark;
+            $form = $this->createForm(MarkType::class, $mark);
+            if ($recipe->getUser() !== $this->getUser()) {
+
+                $form->handleRequest($request);
+                if ($form->isSubmitted() && $form->isValid()) {
+                    $mark = new Mark;
+                    $mark->setMark($form->getData()->getMark())
+                        ->setUser($this->getUser())
+                        ->setRecipe($recipe);
+                    $existingMark = $markRepository->findOneBy([
+                        'user' => $this->getUser(),
+                        'recipe' => $recipe
+                    ]);
+                    if ($existingMark) {
+                        $em->remove($existingMark);
+                    };
+                    $em->persist($mark);
+                    $em->flush();
+
+                    $this->addFlash(
+                        'success',
+                        'Voter note a été bien compté'
+                    );
+
+                    return $this->redirectToRoute('recipe_show', [
+                        'id' => $recipe->getId()
+                    ]);
+                }
+            }
+// dd($form);
+            return $this->render('pages/recipe/show.html.twig', [
+                'recipe' => $recipe,
+                'form' => $form->createView(),
+                'formComment' => $formComment->createView(),
+                'comments' => $comments
+            ]);
+  
+       }elseif($recipe->isIsPublic() && $this->getUser() === null){
+            $comments = $commentRepository->findBy(['recipe' => $recipe]);
+            return $this->render('pages/recipe/show.html.twig', [
+                'recipe' => $recipe,
+               
+                
+                'comments' => $comments
+            ]);
+       }
+          return $this->redirectToRoute('app_index');
     }
     
 
@@ -168,6 +181,7 @@ class RecipeController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $recipe = $form->getData();
+            $recipe->setUpdatedAt(new \DateTimeImmutable());
             $em->persist($recipe);
             $em->flush();
             $this->addFlash(

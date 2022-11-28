@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
@@ -54,6 +55,7 @@ class UserController extends AbstractController
     }
 
     #[Route('utilisateur/show/{id}', name:'user_show')]
+    #[IsGranted('ROLE_USER')]
     public function show(User $user){
 
         return $this->render('pages/user/show.html.twig',[
@@ -71,22 +73,35 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             
             if ($hasher->isPasswordValid($chosenUser, $form->getData()['oldPlainPassword'])) {
-                if($form->getData()['plainPassword'] === $form->getData()['confirmation']){
-                    $chosenUser->setPlainPassword($form->getData()['plainPassword']);
-                    $chosenUser->setPassword($hasher->hashPassword($chosenUser,$chosenUser->getPlainPassword()));
-                    $em->persist($chosenUser);
-                    $em->flush();
+                if(
+                    $form->getData()['plainPassword'] === $form->getData()['confirmation'])
+                  {
+                    if (preg_match("^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$^", $form->getData()['plainPassword'])){
+                        $chosenUser->setPlainPassword($form->getData()['plainPassword']);
+                        $chosenUser->setPassword($hasher->hashPassword($chosenUser, $chosenUser->getPlainPassword()));
+                        $em->persist($chosenUser);
+                        $em->flush();
 
-                    $this->addFlash(
-                        'success',
-                        'Votre mot de passe a bien été modifié'
-                    );
+                        $this->addFlash(
+                            'success',
+                            'Votre mot de passe a bien été modifié'
+                        );
 
 
-                    return $this->redirectToRoute('user_show',[
-                        'id' => $chosenUser->getId()
-                    ]);
-                }else{
+                        return $this->redirectToRoute('user_show', [
+                            'id' => $chosenUser->getId()
+                        ]);
+                    }else{
+                        $this->addFlash(
+                            'warning',
+                            'Le mot de passe doit contenir au moins 8 caractères, avec au moins une lettre et un chiffre'
+                        );
+                    }
+
+                  } 
+                
+                   
+                else{
                     $this->addFlash(
                         'warning',
                         'Les mots de passe ne correspondent pas!'

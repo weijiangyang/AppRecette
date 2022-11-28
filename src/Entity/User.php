@@ -40,6 +40,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotNull()]
     private array $roles = [];
 
+
     private $plainPassword = null ;
     /**
      * @var string The hashed password

@@ -40,7 +40,7 @@ class IngredientController extends AbstractController
     }
 
     #[Route('/ingredient/{id}', name: 'ingredient_show', methods: ['GET', 'POST'])]
-    #[IsGranted('ROLE_USER')]
+  
     public function show(Ingredient $ingredient)
     {
         if (!$ingredient) {
@@ -169,6 +169,7 @@ class IngredientController extends AbstractController
             if ($ingredientsNames) {
                 if (!in_array($ingredient->getName(), $ingredientsNames)) {
                     $ingredient->setUser($this->getUser());
+                    $ingredient->setUpdatedAt(new \DateTimeImmutable());
                     $em->persist($ingredient);
                     $em->flush();
                     $this->addFlash(

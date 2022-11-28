@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b412c9903a3f00d2b78bf8379d9dda75",
+    "content-hash": "97194a9d22deb68382cd256d01ea428d",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -2582,7 +2582,6 @@
             "autoload": {
                 "psr-4": {
                     "FM\\ElfinderBundle\\": "src/"
-            
                 }
             },
             "notification-url": "https://packagist.org/downloads/",

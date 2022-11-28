@@ -93,6 +93,7 @@ class Recipe
     {
         $this->ingredients = new ArrayCollection();
         $this->createdAt = new \DateTimeImmutable();
+     
         $this->marks = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->categories = new ArrayCollection();

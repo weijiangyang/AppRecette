@@ -45,13 +45,13 @@ class UserType extends AbstractType
             ->add('plainPassword', PasswordType::class, [
                 'attr' => [
                     'class' => 'form-control',
-
+                
                 ],
                 'label' => 'Mot de passe',
                 'label_attr' => [
                     'class' => 'form-label  mt-4',
-                ]
-
+                ],
+                
             ])
             
             ->add('submit', SubmitType::class, [
