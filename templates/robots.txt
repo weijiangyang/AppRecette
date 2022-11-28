@@ -1,0 +1,23 @@
+User-agent: *
+
+Disallow: /confidentialite
+
+Disallow: /connexion
+
+Disallow: /inscription
+
+Disallow: /utilisateur/
+
+Disallow: /admin
+
+Noindex: /confidentialite
+
+Noindex: /connexion
+
+Noindex: /inscription
+
+Noindex: /utilisateur/
+
+Noindex: /admin
+
+Sitemap: https://apprecette-symfony.herokuapp.com/sitemap.xml
