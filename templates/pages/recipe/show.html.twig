@@ -1,4 +1,9 @@
+
 {% extends "base.html.twig" %}
+{% block metades %}
+    <meta name="description" content="les détails , les commentaires et la note de la recette : {{ recipe.name }} ">
+{% endblock %}
+ 
 {% block title %}
     AppRecette - recette {{ recipe.name }}
 {% endblock %}
@@ -6,7 +11,7 @@
     {{ parent() }}
 <style>
     body{
-            background-image:url('{{app.request.getSchemeAndHttpHost() ~ "/images/table7.jpg" }}')
+            background-image:url('https://myrecette.s3.eu-west-3.amazonaws.com/images-background/table7.jpg')
         }
     
 
@@ -29,7 +34,7 @@
             {% if recipe.imageName %}
                 <img style = "max-width:100%" src="{{ vich_uploader_asset(recipe, 'imageFile') }}" alt = '{{ 'image de recette ' ~ recipe.name }}'>
             {% else %}
-                <img style = "max-width:300px ; height: 350px" src="{{ asset('images/no-recette.jpg') }}" alt = '{{ 'image de recette ' ~ recipe.name }}'>
+                <img style = "max-width:300px ; height: 350px" src="https://myrecette.s3.eu-west-3.amazonaws.com/images-background/no-recette.jpg" alt = '{{ 'image de recette ' ~ recipe.name }}'>
             {% endif %}
             <p class="text-warning fst-italic mt-2">created at {{ recipe.createdAt | date('d/m/Y') }} by <a href="{{ path('user_show',{'id': recipe.user.id}) }}">{{ recipe.user.fullName }}</a></p> 
             <p>La moyenne de cette recette : <strong>{{ recipe.average| number_format(2, '.', ',') }}/5</strong></p>      

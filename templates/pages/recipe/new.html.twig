@@ -1,4 +1,7 @@
 {% extends "base.html.twig" %}
+{% block metades %}
+    <meta name="description" content="la création  d'une recette sur l'appRecette par vous-même">
+{% endblock %}
 {% block title %}
     Création d'une recette
 {% endblock %}
@@ -6,7 +9,7 @@
     {{ parent()}}
     <style>
         body{
-             background-image:url('{{app.request.getSchemeAndHttpHost() ~ "/images/table10.jpg" }}')
+             background-image:url('https://myrecette.s3.eu-west-3.amazonaws.com/images-background/table10.jpg')
         }
     
     </style>

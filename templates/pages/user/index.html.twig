@@ -1,5 +1,8 @@
 {% extends 'base.html.twig' %}
-
+{% block metades %}
+    <meta name="description" content="Modification du profile de {{ app.user.fullName }} sur l'appRecette">
+    
+{% endblock %}
 {% block title %}AppRecette - Modification du profile de {{ app.user.fullName }}{% endblock %}
 {% block stylesheets %}
     {{ parent() }}

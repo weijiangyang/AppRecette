@@ -1,4 +1,8 @@
 {% extends "base.html.twig" %}
+{% block metades %}
+    <meta name="description" content="la modification de mon ingrédient : {{ ingredient.name }}">
+    
+{% endblock %}
 {% block title %}
     AppRecette - Modification de l'ingredient {{ ingredient.name }}
 {% endblock %}
@@ -7,7 +11,7 @@
     {{ parent() }}
 <style>
     body{
-             background-image:url('{{app.request.getSchemeAndHttpHost() ~ "/images/table7.jpg" }}')
+             background-image:url('https://myrecette.s3.eu-west-3.amazonaws.com/images-background/table7.jpg')
         }
     img{
         max-width: 80%;

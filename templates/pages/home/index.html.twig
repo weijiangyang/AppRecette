@@ -1,17 +1,9 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}AppRecette - Accueil{% endblock %}
-{% block stylesheets %}
-{{ parent()}}
-<style>
-    .active1{
-        color:red;
-        scale:1.2
-    }
-</style>
-    
+{% block metades %}
+    <meta name="description" content="une application qui vous permet de créer des recettes à base d'ingrédients que vous aurez vous-même créer. Vous pourrez partager votres recettes à la communité du site , ou bien les garder en privée">
 {% endblock %}
 
+{% block title %}AppRecette - Accueil{% endblock %}
 
 {% block body %}
     <div class="container">
@@ -28,7 +20,7 @@
                 Pour mieux commprendre comment utiliser cette application, <a href="" class="fw-bold fst-italic">Cliquez ici </a>
             </p>
             
-            <img style = "width:100%;max-height:300px;object-fit: cover" src="{{ asset('images/bannier.jpg') }}" alt="image bannier de application recettes">
+            <img style = "width:100%;max-height:300px;object-fit: cover" src="https://myrecette.s3.eu-west-3.amazonaws.com/images-background/bannier.jpg" alt="image bannier de application recettes">
             <h2 style="position:relative; top:-220px;left:10px;color: white; font-family:courgette">La gastronomie est l'art d'utiliser<br> la nourriture pour créer un bonheur.</h2>
             
             <h3 class="text-center  fw-bold" style="font-family:courgette; color:orangered">Recettes recentes</h3>

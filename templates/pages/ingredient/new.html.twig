@@ -1,10 +1,14 @@
 {% extends "base.html.twig" %}
+{% block metades %}
+    <meta name="description" content="la création d'une ingrédient sur l'appRecette">
+    
+{% endblock %}
 {% block title %}AppRecette - Création d'une ingrédient {% endblock %}
 {% block stylesheets %}
     {{ parent()}}
     <style>
         body{
-            background-image:url('{{app.request.getSchemeAndHttpHost() ~ "/images/table10.jpg" }}')
+            background-image:url('https://myrecette.s3.eu-west-3.amazonaws.com/images-background/table10.jpg')
         }
     
     </style>

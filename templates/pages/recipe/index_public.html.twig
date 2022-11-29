@@ -1,11 +1,13 @@
 {% extends 'base.html.twig' %}
-
+  {% block metades %}
+    <meta name="description" content="la communauté de recettes publiques selon leurs catégories chinoise ou française sur l'appRecette">
+  {% endblock %}
 {% block title %} AppRecette - recettes-public{% endblock %}
 {% block stylesheets %}
     {{ parent() }}
 <style>
     body{
-             background-image:url('{{app.request.getSchemeAndHttpHost() ~ "/images/wall.jpg" }}')
+             background-image:url('https://myrecette.s3.eu-west-3.amazonaws.com/images-background/wall.jpg')
         }
 
 </style>

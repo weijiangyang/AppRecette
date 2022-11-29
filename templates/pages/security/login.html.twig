@@ -1,4 +1,8 @@
 {% extends 'base.html.twig' %}
+{% block metades %}
+    <meta name="description" content="connectez vous sur l'appRecette pour créer vos propres recettes et les partager avec les autres ou les garder pour vous-même">
+    
+{% endblock %}
 
 {% block title %}AppRecette - Connexion{% endblock %}
 
@@ -6,7 +10,7 @@
     {{ parent() }}
 <style>
     body{
-            background-image:url('{{app.request.getSchemeAndHttpHost() ~ "/images/wall.jpg" }}')
+            background-image:url('https://myrecette.s3.eu-west-3.amazonaws.com/images-background/wall.jpg')
         }
 
 </style>

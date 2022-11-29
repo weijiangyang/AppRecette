@@ -4,7 +4,10 @@
         <meta charset="UTF-8">
         <meta name="viewport" content= "width=device-width, initial-scale=1.0">
         <title>{% block title %}Bienvenu sur AppRecette !{% endblock %}</title>
-        <meta name="description" content="une application qui vous permet de créer des recettes à base d'ingrédients que vous aurez vous-même créer. Vous pourrez partager votres recettes à la communité du site , ou bien les garder en privée">
+        {% block metades %}
+             <meta name="description" content="une application qui vous permet de créer des recettes à base d'ingrédients que vous aurez vous-même créer. Vous pourrez partager votres recettes à la communité du site , ou bien les garder en privée">
+        {% endblock %}
+       
         <meta name="google-site-verification" content="ZurXNfQBRYSVuQzzj5KD0crB9dX-7Fb-cMGWIQQXOxk" />
         <meta property="og:locale" content="fr">
         <meta property="og:site_name" content="apprecette">
@@ -12,7 +15,7 @@
         <meta name="classification" content=" recettes collectionner et partager">
         <meta property="og:title" content="Recettes chinois et français collectionnés et partagés">
         <meta property="og:image" content="https://apprecette-symfony.herokuapp.com/images/bannier.jpg">
-
+        <link rel="icon" type="image/x-icon" href="https://myrecette.s3.eu-west-3.amazonaws.com/favicon.ico" >
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
         {% block stylesheets %}
          
