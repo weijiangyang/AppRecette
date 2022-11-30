@@ -32,4 +32,10 @@ class HomeController extends AbstractController
     {
         return $this->render('mentions-legales.html.twig');
     }
+
+    #[Route('/mode-emploi', name: 'app_mode_emploi', methods: ['GET'])]
+    public function modeEmploi()
+    {
+        return $this->render('mode-emploi.html.twig');
+    }
 }
