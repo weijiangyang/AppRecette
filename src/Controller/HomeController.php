@@ -26,4 +26,10 @@ class HomeController extends AbstractController
     public function confidentialite(){
         return $this->render('politiques-confidentiality.html.twig');
     }
+
+    #[Route('/mentionsLegales', name: 'app_mentions', methods: ['GET'])]
+    public function mentions()
+    {
+        return $this->render('mentions-legales.html.twig');
+    }
 }
