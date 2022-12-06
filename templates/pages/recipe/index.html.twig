@@ -73,9 +73,9 @@
                             <td class="{{ recipe.isPublic ? 'text-primary' : 'text-danger' }}">{{ recipe.isPublic ? 'public':'privée' }}</td>
                             <td>{{ recipe.difficulty is same as null ? 'Non renseigné':recipe.difficulty~'/5' }}</td>
                             <td>{{ recipe.createdAt | date('d/m/Y')}}</td>
-                            <td><a href="{{ path('recipe_show',{ 'id':recipe.id })}}" class="btn btn-primary btn-sm"><i class="fa-solid fa-eye"></i></a></td>
-                            <td><a href="{{ path('recipe_edit',{ 'id':recipe.id })}}" class="btn btn-info btn-sm"><i class="fa-solid fa-pen-to-square"></i></a></td>
-                            <td><a href="{{ path('recipe_delete',{ 'id':recipe.id })}}" class="btn btn-warning btn-sm"><i class="fa-solid fa-trash"></i></a></td>
+                            <td><a href="{{ path('recipe_show',{'slug':recipe.slug}) }}" class="btn btn-primary btn-sm"><i class="fa-solid fa-eye"></i></a></td>
+                            <td><a href="{{ path('recipe_edit',{ 'slug':recipe.slug })}}" class="btn btn-info btn-sm"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                            <td><a href="{{ path('recipe_delete',{ 'slug':recipe.slug })}}" class="btn btn-warning btn-sm"><i class="fa-solid fa-trash"></i></a></td>
                         </tr>
                     {% endfor %}
                 </tbody>

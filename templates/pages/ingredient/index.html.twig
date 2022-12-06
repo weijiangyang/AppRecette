@@ -59,9 +59,9 @@
                             <td>{{ ingredient.unit }} </td>
                             <td style="text-align:center"><img style = "max-width:75px; height:50px" src="{{ vich_uploader_asset(ingredient, 'imageFile') }}"></td>
                             <td>{{ ingredient.createdAt | date('d/m/Y')}}</td>
-                            <td><a href="{{ path('ingredient_show',{ 'id':ingredient.id })}}" class="btn btn-primary btn-sm"><i class="fa-solid fa-eye"></i></a></td>
-                            <td><a href="{{ path('ingredient_edit',{ 'id':ingredient.id }) }}" class="btn btn-info btn-sm"><i class="fa-solid fa-pen-to-square"></i></a></td>
-                            <td><a href="{{ path('ingredient_delete',{ 'id':ingredient.id }) }}" class="btn btn-warning btn-sm"><i class="fa-solid fa-trash"></i></a></td>
+                            <td><a href="{{ path('ingredient_show',{ 'slug':ingredient.slug })}}" class="btn btn-primary btn-sm"><i class="fa-solid fa-eye"></i></a></td>
+                            <td><a href="{{ path('ingredient_edit',{ 'slug':ingredient.slug }) }}" class="btn btn-info btn-sm"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                            <td><a href="{{ path('ingredient_delete',{ 'slug':ingredient.slug }) }}" class="btn btn-warning btn-sm"><i class="fa-solid fa-trash"></i></a></td>
                         </tr>
                     {% endfor %}
                 </tbody>

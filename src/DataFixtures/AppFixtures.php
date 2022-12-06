@@ -10,6 +10,7 @@ use App\Entity\Recipe;
 use App\Entity\Contact;
 use App\Entity\Category;
 use App\Entity\Ingredient;
+use Cocur\Slugify\Slugify;
 use App\Repository\CategoryRepository;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -54,6 +55,7 @@ class AppFixtures extends Fixture
                 ->setPrice(mt_rand(0, 1) === 1 ? mt_rand(1, 150) : 0)
                 ->setUser($users[mt_rand(0, count($users) - 1)])
                 ->setUnit($this->faker->word())
+                ->setSlug((new Slugify())->slugify($ingredient->getName()) . '-' . uniqid())
                 ->setImageName(null);
             $manager->persist($ingredient);
             $ingredients[] = $ingredient;
@@ -85,7 +87,7 @@ class AppFixtures extends Fixture
                 ->setPrice(mt_rand(0, 1) === 1 ? mt_rand(1, 1000) : null)
                 ->setIsFavorite(mt_rand(0, 1) == 1 ? true : false)
                 ->setIsPublic(true)
-                
+                ->setSlug((new Slugify())->slugify($recipe->getName()) . '-' . uniqid())
                 ->setUser($users[mt_rand(0, count($users) - 1)]);
 
             for ($k = 0; $k < mt_rand(5, 15); $k++) {

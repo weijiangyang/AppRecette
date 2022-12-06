@@ -88,6 +88,9 @@ class Recipe
 
     #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'recipes')]
     private ?Collection $categories;
+
+    #[ORM\Column(length: 255)]
+    private ?string $slug = null;
     
     public function __construct()
     {
@@ -400,5 +403,17 @@ class Recipe
         return $this;
     }
 
-   
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+       
 }

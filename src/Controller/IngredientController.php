@@ -3,12 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Ingredient;
+use Cocur\Slugify\Slugify;
 use App\Form\IngredientType;
 use App\Repository\IngredientRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
-use Symfony\Component\HttpFoundation\Request;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -39,16 +40,15 @@ class IngredientController extends AbstractController
         ]);
     }
 
-    #[Route('/ingredient/{id}', name: 'ingredient_show', methods: ['GET', 'POST'])]
+    #[Route('/ingredient/{slug}', name: 'ingredient_show', methods: ['GET', 'POST'])]
   
-    public function show(Ingredient $ingredient)
+    public function show(String $slug,IngredientRepository $ingredientRepository)
     {
+        $ingredient = $ingredientRepository->findOneBy(['slug' => $slug]);
         if (!$ingredient) {
             return $this->redirectToRoute('app_index');
         }
-
-         
-                
+    
 
         return $this->render('pages/ingredient/show.html.twig', [
            'ingredient'=> $ingredient
@@ -83,6 +83,7 @@ class IngredientController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $ingredient = $form->getData();
+            $ingredient->setSlug((new Slugify())->slugify($ingredient->getName()) . '-' . uniqid());
             if($ingredientsNames){
                 if (!in_array($ingredient->getName(), $ingredientsNames)) {
                     $ingredient->setUser($this->getUser());
@@ -135,41 +136,68 @@ class IngredientController extends AbstractController
      * @param IngredientRepository $ingredientRepository
      * @return void
      */
-    #[Route('/ingredient/edit/{id}', name: 'ingredient_edit', methods: ['GET', 'POST'])]
-    #[Security("is_granted('ROLE_USER') and user === ingredient.getUser()")]
-    public function edit(Request $request, EntityManagerInterface $em, Ingredient $ingredient, IngredientRepository $ingredientRepository){
+    #[Route('/ingredient/edit/{slug}', name: 'ingredient_edit', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_USER')]
+    public function edit(Request $request, EntityManagerInterface $em, String $slug, IngredientRepository $ingredientRepository){
         
-
-        $form = $this->createForm(IngredientType::class,$ingredient);
-        $form->handleRequest($request);
-
-        $ingredientsParUser = $ingredientRepository->findBy([
-            'user' => $this->getUser(),
-           
-        ]);
-
-        $sizeArray = count($ingredientsParUser);
-
-        for($i = 0 ; $i < $sizeArray ; $i++){
-            if($ingredientsParUser[$i] == $ingredient){
-                unset($ingredientsParUser[$i]);
-            }
+        $ingredient = $ingredientRepository->findOneBy(['slug' => $slug]);
+        if (!$ingredient) {
+            $this->addFlash(
+                'warning',
+                'L\'ingrédient en question n\'existe pas!'
+            );
+            return $this->redirectToRoute('app_index');
         }
+        if($ingredient->getUser() === $this->getUser()){
+            $form = $this->createForm(IngredientType::class, $ingredient);
+            $form->handleRequest($request);
 
-        $ingredientsNames = [];
-        if ($ingredientsParUser) {
-            foreach ($ingredientsParUser as $ingredientParUser) {
-                $ingredientsNames[] = $ingredientParUser->getName();
+            $ingredientsParUser = $ingredientRepository->findBy([
+                'user' => $this->getUser(),
+
+            ]);
+
+            $sizeArray = count($ingredientsParUser);
+
+            for ($i = 0; $i < $sizeArray; $i++) {
+                if ($ingredientsParUser[$i] == $ingredient) {
+                    unset($ingredientsParUser[$i]);
+                }
             }
-        }
+
+            $ingredientsNames = [];
+            if ($ingredientsParUser) {
+                foreach ($ingredientsParUser as $ingredientParUser) {
+                    $ingredientsNames[] = $ingredientParUser->getName();
+                }
+            }
 
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $ingredient = $form->getData();
-            if ($ingredientsNames) {
-                if (!in_array($ingredient->getName(), $ingredientsNames)) {
+            if ($form->isSubmitted() && $form->isValid()) {
+                $ingredient = $form->getData();
+                if ($ingredientsNames) {
+                    if (!in_array($ingredient->getName(), $ingredientsNames)) {
+                        $ingredient->setUser($this->getUser());
+                        $ingredient->setUpdatedAt(new \DateTimeImmutable());
+                        $ingredient->setSlug((new Slugify())->slugify($ingredient->getName()) . '-' . uniqid());
+                        $em->persist($ingredient);
+                        $em->flush();
+                        $this->addFlash(
+                            'success',
+                            'Votre ingrédient a bien été modifié avec succès!'
+                        );
+
+                        return $this->redirectToRoute('ingredient_index', [
+                            'error' => null
+                        ]);
+                    } else {
+                        return $this->render('pages/ingredient/new.html.twig', [
+                            'form' => $form->createView(),
+                            'error' => 'le nom de cette ingredient a déjà existé . '
+                        ]);
+                    }
+                } else {
                     $ingredient->setUser($this->getUser());
-                    $ingredient->setUpdatedAt(new \DateTimeImmutable());
                     $em->persist($ingredient);
                     $em->flush();
                     $this->addFlash(
@@ -177,31 +205,20 @@ class IngredientController extends AbstractController
                         'Votre ingrédient a bien été modifié avec succès!'
                     );
 
-                    return $this->redirectToRoute('ingredient_index', [
-                        'error' => null
-                    ]);
-                } else {
-                    return $this->render('pages/ingredient/new.html.twig', [
-                        'form' => $form->createView(),
-                        'error' => 'le nom de cette ingredient a déjà existé . '
-                    ]);
+                    return $this->redirectToRoute('ingredient_index', []);
                 }
-            } else {
-                $ingredient->setUser($this->getUser());
-                $em->persist($ingredient);
-                $em->flush();
-                $this->addFlash(
-                    'success',
-                    'Votre ingrédient a bien été modifié avec succès!'
-                );
-
-                return $this->redirectToRoute('ingredient_index', []);
             }
+            return $this->render('pages/ingredient/edit.html.twig', [
+                'form' => $form->createView(),
+                'ingredient' => $ingredient
+            ]);
         }
-        return $this->render('pages/ingredient/edit.html.twig',[
-            'form' => $form->createView(),
-            'ingredient'=>$ingredient
-        ]);
+        $this->addFlash(
+            'warning',
+            'Vous n\'avez pas le droit de modifier cette ingrédient! '
+        );
+      return $this->redirectToRoute('app_index');
+       
     }
    
     /**
@@ -210,10 +227,11 @@ class IngredientController extends AbstractController
      * @param Ingredient $ingredient
      * @return void
      */
-    #[Route('ingredient/supprimer/{id}', name:'ingredient_delete', methods:['GET','POST'])]
-    #[Security( "is_granted('ROLE_USER') and user === ingredient.getUser()" )]
-    public function delete(EntityManagerInterface $em, Ingredient $ingredient){
+    #[Route('ingredient/supprimer/{slug}', name:'ingredient_delete', methods:['GET','POST'])]
+    #[IsGranted('ROLE_USER')]
+    public function delete(String $slug,EntityManagerInterface $em, IngredientRepository $ingredientRepository){
 
+        $ingredient = $ingredientRepository -> findOneBy(['slug' => $slug]);
         if(!$ingredient){
             $this->addFlash(
                 'warning',
@@ -221,15 +239,25 @@ class IngredientController extends AbstractController
             );
             return $this->redirectToRoute('ingredient_index');
         }
-        $em->remove($ingredient);
-        $em->flush();
+    if($ingredient -> getUser() === $this -> getUser()){
+            $em->remove($ingredient);
+            $em->flush();
+
+            $this->addFlash(
+                'success',
+                'Vous avez bien supprimé un ingrédient avec succès ! '
+            );
+
+            return $this->redirectToRoute('ingredient_index');
+    }
 
         $this->addFlash(
-            'success',
-            'Vous avez bien supprimé un ingrédient avec succès ! '
+            'warning',
+            'Vous n\'avez pas le droit de supprimer cette ingrédient! '
         );
+        return $this->redirectToRoute('app_index');
 
-        return $this->redirectToRoute('ingredient_index');
+        
 
     }
 }

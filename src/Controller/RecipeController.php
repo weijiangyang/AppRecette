@@ -10,10 +10,11 @@ use App\Form\RecipeType;
 use App\Entity\SearchBar;
 use App\Form\ChercheType;
 use App\Form\CommentType;
-use App\Repository\CategoryRepository;
+use Cocur\Slugify\Slugify;
 use App\Repository\MarkRepository;
 use App\Repository\RecipeRepository;
 use App\Repository\CommentRepository;
+use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -81,13 +82,18 @@ class RecipeController extends AbstractController
         
     }
 
-    #[Route('/recette/{id}',name:'recipe_show', methods:['GET','POST'])]
- 
-    public function show(CommentRepository $commentRepository,Recipe $recipe,MarkRepository $markRepository,Request $request, EntityManagerInterface $em){
-       if($recipe->isIsPublic() && $this->getUser() != null){
-            if (!$recipe) {
-                return $this->redirectToRoute('app_index');
-            }
+    #[Route('/recette/{slug}',name:'recipe_show', methods:['GET','POST'])]
+    public function show(String $slug,CommentRepository $commentRepository,RecipeRepository $recipeRepository,MarkRepository $markRepository,Request $request, EntityManagerInterface $em){
+        $recipe = $recipeRepository->findOneBy(['slug' => $slug]);
+        if (!$recipe) {
+            $this->addFlash(
+                'warning',
+                'La recette en question n\'existe pas'
+            );
+            return $this->redirectToRoute('recipe_index');
+        }
+        if($recipe->isIsPublic() && $this->getUser() != null || !$recipe->isIsPublic() && $recipe->getUser() === $this->getUser()){
+           
 
             $comment = new Comment($recipe);
             $formComment = $this->createForm(CommentType::class, $comment);
@@ -118,7 +124,7 @@ class RecipeController extends AbstractController
                     );
 
                     return $this->redirectToRoute('recipe_show', [
-                        'id' => $recipe->getId()
+                        'slug' => $recipe->getSlug()
                     ]);
                 }
             }
@@ -143,7 +149,7 @@ class RecipeController extends AbstractController
     }
     
 
-    #[Route('recette/nouveau',name:'recipe_new' ,methods:['GET','POST'], priority:1)]
+    #[Route('/recette/nouveau',name:'recipe_new' ,methods:['GET','POST'], priority:1)]
     #[IsGranted('ROLE_USER')]
     public function new(Request $request, EntityManagerInterface $em){
        $recipe = new Recipe;
@@ -153,6 +159,7 @@ class RecipeController extends AbstractController
        if($form->isSubmitted() && $form->isValid()){
             $recipe = $form->getData();
             $recipe->setUser($this->getUser());
+            $recipe->setSlug((new Slugify())->slugify($recipe->getName()).'-'.uniqid());
             $em->persist($recipe);
             $em->flush();
 
@@ -162,7 +169,7 @@ class RecipeController extends AbstractController
             );
 
             return $this->redirectToRoute('recipe_show',[
-                'id'=>$recipe->getId()
+                'slug'=>$recipe->getSlug()
             ]);
        }
 
@@ -171,38 +178,12 @@ class RecipeController extends AbstractController
         ]);
     }
 
-    #[Route('/recette/edit/{id}', name: 'recipe_edit', methods: ['GET', 'POST'])]
-    #[Security("is_granted('ROLE_USER') and user === recipe.getUser()")]
-    public function edit(Request $request, EntityManagerInterface $em, Recipe $recipe)
+    #[Route('/recette/edit/{slug}', name: 'recipe_edit', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_USER')]
+    public function edit(String $slug,Request $request, EntityManagerInterface $em, RecipeRepository $recipeRepository)
     {
 
-
-        $form = $this->createForm(RecipeType::class, $recipe);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $recipe = $form->getData();
-            $recipe->setUpdatedAt(new \DateTimeImmutable());
-            $em->persist($recipe);
-            $em->flush();
-            $this->addFlash(
-                'success',
-                'Vous avez bien modifié la recette avec succès !'
-            );
-            return $this->redirectToRoute('recipe_show',[
-                'id'=>$recipe->getId()
-            ]);
-        }
-        return $this->render('pages/recipe/edit.html.twig', [
-            'form' => $form->createView(),
-            'recipe' => $recipe
-        ]);
-    }
-
-    #[Route('recipe/supprimer/{id}', name: 'recipe_delete', methods: ['GET', 'POST'])]
-    #[Security("is_granted('ROLE_USER') and user === recipe.getUser()")]
-    public function delete( EntityManagerInterface $em, Recipe $recipe)
-    {
-       
+        $recipe = $recipeRepository->findOneBy(['slug' => $slug]);
         if (!$recipe) {
             $this->addFlash(
                 'warning',
@@ -210,14 +191,62 @@ class RecipeController extends AbstractController
             );
             return $this->redirectToRoute('recipe_index');
         }
-        $em->remove($recipe);
-        $em->flush();
-
+        if($recipe->getUser() === $this->getUser()){
+            $form = $this->createForm(RecipeType::class, $recipe);
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $recipe = $form->getData();
+                $recipe->setUpdatedAt(new \DateTimeImmutable());
+                $recipe->setSlug((new Slugify())->slugify($recipe->getName()) . '-' . uniqid());
+                $em->persist($recipe);
+                $em->flush();
+                $this->addFlash(
+                    'success',
+                    'Vous avez bien modifié la recette avec succès !'
+                );
+                return $this->redirectToRoute('recipe_show', [
+                    'slug' => $recipe->getSlug()
+                ]);
+            }
+            return $this->render('pages/recipe/edit.html.twig', [
+                'form' => $form->createView(),
+                'recipe' => $recipe
+            ]);
+        }
         $this->addFlash(
-            'success',
-            'Vous avez bien supprimé la recette avec succès ! '
+            'warning',
+            'Vous avez pas le droit de modifier cette recette!'
         );
+        return $this->redirectToRoute('app_index');
+       
+    }
 
-        return $this->redirectToRoute('recipe_index');
+    #[Route('recipe/supprimer/{slug}', name: 'recipe_delete', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_USER')]
+    public function delete( String $slug,EntityManagerInterface $em, RecipeRepository $recipeRepository)
+    {
+       $recipe = $recipeRepository->findOneBy(['slug' => $slug]);
+
+        if (!$recipe) {
+            $this->addFlash(
+                'warning',
+                'La recette en question n\'existe pas'
+            );
+            return $this->redirectToRoute('recipe_index');
+        }
+        if ($recipe->getUser() === $this->getUser()) {
+            $em->remove($recipe);
+            $em->flush();
+
+            $this->addFlash(
+                'success',
+                'Vous avez bien supprimé la recette avec succès ! '
+            );
+
+            return $this->redirectToRoute('recipe_index');
+        }
+
+        return $this->redirectToRoute('app_index');
+        
     }
 }

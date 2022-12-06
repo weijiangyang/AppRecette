@@ -11,11 +11,17 @@
         <div class="jumbotron mt-4">
             <h1 class="display-4 " style="font-family:courgette; color:chocolate">Bienvenu sur AppRecette 📝 </h1>
             {% for message in app.flashes('success') %}
-            <div class="alert alert-success">
-                 {{ message }}
-            </div>
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
            
-        {% endfor %}
+            {% endfor %}
+            {% for message in app.flashes('warning') %}
+                <div class="alert alert-warning">
+                    {{ message }}
+                </div>
+           
+            {% endfor %}
             <p class="lead">AppRecette est une application qui vous permet de créer des recettes à base d'ingrédients que vous aurez vous-même créer. Vous pourrez partager votres recettes à la communité du site , ou bien les garder en privée. 
                 Pour mieux commprendre comment utiliser cette application, <a href="{{ path('app_mode_emploi') }}" class="fw-bold fst-italic">Cliquez ici </a>
             </p>
@@ -28,7 +34,7 @@
                 {% for recipe in recipesRecentes %}
                     <div class="card border-primary mb-3 mx-3" style="width:30%; height:340px;min-width:250px">
                         <div class="card-header text-center" style = "height:50px" >
-                            <a class='text-decoration-none text-truncate fw-bold' style='color:blue;display:inline-block;max-width:80%' href="{{ path('recipe_show',{'id':recipe.id}) }}">{{ recipe.name | capitalize }}</a>
+                            <a class='text-decoration-none text-truncate fw-bold' style='color:blue;display:inline-block;max-width:80%' href="{{ path('recipe_show',{'slug':recipe.slug}) }}">{{ recipe.name | capitalize }}</a>
                         </div>
                         <div class="card-body p-0">
                             {% if recipe.imageName %}
@@ -38,7 +44,7 @@
                             {% endif %}
                         </div>
                         <div class=" d-flex justify-content-around align-items-center flex-wrap"> 
-                            <a class=' text-decoration-none badge' style="font-size:1rem ; background-color:green" href="{{ path('recipe_show',{'id':recipe.id})}}">Details</a>
+                            <a class=' text-decoration-none badge' style="font-size:1rem ; background-color:green" href="{{ path('recipe_show',{'slug':recipe.slug})}}">Details</a>
                             {% include "partials/_stars.html.twig" %}
                         </div>
                     </div>    
@@ -49,7 +55,7 @@
                 {% for recipe in recipesNotes %}
                     <div class="card border-primary mb-3 mx-3" style="width:30%; height:340px;min-width:250px">
                         <div class="card-header text-center" style = "height:50px" >
-                            <a class='text-decoration-none text-truncate fw-bold' style='color:blue;display:inline-block;max-width:80%' href="{{ path('recipe_show',{'id':recipe.id}) }}">{{ recipe.name | capitalize }}</a>
+                            <a class='text-decoration-none text-truncate fw-bold' style='color:blue;display:inline-block;max-width:80%' href="{{ path('recipe_show',{'slug':recipe.slug}) }}">{{ recipe.name | capitalize }}</a>
                         </div>
                         <div class="card-body p-0">
                             {% if recipe.imageName %}
@@ -59,7 +65,7 @@
                             {% endif %}
                         </div>
                         <div class=" d-flex justify-content-around align-items-center flex-wrap">
-                            <a class=' text-decoration-none badge' style="font-size:1rem ; background-color: green" href="{{ path('recipe_show',{'id':recipe.id}) }}" > Details </a>
+                            <a class=' text-decoration-none badge' style="font-size:1rem ; background-color: green" href="{{ path('recipe_show',{'slug':recipe.slug}) }}" > Details </a>
                             {% include "partials/_stars.html.twig" %}
                         </div>
                     </div>    
