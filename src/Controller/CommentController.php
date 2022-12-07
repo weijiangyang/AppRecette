@@ -62,6 +62,7 @@ class CommentController extends AbstractController
     #[Route('/comment/supprimer/{id}', name:'comment_delete',methods:['GET','POST'])]
     #[Security("is_granted('ROLE_USER') and  user === comment.getUser()")]
     public function delete(Comment $comment, EntityManagerInterface $em){
+       
         $em->remove($comment);
         $em->flush();
         $this->addFlash(
@@ -70,7 +71,7 @@ class CommentController extends AbstractController
         );
 
         return $this->redirectToRoute('recipe_show',[
-            'id'=> $comment->getRecipe()->getId()
+            'slug'=> $comment->getRecipe()->getSlug()
         ]);
     }
 }
