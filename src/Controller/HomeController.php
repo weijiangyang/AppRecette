@@ -14,14 +14,18 @@ class HomeController extends AbstractController
     #[Route('/', name: 'app_index',methods:['GET'])]
     public function index(RecipeRepository $recipeRepository, RecipeService $recipeService): Response
     {
+        // les recettes plus recentes
         $recipesRecentes = $recipeRepository->findPublicRecipe(3,null);
-      
+
+        // les recettes avec les notes meilleurs
         $recipesNotes = $recipeService->getRecipesNotes(3);
-            return $this->render('pages/home/index.html.twig', [
-                'recipesRecentes' => $recipesRecentes,
-                'recipesNotes'=>$recipesNotes
-            ]);
-        }
+
+        return $this->render('pages/home/index.html.twig', [
+            'recipesRecentes' => $recipesRecentes,
+            'recipesNotes'=>$recipesNotes
+        ]);
+    }
+    
     #[Route('/confidentialite', name:'app_confientialite', methods: ['GET'])]
     public function confidentialite(){
         return $this->render('politiques-confidentiality.html.twig');

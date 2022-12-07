@@ -51,9 +51,6 @@ class RecipeController extends AbstractController
         $form = $this->createForm(ChercheType::class,$searchBar);
         $form->handleRequest($request);
         $searchContent = $form->getData()->getContent();
-        
-        
-         
             if (!$form->isSubmitted()){
           
                 $recipes = $paginator->paginate(

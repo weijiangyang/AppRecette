@@ -55,23 +55,21 @@ class RecipeRepository extends ServiceEntityRepository
                 ->orderBy('r.createdAt', 'DESC');
        }
             
-            if ($nbRecipes !== 0 && $nbRecipes !== null) {
-                $query->setMaxResults($nbRecipes);
-            }
+        if ($nbRecipes !== 0 && $nbRecipes !== null) {
+            $query->setMaxResults($nbRecipes);
+        }
 
         
-
-
         return $query->getQuery()
             ->getResult();
-
-        
+   
     }
 
     public function findSearcheRecipe(?string $content,?Category $category):array
     {
         $query = $this->createQueryBuilder('r')
             ->where("r.name LIKE :content ")
+            ->andwhere("r.isPublic = 1")
             ->andWhere(":category MEMBER OF r.categories")
             ->setParameter('content', '%'.$content.'%')
             ->setParameter("category", $category)
