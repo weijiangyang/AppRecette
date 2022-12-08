@@ -5,8 +5,10 @@ namespace App\Controller\Admin;
 use App\Entity\Ingredient;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
@@ -41,6 +43,12 @@ class IngredientCrudController extends AbstractCrudController
         yield NumberField::new('price','price(€)')->setNumDecimals(2);
         yield AssociationField::new('user', 'Créateur de l\'ingrédient')
                     ->hideOnForm();
+        yield TextField::new('imageFile', 'Upload')
+            ->setFormType(VichImageType::class)
+            ->hideOnIndex();
+        yield  ImageField::new('imageName', 'Image')
+          
+            ->hideOnForm();
         yield TextEditorField::new('description')
         ->setFormType(CKEditorType::class);
         yield DateTimeField::new('createdAt')

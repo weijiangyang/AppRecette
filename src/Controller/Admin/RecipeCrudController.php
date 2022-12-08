@@ -48,8 +48,9 @@ class RecipeCrudController extends AbstractCrudController
         yield NumberField::new('price', 'price(€)');
         yield BooleanField::new('isPublic','Public?');
         yield TextField::new('imageFile', 'Upload')
-            ->setFormType(VichImageType::class);
-        yield   ImageField::new('imageName', 'Image')
+            ->setFormType(VichImageType::class)
+            ->hideOnIndex();
+        yield  ImageField::new('imageName', 'Image')
             ->setBasePath('/images/recette/')
             ->hideOnForm();
         yield TextEditorField::new('description')
