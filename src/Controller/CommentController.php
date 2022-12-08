@@ -15,12 +15,21 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class CommentController extends AbstractController
 {
+    /**
+     * Pour ajouter un commentaire
+     *      
+     * @param UserRepository $userRepository
+     * @param RecipeRepository $recipeRepository
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @return Response
+     */
     #[Route('/ajax/comments', name: 'comment_add')]
     #[IsGranted('ROLE_USER')]
     public function add(UserRepository $userRepository, RecipeRepository $recipeRepository, Request $request, EntityManagerInterface $em): Response
     {
         $commentData = $request->request->all('comment');
-        
+    
         if (!$this->isCsrfTokenValid('comment_add', $commentData['_token'])) {
             return $this->json([
                 'code' => 'INVALID_CSRF_TOKEN'
@@ -59,7 +68,15 @@ class CommentController extends AbstractController
         ], 200);
     }
 
-    #[Route('/comment/supprimer/{id}', name:'comment_delete',methods:['GET','POST'])]
+   
+    /**
+     * Pour supprimer un commentaire
+     *
+     * @param Comment $comment
+     * @param EntityManagerInterface $em
+     * @return void
+     */
+    #[Route('/comment/supprimer/{id}', name: 'comment_delete', methods: ['GET', 'POST'])]
     #[Security("is_granted('ROLE_USER') and  user === comment.getUser()")]
     public function delete(Comment $comment, EntityManagerInterface $em){
        

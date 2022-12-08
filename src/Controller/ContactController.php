@@ -48,7 +48,7 @@ class ContactController extends AbstractController
             //     ['contact' => $contact]
             // );
             $mail->sendEmail(
-                $user->getEmail(),
+                $form->getData()->getEmail(),
                 $contact->getSubject(),
                 'pages/emails/contact.html.twig',
                 ['contact' => $contact]

@@ -27,7 +27,7 @@
                 </a><span class="fst-italic fs-6">{{ comment.createdAt | date('d/m/Y H:i:s')}}</span> 
             </h5>
             <div class="d-flex justify-content-between">
-                <p class="card-text">{{ comment.content }}</p>
+                <p class="card-text">{{ comment.content  }}</p>
                 {% if comment.user is same as app.user %}
                 <div >
                     <a id='btnCommentDelete' class="d-block text-center" href="{{ path('comment_delete',{'id':comment.id}) }}"><i class="fa-solid fa-trash"></i><span id="deleteText">delete</span></a>
