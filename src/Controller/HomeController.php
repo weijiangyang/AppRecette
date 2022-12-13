@@ -10,7 +10,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
-   
+    /**
+     * This funtion allow to display 3 recipes the most recent and 3 recipes the best noted dynamiquely
+     *
+     * @param RecipeRepository $recipeRepository
+     * @param RecipeService $recipeService
+     * @return Response
+     */
     #[Route('/', name: 'app_index',methods:['GET'])]
     public function index(RecipeRepository $recipeRepository, RecipeService $recipeService): Response
     {
@@ -25,12 +31,22 @@ class HomeController extends AbstractController
             'recipesNotes'=>$recipesNotes
         ]);
     }
-    
+
+    /**
+     * This function allow to display the page "Politiques de la confidentialité"
+     *
+     * @return void
+     */ 
     #[Route('/confidentialite', name:'app_confientialite', methods: ['GET'])]
     public function confidentialite(){
         return $this->render('politiques-confidentiality.html.twig');
     }
 
+    /**
+     * This function allow to display the page "Mentions légales"
+     *
+     * @return void
+     */
     #[Route('/mentionsLegales', name: 'app_mentions', methods: ['GET'])]
     public function mentions()
     {

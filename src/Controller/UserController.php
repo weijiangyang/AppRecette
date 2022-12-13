@@ -17,6 +17,15 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserController extends AbstractController
 {
+    /**
+     * This function allow the current user to editer his or her own  profil 
+     *
+     * @param User $chosenUser
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @param UserPasswordHasherInterface $hasher
+     * @return Response
+     */
     #[Route('/utilisateur/edit/{id}', name: 'user_edit')]
     #[Security("is_granted('ROLE_USER') and user === chosenUser")]
     public function index(User $chosenUser,Request $request,EntityManagerInterface $em,UserPasswordHasherInterface $hasher): Response
@@ -54,6 +63,13 @@ class UserController extends AbstractController
         ]);
     }
 
+    
+    /**
+     * This function allow to afficher the  profil of an user 
+     *
+     * @param User $user
+     * @return void
+     */
     #[Route('utilisateur/show/{id}', name:'user_show')]
     #[IsGranted('ROLE_USER')]
     public function show(User $user){
@@ -63,6 +79,16 @@ class UserController extends AbstractController
         ]);
     }
 
+    
+    /**
+     * This function allow the current user to changer son password 
+     *
+     * @param Request $request
+     * @param UserPasswordHasherInterface $hasher
+     * @param EntityManagerInterface $em
+     * @param User $chosenUser
+     * @return Response
+     */
     #[Route('/utilisateur/edition-mot-de-passe/{id}', name: 'user_edit_password', methods: ['GET', 'POST'])]
     #[Security("is_granted('ROLE_USER') and user == chosenUser")]
     public function editPassword(Request $request, UserPasswordHasherInterface $hasher, EntityManagerInterface $em, User $chosenUser): Response

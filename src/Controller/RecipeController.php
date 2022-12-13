@@ -28,6 +28,14 @@ use Symfony\Component\DependencyInjection\LazyProxy\PhpDumper\NullDumper;
 
 class RecipeController extends AbstractController
 {
+    /**
+     * This function display all recipes created by the current user   
+     *
+     * @param RecipeRepository $recipeRepository
+     * @param Request $request
+     * @param PaginatorInterface $paginator
+     * @return Response
+     */
     #[Route('/recette', name: 'recipe_index', methods:['GET'])]
     #[IsGranted('ROLE_USER')]
     public function index(RecipeRepository $recipeRepository, Request $request,PaginatorInterface $paginator): Response
@@ -42,6 +50,16 @@ class RecipeController extends AbstractController
         ]);
     }
 
+    /**
+     * This function allow to display all the recipes public in different groupes according to their category , and add a search bar for search of recipes 
+     *
+     * @param integer $id
+     * @param Request $request
+     * @param PaginatorInterface $paginator
+     * @param RecipeRepository $recipeRepository
+     * @param CategoryRepository $categoryRepository
+     * @return Response
+     */
     #[Route('/recette/public/{id}', name: 'recette_index_public')]
     #[IsGranted('ROLE_USER')]
     public function indexPublic(int $id,Request $request, PaginatorInterface $paginator, RecipeRepository $recipeRepository,CategoryRepository $categoryRepository): Response
@@ -67,9 +85,6 @@ class RecipeController extends AbstractController
             );
             }
          
-            
-
-       
          return $this->render('pages/recipe/index_public.html.twig', [
             'recipes' => $recipes,
             'form'=>$form->createView(),
@@ -79,7 +94,19 @@ class RecipeController extends AbstractController
         
     }
 
-    #[Route('/recette/{slug}',name:'recipe_show', methods:['GET','POST'])]
+   
+    /**
+     * This function allow to trouver the reicpe in bdd with its slug, add the field to give the note for the recipe created by other user , and add the field for comments
+     *
+     * @param String $slug
+     * @param CommentRepository $commentRepository
+     * @param RecipeRepository $recipeRepository
+     * @param MarkRepository $markRepository
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @return void
+     */
+     #[Route('/recette/{slug}',name:'recipe_show', methods:['GET','POST'])]
     public function show(String $slug,CommentRepository $commentRepository,RecipeRepository $recipeRepository,MarkRepository $markRepository,Request $request, EntityManagerInterface $em){
         $recipe = $recipeRepository->findOneBy(['slug' => $slug]);
         if (!$recipe) {
@@ -146,7 +173,15 @@ class RecipeController extends AbstractController
     }
     
 
-    #[Route('/recette/nouveau',name:'recipe_new' ,methods:['GET','POST'], priority:1)]
+   
+    /**
+     * This function allow to create a new recipe
+     *
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @return void
+     */
+    #[Route('/recette/nouveau', name: 'recipe_new', methods: ['GET', 'POST'], priority: 1)]
     #[IsGranted('ROLE_USER')]
     public function new(Request $request, EntityManagerInterface $em){
        $recipe = new Recipe;
@@ -175,6 +210,16 @@ class RecipeController extends AbstractController
         ]);
     }
 
+    
+    /**
+     * This function permet to edit a recipe of which creator is the current user
+     *
+     * @param String $slug
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @param RecipeRepository $recipeRepository
+     * @return void
+     */
     #[Route('/recette/edit/{slug}', name: 'recipe_edit', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_USER')]
     public function edit(String $slug,Request $request, EntityManagerInterface $em, RecipeRepository $recipeRepository)
@@ -218,6 +263,15 @@ class RecipeController extends AbstractController
        
     }
 
+   
+    /**
+     * This function allow to delete a recipe of which creator is the current user
+     *
+     * @param String $slug
+     * @param EntityManagerInterface $em
+     * @param RecipeRepository $recipeRepository
+     * @return void
+     */
     #[Route('recipe/supprimer/{slug}', name: 'recipe_delete', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_USER')]
     public function delete( String $slug,EntityManagerInterface $em, RecipeRepository $recipeRepository)

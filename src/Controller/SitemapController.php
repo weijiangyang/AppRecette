@@ -14,6 +14,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class SitemapController extends AbstractController
 {
+    /**
+     * This function allow to display the page 'sitemap.xml'
+     *
+     * @param Request $request
+     * @param RecipeRepository $recipeRepository
+     * @param IngredientRepository $ingredientRepository
+     * @param ContactRepository $contactRepository
+     * @return Response
+     */
     #[Route('/sitemap.xml', name: 'app_sitemap', defaults:['_format'=>'xml'])]
     public function index(Request $request, 
     RecipeRepository $recipeRepository,
@@ -33,21 +42,23 @@ class SitemapController extends AbstractController
        
 
         foreach ($recipeRepository->findAll() as $key => $value) {
+            $slug = $value -> getSlug();
             $urls[] = [
-                'loc' => $this->generateUrl('recipe_show', ['id' => $key]),
+                'loc' => $this->generateUrl('recipe_show', ['slug' => $slug]),
                 'lastmod' => $value->getCreatedAt()->format('Y-m-d')
             ];
         }
 
         foreach ($recipeRepository->findAll() as $key => $value) {
+            $slug = $value->getSlug();
             if($value->getUpdatedAt()){
                 $urls[] = [
-                    'loc' => $this->generateUrl('recipe_edit', ['id' => $key]),
+                    'loc' => $this->generateUrl('recipe_edit', ['slug' => $slug]),
                     'lastmod' => $value->getUpdatedAt()->format('Y-m-d')
                 ];
             }else{
                 $urls[] = [
-                    'loc' => $this->generateUrl('recipe_edit', ['id' => $key]),
+                    'loc' => $this->generateUrl('recipe_edit', ['slug' => $slug]),
                     'lastmod' => $value->getCreatedAt()->format('Y-m-d')
                 ];
             }
@@ -56,21 +67,23 @@ class SitemapController extends AbstractController
         
 
         foreach ($ingredientRepository->findAll() as $key => $value) {
+            $slug = $value -> getSlug();
             $urls[] = [
-                'loc' => $this->generateUrl('ingredient_show', ['id' => $key]),
+                'loc' => $this->generateUrl('ingredient_show', ['slug' => $slug]),
                 'lastmod' => $value->getCreatedAt()->format('Y-m-d')
             ];
         }
 
         foreach ($ingredientRepository->findAll() as $key => $value) {
+            $slug = $value -> getSlug();
             if($value->getUpdatedAt()){
                 $urls[] = [
-                    'loc' => $this->generateUrl('ingredient_edit', ['id' => $key]),
+                    'loc' => $this->generateUrl('ingredient_edit', ['slug' => $slug]),
                     'lastmod' => $value->getUpdatedAt()->format('Y-m-d')
                 ];
             }else{
                 $urls[] = [
-                    'loc' => $this->generateUrl('ingredient_edit', ['id' => $key]),
+                    'loc' => $this->generateUrl('ingredient_edit', ['slug' => $slug]),
                     'lastmod' => $value->getCreatedAt()->format('Y-m-d')
                 ];
             }

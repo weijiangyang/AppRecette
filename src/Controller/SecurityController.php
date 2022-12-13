@@ -14,6 +14,12 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
+    /**
+     * This function permet a user  to connecter with the site
+     *
+     * @param AuthenticationUtils $utils
+     * @return Response
+     */
     #[Route('/connexion', name: 'security_login', methods: ['GET', 'POST'])]
     public function login(AuthenticationUtils $utils): Response
     {
@@ -24,12 +30,28 @@ class SecurityController extends AbstractController
         ]);
     }
 
+    
+    
+    /**
+     * This function permet the current user to deconnect from the site 
+     *
+     * @return Response
+     */
     #[Route('/deconnexion', name: 'security_logout', methods: ['GET', 'POST'])]
     public function logout(): Response
     {
         // nothing to do 
     }
 
+    
+    /**
+     * This function permet un client register sur this site and a email sent to the mail of client once the registration is successful.
+     *
+     * @param MailService $mail
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @return Response
+     */
     #[Route('/inscription', name: 'security_registration', methods: ['GET', 'POST'])]
     public function registration(MailService $mail,Request $request, EntityManagerInterface $em): Response
     {

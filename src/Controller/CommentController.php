@@ -16,7 +16,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 class CommentController extends AbstractController
 {
     /**
-     * Pour ajouter un commentaire
+     * This function allow to add a comment 
      *      
      * @param UserRepository $userRepository
      * @param RecipeRepository $recipeRepository
@@ -70,7 +70,7 @@ class CommentController extends AbstractController
 
    
     /**
-     * Pour supprimer un commentaire
+     * This function allow an user to delete his comments created by himself
      *
      * @param Comment $comment
      * @param EntityManagerInterface $em

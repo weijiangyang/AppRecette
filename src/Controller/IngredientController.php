@@ -19,7 +19,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class IngredientController extends AbstractController
 {
     /**
-     * This function display all ingredients     
+     * This function display all ingredients created by the current user    
      * @param Request $request
      * @param IngredientRepository $ingredientRepository
      * @param PaginatorInterface $paginator
@@ -39,9 +39,16 @@ class IngredientController extends AbstractController
            'ingredients' => $ingredients
         ]);
     }
-
+    
+   
+    /**
+     * This function allow to trouver a specific ingredient with its slug from the bdd
+     *
+     * @param String $slug
+     * @param IngredientRepository $ingredientRepository
+     * @return void
+     */
     #[Route('/ingredient/{slug}', name: 'ingredient_show', methods: ['GET', 'POST'])]
-  
     public function show(String $slug,IngredientRepository $ingredientRepository)
     {
         $ingredient = $ingredientRepository->findOneBy(['slug' => $slug]);
@@ -128,7 +135,7 @@ class IngredientController extends AbstractController
 
     
     /**
-     * This function permet de edit a ingredient
+     * This function permet to  edit an ingredient
      *
      * @param integer $id
      * @param Request $request
@@ -222,7 +229,7 @@ class IngredientController extends AbstractController
     }
    
     /**
-    
+     * This function allow to delete une ingredient
      * @param EntityManagerInterface $em
      * @param Ingredient $ingredient
      * @return void
