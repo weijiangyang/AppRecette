@@ -59,9 +59,9 @@
                         </div>
                         <div class="card-body p-0">
                             {% if recipe.imageName %}
-                                <img style = "width:100%; height:250px; object-fit:cover" src="{{ vich_uploader_asset(recipe, 'imageFile') }}" alt="image de recette">
+                                <img style = "width:100%; height:250px; object-fit:cover" src="{{ vich_uploader_asset(recipe, 'imageFile') }}" alt="{{ 'image de recette ' ~ recipe.name }}">
                             {% else %}
-                                <img style = "width:100%; height:250px; object-fit:cover" src="{{ asset('images/no-recette.jpg') }}" alt="image de recette">
+                                <img style = "width:100%; height:250px; object-fit:cover" src="{{ asset('images/no-recette.jpg') }}" alt="{{ 'image de recette ' ~ recipe.name }}">
                             {% endif %}
                         </div>
                         <div class=" d-flex justify-content-around align-items-center flex-wrap">
