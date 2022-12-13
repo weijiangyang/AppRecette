@@ -14,6 +14,12 @@ class RecipeService
         $this->recipeRepository = $recipeRepository;
     }
 
+    /**
+     * This function allow to finds these reicpes publics  which own the best notes 
+     *
+     * @param integer|null $nb
+     * @return array
+     */
     public function getRecipesNotes(?int $nb):array
     {
         $recipesNotes = $this->recipeRepository->findby(['isPublic' => 1]);

@@ -13,6 +13,16 @@ class MailService
         $this->mailer = $mailer;
     }
 
+    /**
+     * This function allow to send a email from the site
+     *
+     * @param string $from
+     * @param string $subject
+     * @param string $htmlTemplate
+     * @param array $context
+     * @param string $to
+     * @return void
+     */
     public function sendEmail(
         string $from,
         string $subject,
