@@ -17,7 +17,7 @@ class HomeController extends AbstractController
      * @param RecipeService $recipeService
      * @return Response
      */
-    #[Route('/', name: 'app_index',methods:['GET'])]
+    #[Route('/', name: 'app_index', methods:['GET','POST'])]
     public function index(RecipeRepository $recipeRepository, RecipeService $recipeService): Response
     {
         // les recettes plus recentes

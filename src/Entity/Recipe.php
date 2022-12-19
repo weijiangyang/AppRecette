@@ -302,7 +302,7 @@ class Recipe
         return $this;
     }
 
-    public function getAverage()
+    public function getAverage():float
     {
         $total = 0;
         foreach ($this->marks as $mark) {

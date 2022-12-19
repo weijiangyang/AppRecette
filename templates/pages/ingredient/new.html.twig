@@ -27,10 +27,61 @@
                         {% if error is not same as  null %}
                             {{ error }}
                         {% endif %}
-                        
                     </div>
+                </div>
+
+                <div class="form-group my-3">
+                    {{ form_label(form.unit) }}
+                    {{ form_widget(form.unit)}}
+                    <div class="form-error text-danger">
+                        {{ form_errors(form.unit)}}
+                        {% if error is not same as  null %}
+                            {{ error }}
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="form-group my-3">
+                    {{ form_label(form.price) }}
+                    {{ form_widget(form.price)}}
+                    <div class="form-error text-danger">
+                        {{ form_errors(form.price)}}
+                        {% if error is not same as  null %}
+                            {{ error }}
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="form-group my-3">
+                    {{ form_label(form.imageFile) }}
+                    {{ form_widget(form.imageFile)}}
+                    <div class="form-error text-danger">
+                        {{ form_errors(form.imageFile)}}
+                        {% if error is not same as  null %}
+                            {{ error }}
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="form-group my-3">
+                    {{ form_label(form.description) }}
+                    {{ form_widget(form.description)}}
+                    <div class="form-error text-danger">
+                        {{ form_errors(form.description)}}
+                        {% if error is not same as  null %}
+                            {{ error }}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="form-group my-3">
+                    {{ form_row(form._token) }}
                     
                 </div>
+                <div class="form-group my-3">
+                    {{ form_row(form.button) }}
+                    
+                </div>
+                
                 
             {{ form_end(form) }}
         
