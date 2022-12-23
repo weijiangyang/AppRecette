@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang = 'fr'>
     <head>
+                <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-RFZWBNPBF0"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-RFZWBNPBF0');
+        </script>
         <meta charset="UTF-8">
         <meta name="viewport" content= "width=device-width, initial-scale=1.0">
         <title>{% block title %}Bienvenu sur AppRecette !{% endblock %}</title>
@@ -47,15 +56,7 @@
             integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" 
             crossorigin="anonymous">
         </script>
-                <!-- Google tag (gtag.js) -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-RFZWBNPBF0"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-
-            gtag('config', 'G-RFZWBNPBF0');
-        </script>
+        
         
     {% endblock %}
     </body>
