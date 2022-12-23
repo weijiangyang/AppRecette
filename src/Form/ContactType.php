@@ -80,14 +80,14 @@ class ContactType extends AbstractType
                     'class' => 'btn btn-primary mt-4',
                 ],
                 'label' => 'Envoyer le message'
-            ]);
-            // ->add('captcha', Recaptcha3Type::class, [
-            //     'constraints' => new Recaptcha3(),
-            //     'action_name' => 'contact',
-            //     'required'=>false
+            ])
+            ->add('captcha', Recaptcha3Type::class, [
+                'constraints' => new Recaptcha3(),
+                'action_name' => 'contact',
+                'required'=>false
                
               
-            // ]);
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
