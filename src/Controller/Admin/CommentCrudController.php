@@ -19,6 +19,16 @@ class CommentCrudController extends AbstractCrudController
         return Comment::class;
     }
 
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            ->setEntityLabelInPlural('Commentaires')
+            ->setEntityLabelInSingular('Commentaire')
+            ->setPageTitle('index', 'AppRecette - Administration de commentaires')
+           
+            ->setPaginatorPageSize(5);
+    }
+
     public function configureActions(Actions $actions): Actions
     {
         return $actions
@@ -30,14 +40,14 @@ class CommentCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
          
-            yield TextEditorField::new('content')
-                        ->hideOnForm();
-            yield AssociationField::new('recipe','Recette')
-            ->hideOnForm();
-            yield AssociationField::new('user', 'Commenteur')
-            ->hideOnForm();
-           yield DateTimeField::new('createdAt')
-            ->hideOnForm();
+            yield TextEditorField::new('content');
+                       
+            yield AssociationField::new('recipe','Recette');
+            
+            yield AssociationField::new('user', 'Commenteur');
+            
+           yield DateTimeField::new('createdAt');
+            
     }
     
     

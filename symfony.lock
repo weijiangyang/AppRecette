@@ -121,6 +121,9 @@
             "./var/storage/.gitignore"
         ]
     },
+    "liip/test-fixtures-bundle": {
+        "version": "2.4.1"
+    },
     "phpunit/phpunit": {
         "version": "9.5",
         "recipe": {

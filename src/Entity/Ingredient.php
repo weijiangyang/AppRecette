@@ -28,6 +28,7 @@ class Ingredient
     #[ORM\Column(nullable:true)]
     #[Assert\Positive()]
     #[Assert\LessThan(200)]
+    #[Assert\Type("float")]
     private ?float $price = null;
 
     #[ORM\Column]

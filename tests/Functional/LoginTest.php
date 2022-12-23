@@ -58,8 +58,6 @@ class LoginTest extends WebTestCase
 
         $this->assertRouteSame('security_login');
         $this->assertSelectorTextContains('div.alert-danger','Invalid credentials');
-
-
-       
+  
     }
 }

@@ -7,9 +7,11 @@ use App\Entity\User;
 use App\Entity\Recipe;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
+
 class RecipeTest extends KernelTestCase
 {
-    private function getEntity(): Recipe
+    
+    private function getRecipe(): Recipe
     {
         return (new Recipe())
             ->setName('Recipe #1')
@@ -19,11 +21,11 @@ class RecipeTest extends KernelTestCase
             ->setUpdatedAt(new \DateTimeImmutable());
 
     }
-    public function testEntityIsValid(): void
+    public function testRecipeIsValid(): void
     {
         self::bootKernel();
         $container = static::getContainer();
-        $recipe = $this->getEntity();
+        $recipe = $this->getRecipe();
 
         $errors = $container -> get('validator')->validate($recipe);
         $this->assertCount(0,$errors);
@@ -32,7 +34,7 @@ class RecipeTest extends KernelTestCase
     public function testInvalidName(){
         self::bootKernel();
         $container = static::getContainer();
-        $recipe = $this->getEntity();
+        $recipe = $this->getRecipe();
         $recipe->setName('');
         $errors = $container->get('validator')->validate($recipe);
         $this->assertCount(2, $errors);
@@ -41,7 +43,7 @@ class RecipeTest extends KernelTestCase
 
     public function testGetAverage()
     {
-        $recipe =$this->getEntity();
+        $recipe =$this->getRecipe();
         $user = static::getContainer()->get('doctrine.orm.entity_manager')->find(User::class,1);
         for($i = 0; $i < 5; $i++){
             $mark = new Mark;
@@ -53,4 +55,6 @@ class RecipeTest extends KernelTestCase
         $this->assertTrue(2.0 === $recipe->getAverage());
 
     }
+
+   
 }

@@ -18,12 +18,12 @@ class ContactTest extends WebTestCase
         // récupérer le formulaire
         $submitButton = $crawler->selectButton("Envoyer le message");
         $form = $submitButton->form();
-       
+
         $form["contact[fullName]"] = "weijiangYang";
         $form["contact[email]"] = "weijiangyang@laposte.net";
         $form["contact[subject]"] = "Test";
         $form["contact[message]"] = "Test";
-        
+
         // soumettre le formulaire
         $client->submit($form);
         // verifier le statut HTTP
@@ -37,6 +37,4 @@ class ContactTest extends WebTestCase
             'Votre message a bien été envoyé'
         );
     }
-
-   
 }

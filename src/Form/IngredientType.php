@@ -43,7 +43,8 @@ class IngredientType extends AbstractType
                 'label' => '* Prix',
                 'constraints'=>[
                     new Assert\Positive(),
-                    new Assert\LessThan(200)
+                    new Assert\LessThan(200),
+                    new Assert\Type("float")
                 ],
                 'required'=>false
             ])
