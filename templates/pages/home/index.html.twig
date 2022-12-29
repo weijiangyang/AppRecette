@@ -6,11 +6,12 @@
 {% block title %}AppRecette - Accueil{% endblock %}
 
 {% block body %}
+
     <div class="container">
-        
         <div class="jumbotron mt-4">
+            
             <h1 class="display-4 " style="font-family:courgette; color:chocolate">Bienvenu sur AppRecette 📝 </h1>
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/RLuq3RuqwCI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+           
             {% for message in app.flashes('success') %}
                 <div class="alert alert-success">
                     {{ message }}
@@ -27,7 +28,9 @@
                 Pour mieux commprendre comment utiliser cette application, <a href="{{ path('app_mode_emploi') }}" class="fw-bold fst-italic">Cliquez ici </a>
             </p>
             
+            
             <img style = "width:100%;max-height:300px;object-fit: cover" src="https://myrecette.s3.eu-west-3.amazonaws.com/images-background/bannier.jpg" alt="image bannier de application recettes">
+            
             <h2 style="position:relative; top:-220px;left:10px;color: white; font-family:courgette">La gastronomie est l'art d'utiliser<br> la nourriture pour créer un bonheur.</h2>
             
             <h3 class="text-center  fw-bold" style="font-family:courgette; color:orangered">Recettes recentes</h3>
@@ -78,6 +81,7 @@
             <p class="lead">
                 <a  class="btn btn-primary btn-lg" href="{{ path('security_registration') }}">Inscription</a>
             </p>
+            
         </div>
     </div>
 
