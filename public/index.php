@@ -31,7 +31,7 @@ require_once dirname(__DIR__) . '/vendor/autoload_runtime.php';
 
             "groupServices": false,
             /* Group services by category */
-            "serviceDefaultState": "wait",
+            "serviceDefaultState": "false",
             /* Default state (true - wait - false) */
 
             "showAlertSmall": true,
