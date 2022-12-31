@@ -40,7 +40,7 @@ class IngredientType extends AbstractType
                 ]
             ])
             ->add('price',MoneyType::class,[
-                'label' => '* Prix',
+                'label' => '* Prix unitaire',
                 'constraints'=>[
                     new Assert\Positive(),
                     new Assert\LessThan(200),

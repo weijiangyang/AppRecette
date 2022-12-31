@@ -25,7 +25,7 @@
     <div class="container w-75 bg-white border-rounded rounded-3 px-5 py-3 my-5">
         <h1 class="mt-4">{{ ingredient.name }}</h1>
         {% if app.user is same as ingredient.user %}
-            <a href="{{ path('ingredient_edit',{'slug':ingredient.slug}) }}" class="btn btn-primary btn-sm mb-3">Modify cette ingrédient</a>
+            <a href="{{ path('ingredient_edit',{'slug':ingredient.slug}) }}" class="btn btn-primary btn-sm mb-3">Modifier cette ingrédient</a>
         {% endif %}
         {% for message in app.flashes('success') %}
             <p class="alert alert-success">{{ message }}</p>
@@ -44,7 +44,7 @@
         </div>
         <div class="col-md-6">
                  <p class="mt-4"><strong>Unit: </strong>{{ ingredient.unit? ingredient.unit : 'non renseigné'}} </p>
-                 <p class="mt-4"><strong>Prix(€): </strong>{{ ingredient.price? ingredient.price : 'non renseigné'}} </p>
+                 <p class="mt-4"><strong>Prix unitaire(€): </strong>{{ ingredient.price? ingredient.price : 'non renseigné'}} </p>
                 
                 <p class="mt-4"><strong>Description:</strong></p>
                 <div>{{ ingredient.description | raw}}</div>

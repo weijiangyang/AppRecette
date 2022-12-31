@@ -29,15 +29,15 @@
                 <p><strong>Pseudo : </strong>{{ user.pseudo }}</p>
                 {# <p><strong>Email : </strong>{{ user.email }}</p> #}
                 {% if user is same as app.user %}
-                    <p><a href="{{ path('user_edit', {'id': user.id}) }}">Modify mon profil </a></p>
-                <p><a href="{{ path('user_edit_password', {'id': user.id}) }}">Modify mon mot de passe </a></p>
+                    <p><a href="{{ path('user_edit', {'id': user.id}) }}">Modifier mon profil </a></p>
+                <p><a href="{{ path('user_edit_password', {'id': user.id}) }}">Modifier mon mot de passe </a></p>
                 {% endif %}
                 
                
 
             </div>
             <div class="col">
-                <p><strong>Photo et Description : </strong></p>
+                <p><strong>Description(on peut affchier la photo ici) : </strong></p>
                 <div>{{ user.description | raw}}</div>
             </div>
 

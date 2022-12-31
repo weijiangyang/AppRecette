@@ -17,6 +17,16 @@ class MarkCrudController extends AbstractCrudController
         return Mark::class;
     }
 
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            ->setEntityLabelInPlural('Notes')
+            ->setEntityLabelInSingular('Note')
+            ->setPageTitle('index', 'AppRecette - Administration des notes')
+
+            ->setPaginatorPageSize(5);
+    }
+
     public function configureActions(Actions $actions): Actions
     {
         return $actions
@@ -27,7 +37,7 @@ class MarkCrudController extends AbstractCrudController
     
     public function configureFields(string $pageName): iterable
     {
-        yield NumberField::new('mark');
+        yield NumberField::new('mark','note');
 
         yield AssociationField::new('recipe', 'Recette')
         ->hideOnForm();

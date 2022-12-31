@@ -34,8 +34,12 @@ class RecipeCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
+            ->setEntityLabelInPlural('Recettes')
+            ->setEntityLabelInSingular('Recette')
+            ->setPageTitle('index', "AppRecette - Administration des recettes")
             ->setPaginatorPageSize(5)
-            ->addFormTheme('@FOSCKEditor/Form/ckeditor_widget.html.twig');
+            ->addFormTheme('@FOSCKEditor/Form/ckeditor_widget.html.twig')
+            ->setPaginatorPageSize(5);
     }
 
     

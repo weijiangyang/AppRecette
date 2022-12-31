@@ -24,7 +24,7 @@ class CommentCrudController extends AbstractCrudController
         return $crud
             ->setEntityLabelInPlural('Commentaires')
             ->setEntityLabelInSingular('Commentaire')
-            ->setPageTitle('index', 'AppRecette - Administration de commentaires')
+            ->setPageTitle('index', 'AppRecette - Administration des commentaires')
            
             ->setPaginatorPageSize(5);
     }

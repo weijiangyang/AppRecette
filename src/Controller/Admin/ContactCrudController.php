@@ -24,7 +24,7 @@ class ContactCrudController extends AbstractCrudController
         return $crud
             ->setEntityLabelInPlural('Contacts')
             ->setEntityLabelInSingular('Contact')
-            ->setPageTitle('index', 'AppRecette - Administration de contacts')
+            ->setPageTitle('index', 'AppRecette - Administration des contacts')
             ->addFormTheme('@FOSCKEditor/Form/ckeditor_widget.html.twig')
             ->setPaginatorPageSize(5);
     }

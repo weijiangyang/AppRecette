@@ -22,18 +22,24 @@ class IngredientCrudController extends AbstractCrudController
         return Ingredient::class;
     }
 
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            ->setEntityLabelInPlural('Ingrédients')
+            ->setEntityLabelInSingular('Ingrédient')
+            ->setPageTitle('index', "AppRecette - Administration des ingédients")
+            ->setPaginatorPageSize(5)
+            ->addFormTheme('@FOSCKEditor/Form/ckeditor_widget.html.twig')
+            ->setPaginatorPageSize(5);
+    }
+
     public function configureActions(Actions $actions): Actions
     {
         return $actions
             ->remove(Crud::PAGE_INDEX, 'new');
     }
 
-    public function configureCrud(Crud $crud): Crud
-    {
-        return $crud
-            ->setPaginatorPageSize(5)
-            ->addFormTheme('@FOSCKEditor/Form/ckeditor_widget.html.twig');
-    }
+    
 
     
     public function configureFields(string $pageName): iterable
