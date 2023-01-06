@@ -15,8 +15,8 @@
     {% endfor %}
     
         {{ form_start(form) }}
-        <div class="row">
-            <div class="col">
+        <div class="row" >
+            <div class="col-md-6">
                 <div class="form-group">
                     {{ form_label(form.fullName) }}
                     {{ form_widget(form.fullName)}}
@@ -32,7 +32,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col">
+            <div class="col-md-6">
                 <div class="form-group">
                     {{ form_label(form.subject) }}
                     {{ form_widget(form.subject)}}
