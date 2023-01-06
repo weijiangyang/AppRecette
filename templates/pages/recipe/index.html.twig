@@ -37,6 +37,7 @@
             <div class="count mb-4 ">
                 Il y a <strong>{{ recipes.getTotalItemCount }}</strong> recette(s) au total
             </div>
+            <div class="table-responsive">
             <table class="table table-hover">
                 <thead>
                     <tr style="border-bottom:3px solid orange">
@@ -80,6 +81,7 @@
                     {% endfor %}
                 </tbody>
             </table>
+            </div>
             <div class="navigation d-flex justify-content-center my-4">
                 {{ knp_pagination_render(recipes) }}
             </div>

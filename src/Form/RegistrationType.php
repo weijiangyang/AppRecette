@@ -67,12 +67,12 @@ class RegistrationType extends AbstractType
                     'label' => 'Confirmation',
                 
                 ],
-            'constraints' => [
-                new Assert\NotBlank(),
-               
-                new Assert\Regex("^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$^", 'le mot de passe contient au moins 8 caractères , au moins une lettre et un chiffre')
-                ], 
-            'invalid_message' => 'Les mots de passe ne correspond pas'
+                'constraints' => [
+                    new Assert\NotBlank(),
+                
+                    new Assert\Regex("^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$^", 'le mot de passe contient au moins 8 caractères , au moins une lettre et un chiffre')
+                    ], 
+                'invalid_message' => 'Les mots de passe ne correspond pas'
             ]);
            
     }
