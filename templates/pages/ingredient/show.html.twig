@@ -22,7 +22,7 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container w-75 bg-white border-rounded rounded-3 px-5 py-3 my-5">
+    <div class="container  bg-white border-rounded rounded-3 px-5 py-3 my-5" style="max-width:800px">
         <h1 class="mt-4">{{ ingredient.name }}</h1>
         {% if app.user is same as ingredient.user %}
             <a href="{{ path('ingredient_edit',{'slug':ingredient.slug}) }}" class="btn btn-primary btn-sm mb-3">Modifier cette ingrédient</a>
