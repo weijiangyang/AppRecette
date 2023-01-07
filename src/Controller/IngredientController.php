@@ -31,7 +31,7 @@ class IngredientController extends AbstractController
     {
       
         $ingredients = $paginator->paginate(
-            $ingredientRepository->findBy(['user'=>$this->getUser()]), /* query NOT result */
+            $ingredientRepository->findBy(['user'=>$this->getUser()],['name' =>'ASC']), /* query NOT result */
             $request->query->getInt('page', 1), /*page number*/
             10 /*limit per page*/
         );
