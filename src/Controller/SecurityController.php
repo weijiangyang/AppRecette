@@ -64,13 +64,13 @@ class SecurityController extends AbstractController
             $user = $form->getData();
             $em->persist($user);
             $em->flush();
-            // $mail->sendEmail(
-            //     'admin@appRecette.com',
-            //     'confirmation de l\'inscription',
-            //     'pages/emails/inscription.html.twig',
-            //     ['contact' => $form->getData()->getFullName()],
-            //     $form->getData()->getEmail()
-            // );    
+            $mail->sendEmail(
+                'admin@appRecette.com',
+                'confirmation de l\'inscription',
+                'pages/emails/inscription.html.twig',
+                ['contact' => $form->getData()->getFullName()],
+                $form->getData()->getEmail()
+            );    
             
             $this->addFlash(
                 'success',
